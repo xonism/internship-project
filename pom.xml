@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>warehouse</name>
-	<description>twoday internship store</description>
+	<description>twoday internship warehouse</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
