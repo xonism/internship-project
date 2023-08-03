@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/status")
+@RequestMapping("/api/v1/status")
 public class StatusController {
 
     @GetMapping
-    public ResponseEntity<HttpStatus> getStatus() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> getStatus() {
+        String message = "Welcome to Tomcat!";
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
