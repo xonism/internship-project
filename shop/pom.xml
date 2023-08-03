@@ -11,7 +11,7 @@
 
     <artifactId>shop</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <name>shop</name>
     <description>twoday internship shop</description>
