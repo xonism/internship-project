@@ -1,1 +1,1 @@
-# twoday-internship-store
+# twoday-internship-project
