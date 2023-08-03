@@ -2,6 +2,7 @@ package com.twoday.warehouse.services;
 
 import com.twoday.model.models.Product;
 import com.twoday.model.records.ProductSellRequest;
+import com.twoday.warehouse.constants.Constants;
 import com.twoday.warehouse.exceptions.InsufficientQuantityException;
 import com.twoday.warehouse.exceptions.InvalidValueException;
 import com.twoday.warehouse.exceptions.ProductNotFoundByIdException;
@@ -25,7 +26,7 @@ public class WarehouseService {
 
     public Product processSale(ProductSellRequest productSellRequest) {
         if (productSellRequest.quantity() <= 0) {
-            throw new InvalidValueException("quantity");
+            throw new InvalidValueException(Constants.QUANTITY);
         }
 
         Product product = warehouseRepository.findById(productSellRequest.id());
