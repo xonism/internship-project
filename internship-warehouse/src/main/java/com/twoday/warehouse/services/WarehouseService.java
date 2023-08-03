@@ -1,9 +1,10 @@
 package com.twoday.warehouse.services;
 
 import com.twoday.model.models.Product;
-import com.twoday.warehouse.exceptions.InsufficientQuantityException;
-import com.twoday.warehouse.exceptions.ProductNotFoundByIdException;
 import com.twoday.model.records.ProductSellRequest;
+import com.twoday.warehouse.exceptions.InsufficientQuantityException;
+import com.twoday.warehouse.exceptions.InvalidValueException;
+import com.twoday.warehouse.exceptions.ProductNotFoundByIdException;
 import com.twoday.warehouse.repositories.WarehouseRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,10 @@ public class WarehouseService {
     }
 
     public Product processSale(ProductSellRequest productSellRequest) {
+        if (productSellRequest.quantity() <= 0) {
+            throw new InvalidValueException("quantity");
+        }
+
         Product product = warehouseRepository.findById(productSellRequest.id());
 
         if (product == null) {

@@ -2,7 +2,6 @@ package com.twoday.warehouse.controllers;
 
 import com.twoday.model.models.Product;
 import com.twoday.model.records.ProductSellRequest;
-import com.twoday.warehouse.exceptions.InvalidValueException;
 import com.twoday.warehouse.services.WarehouseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +30,6 @@ public class WarehouseController {
 
     @PostMapping
     public ResponseEntity<Product> registerSale(@RequestBody ProductSellRequest productSellRequest) {
-        if (productSellRequest.quantity() <= 0) {
-            throw new InvalidValueException("quantity");
-        }
-
         return new ResponseEntity<>(
                 warehouseService.processSale(productSellRequest),
                 HttpStatus.OK);
