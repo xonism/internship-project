@@ -1,12 +1,12 @@
-package com.twoday.warehouse;
+package com.twoday.shop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WarehouseApplication {
+public class ShopApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WarehouseApplication.class, args);
+        SpringApplication.run(ShopApplication.class, args);
     }
 }
