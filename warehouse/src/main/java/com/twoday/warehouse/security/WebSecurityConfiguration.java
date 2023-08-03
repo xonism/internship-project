@@ -36,7 +36,7 @@ public class WebSecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         AntPathRequestMatcher[] publicEndpoints = new AntPathRequestMatcher[]{
                 new AntPathRequestMatcher("/login"),
                 new AntPathRequestMatcher("/status")
