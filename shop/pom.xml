@@ -15,4 +15,12 @@
 
     <name>shop</name>
     <description>twoday internship shop</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.twoday</groupId>
+            <artifactId>model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
