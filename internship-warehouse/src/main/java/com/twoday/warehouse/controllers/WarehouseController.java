@@ -29,7 +29,7 @@ public class WarehouseController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> registerSale(@RequestBody ProductSellRequest productSellRequest) {
+    public ResponseEntity<Product> processProductSale(@RequestBody ProductSellRequest productSellRequest) {
         return new ResponseEntity<>(
                 warehouseService.processSale(productSellRequest),
                 HttpStatus.OK);
