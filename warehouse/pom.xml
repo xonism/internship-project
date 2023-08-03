@@ -66,6 +66,10 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <finalName>${project.name}</finalName>
+    </build>
+
     <repositories>
         <repository>
             <id>spring-milestones</id>
