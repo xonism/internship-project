@@ -89,7 +89,7 @@
     </dependencies>
 
     <build>
-        <finalName>${project.name}</finalName>
+        <finalName>warehouse</finalName>
     </build>
 
     <repositories>

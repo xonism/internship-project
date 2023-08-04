@@ -27,4 +27,8 @@
 			<version>${lombok.version}</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<finalName>model</finalName>
+	</build>
 </project>
