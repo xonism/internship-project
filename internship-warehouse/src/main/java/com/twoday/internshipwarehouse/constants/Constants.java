@@ -1,4 +1,4 @@
-package com.twoday.warehouse.constants;
+package com.twoday.internshipwarehouse.constants;
 
 public class Constants {
 
