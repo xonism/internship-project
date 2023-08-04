@@ -15,7 +15,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>warehouse</name>
+    <name>internship-warehouse</name>
     <description>twoday internship warehouse</description>
 
     <properties>
@@ -89,7 +89,7 @@
     </dependencies>
 
     <build>
-        <finalName>${project.name}</finalName>
+        <finalName>warehouse</finalName>
     </build>
 
     <repositories>

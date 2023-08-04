@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>model</name>
+	<name>internship-model</name>
 	<description>twoday internship model</description>
 
 	<properties>
@@ -27,4 +27,8 @@
 			<version>${lombok.version}</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<finalName>model</finalName>
+	</build>
 </project>

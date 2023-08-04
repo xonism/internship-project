@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>parent</name>
+    <name>internship-parent</name>
     <description>twoday internship parent</description>
 
     <properties>
@@ -19,7 +19,6 @@
     </properties>
 
     <build>
-        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -39,8 +38,8 @@
     </build>
 
     <modules>
-        <module>warehouse</module>
-        <module>shop</module>
-        <module>model</module>
+        <module>internship-warehouse</module>
+        <module>internship-shop</module>
+        <module>internship-model</module>
     </modules>
 </project>
