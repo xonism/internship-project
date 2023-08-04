@@ -1,6 +1,6 @@
 package com.twoday.warehouse.repositories;
 
-import com.twoday.model.models.Product;
+import com.twoday.model.Product;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

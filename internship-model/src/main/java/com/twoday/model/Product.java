@@ -1,4 +1,4 @@
-package com.twoday.model.models;
+package com.twoday.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

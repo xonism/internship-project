@@ -1,7 +1,7 @@
 package com.twoday.warehouse.controllers;
 
-import com.twoday.model.models.Product;
-import com.twoday.model.records.ProductSellRequest;
+import com.twoday.model.Product;
+import com.twoday.model.ProductSellRequest;
 import com.twoday.warehouse.services.WarehouseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

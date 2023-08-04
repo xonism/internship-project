@@ -1,7 +1,7 @@
 package com.twoday.warehouse.services;
 
-import com.twoday.model.models.Product;
-import com.twoday.model.records.ProductSellRequest;
+import com.twoday.model.Product;
+import com.twoday.model.ProductSellRequest;
 import com.twoday.warehouse.constants.Constants;
 import com.twoday.warehouse.exceptions.InsufficientQuantityException;
 import com.twoday.warehouse.exceptions.InvalidValueException;
