@@ -1,4 +1,4 @@
-package com.twoday.warehouse;
+package com.twoday.internshipwarehouse;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

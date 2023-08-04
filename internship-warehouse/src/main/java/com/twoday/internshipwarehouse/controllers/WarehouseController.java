@@ -1,8 +1,8 @@
-package com.twoday.warehouse.controllers;
+package com.twoday.internshipwarehouse.controllers;
 
-import com.twoday.model.Product;
-import com.twoday.model.ProductSellRequest;
-import com.twoday.warehouse.services.WarehouseService;
+import com.twoday.internshipmodel.Product;
+import com.twoday.internshipmodel.ProductSellRequest;
+import com.twoday.internshipwarehouse.services.WarehouseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

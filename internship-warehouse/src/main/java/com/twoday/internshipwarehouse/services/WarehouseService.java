@@ -1,12 +1,12 @@
-package com.twoday.warehouse.services;
+package com.twoday.internshipwarehouse.services;
 
-import com.twoday.model.Product;
-import com.twoday.model.ProductSellRequest;
-import com.twoday.warehouse.constants.Constants;
-import com.twoday.warehouse.exceptions.InsufficientQuantityException;
-import com.twoday.warehouse.exceptions.InvalidValueException;
-import com.twoday.warehouse.exceptions.ProductNotFoundByIdException;
-import com.twoday.warehouse.repositories.WarehouseRepository;
+import com.twoday.internshipmodel.Product;
+import com.twoday.internshipmodel.ProductSellRequest;
+import com.twoday.internshipwarehouse.constants.Constants;
+import com.twoday.internshipwarehouse.exceptions.InsufficientQuantityException;
+import com.twoday.internshipwarehouse.exceptions.InvalidValueException;
+import com.twoday.internshipwarehouse.exceptions.ProductNotFoundByIdException;
+import com.twoday.internshipwarehouse.repositories.WarehouseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.twoday.warehouse;
+package com.twoday.internshipwarehouse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

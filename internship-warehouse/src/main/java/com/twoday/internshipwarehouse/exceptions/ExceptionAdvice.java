@@ -1,6 +1,6 @@
-package com.twoday.warehouse.exceptions;
+package com.twoday.internshipwarehouse.exceptions;
 
-import com.twoday.warehouse.records.ErrorMessage;
+import com.twoday.internshipwarehouse.records.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

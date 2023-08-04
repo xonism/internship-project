@@ -1,4 +1,4 @@
-package com.twoday.warehouse.exceptions;
+package com.twoday.internshipwarehouse.exceptions;
 
 public class InvalidValueException extends RuntimeException {
 

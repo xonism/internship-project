@@ -1,4 +1,4 @@
-package com.twoday.warehouse.security;
+package com.twoday.internshipwarehouse.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
