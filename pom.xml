@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>parent</name>
+    <name>internship-parent</name>
     <description>twoday internship parent</description>
 
     <properties>
