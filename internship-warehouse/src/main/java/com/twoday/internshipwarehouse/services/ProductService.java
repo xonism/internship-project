@@ -1,11 +1,11 @@
 package com.twoday.internshipwarehouse.services;
 
-import com.twoday.internshipwarehouse.models.Product;
 import com.twoday.internshipmodel.ProductSellRequest;
 import com.twoday.internshipwarehouse.constants.Constants;
 import com.twoday.internshipwarehouse.exceptions.InsufficientQuantityException;
 import com.twoday.internshipwarehouse.exceptions.InvalidValueException;
 import com.twoday.internshipwarehouse.exceptions.ProductNotFoundByIdException;
+import com.twoday.internshipwarehouse.models.Product;
 import com.twoday.internshipwarehouse.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class ProductService {
             throw new InvalidValueException(Constants.QUANTITY);
         }
 
-        Product product = productRepository.findById(productSellRequest.id());
+        Product product = productRepository.findById((long) productSellRequest.id()).orElse(null);
 
         if (product == null) {
             throw new ProductNotFoundByIdException(productSellRequest.id());
