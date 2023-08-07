@@ -1,6 +1,6 @@
 package com.twoday.internshipshop.controllers;
 
-import com.twoday.internshipmodel.Product;
+import com.twoday.internshipmodel.ProductDTO;
 import com.twoday.internshipmodel.ProductSellRequest;
 import com.twoday.internshipshop.services.WarehouseService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class ShopController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
         return new ResponseEntity<>(
                 warehouseService.getAllProducts(),
                 HttpStatus.OK);
