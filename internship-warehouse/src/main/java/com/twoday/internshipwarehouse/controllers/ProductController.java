@@ -27,17 +27,17 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
-        List<ProductDTO> productDTOS = productService.getAll().stream().map(this::convertToDTO).toList();
+        List<Product> products = productService.getAll();
         return new ResponseEntity<>(
-                productDTOS,
+                products.stream().map(this::convertToDTO).toList(),
                 HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<ProductDTO> processProductSale(@RequestBody ProductSellRequest productSellRequest) {
-        ProductDTO productDTO = convertToDTO(productService.processSale(productSellRequest));
+        Product product = productService.processSale(productSellRequest);
         return new ResponseEntity<>(
-                productDTO,
+                convertToDTO(product),
                 HttpStatus.OK);
     }
 
