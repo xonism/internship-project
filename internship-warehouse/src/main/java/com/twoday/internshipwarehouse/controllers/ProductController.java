@@ -19,12 +19,9 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ModelMapper modelMapper;
-
     private final ProductService productService;
 
-    public ProductController(ModelMapper modelMapper, ProductService productService) {
-        this.modelMapper = modelMapper;
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -45,6 +42,6 @@ public class ProductController {
     }
 
     private ProductDTO convertToDTO(Product product) {
-        return modelMapper.map(product, ProductDTO.class);
+        return new ModelMapper().map(product, ProductDTO.class);
     }
 }
