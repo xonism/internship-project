@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -34,6 +33,6 @@ public class Product {
     @NotNull
     private BigDecimal price;
 
-    @Min(value = 0, message = "Quantity should not be less than 0")
+    @NotNull
     private int quantity;
 }
