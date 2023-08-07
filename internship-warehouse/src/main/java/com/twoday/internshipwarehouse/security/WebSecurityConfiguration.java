@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,11 +43,13 @@ public class WebSecurityConfiguration {
                 new AntPathRequestMatcher("/status")
         };
 
-        httpSecurity.authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(publicEndpoints).permitAll();
-                    auth.anyRequest().authenticated();
-                })
-                .formLogin(withDefaults());
+        httpSecurity.authorizeHttpRequests(authorize ->
+                        authorize.requestMatchers(publicEndpoints).permitAll()
+                                .anyRequest().authenticated())
+                .csrf(AbstractHttpConfigurer::disable)
+                .logout(withDefaults())
+                .formLogin(withDefaults())
+                .httpBasic(withDefaults());
 
         return httpSecurity.build();
     }
