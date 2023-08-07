@@ -23,7 +23,7 @@ public class WarehouseService {
     @Value("${spring.datasource.warehouse_url}")
     private String warehouseUrl;
 
-    public List<Product> getAllProductsFromWarehouse() {
+    public List<Product> getAllProducts() {
         Product[] products = getRestTemplate().getForObject(warehouseUrl, Product[].class);
         return products == null
                 ? List.of()

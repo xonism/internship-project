@@ -22,7 +22,7 @@ public class ShopController {
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         return new ResponseEntity<>(
-                warehouseService.getAllProductsFromWarehouse(),
+                warehouseService.getAllProducts(),
                 HttpStatus.OK);
     }
 
