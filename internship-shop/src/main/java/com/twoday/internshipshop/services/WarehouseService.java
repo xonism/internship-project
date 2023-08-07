@@ -14,13 +14,13 @@ import java.util.List;
 @Service
 public class WarehouseService {
 
-    @Value("${spring.datasource.username}")
+    @Value("${warehouse.username}")
     private String username;
 
-    @Value("${spring.datasource.password}")
+    @Value("${warehouse.password}")
     private String password;
 
-    @Value("${spring.datasource.warehouse_url}")
+    @Value("${warehouse.url}")
     private String warehouseUrl;
 
     public List<ProductDTO> getAllProducts() {
