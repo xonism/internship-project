@@ -21,10 +21,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class WebSecurityConfiguration {
 
-    @Value("${spring.datasource.username}")
+    @Value("${spring.security.username}")
     private String username;
 
-    @Value("${spring.datasource.password}")
+    @Value("${spring.security.password}")
     private String password;
 
     @Bean
