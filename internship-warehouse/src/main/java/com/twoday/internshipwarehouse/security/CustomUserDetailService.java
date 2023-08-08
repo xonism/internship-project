@@ -21,11 +21,6 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         com.twoday.internshipwarehouse.models.User user = userService.getByUsername(username);
-
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
-
         return new User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
 }
