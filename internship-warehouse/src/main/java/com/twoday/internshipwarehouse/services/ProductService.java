@@ -29,7 +29,8 @@ public class ProductService {
             throw new InvalidValueException(Constants.QUANTITY);
         }
 
-        Product product = productRepository.findById(productSellRequest.id()).orElse(null);
+        Product product = productRepository.findById(productSellRequest.id())
+                .orElseThrow(() -> new ProductNotFoundByIdException(productSellRequest.id()));
 
         if (product == null) {
             throw new ProductNotFoundByIdException(productSellRequest.id());
