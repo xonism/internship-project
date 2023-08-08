@@ -23,9 +23,12 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
-        List<Product> products = productService.getAll();
+        List<ProductDTO> products = productService.getAll()
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
         return new ResponseEntity<>(
-                products.stream().map(this::convertToDTO).toList(),
+                products,
                 HttpStatus.OK);
     }
 
