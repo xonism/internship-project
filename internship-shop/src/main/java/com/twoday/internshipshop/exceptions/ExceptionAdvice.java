@@ -24,6 +24,6 @@ public class ExceptionAdvice {
     ) {
         return new ResponseEntity<>(
                 new ErrorMessage(exception.getMessage()),
-                HttpStatus.BAD_REQUEST);
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
