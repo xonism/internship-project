@@ -1,27 +1,27 @@
 package com.twoday.internshipwarehouse.services;
 
-import com.twoday.internshipmodel.Product;
 import com.twoday.internshipmodel.ProductSellRequest;
 import com.twoday.internshipwarehouse.constants.Constants;
 import com.twoday.internshipwarehouse.exceptions.InsufficientQuantityException;
 import com.twoday.internshipwarehouse.exceptions.InvalidValueException;
 import com.twoday.internshipwarehouse.exceptions.ProductNotFoundByIdException;
-import com.twoday.internshipwarehouse.repositories.WarehouseRepository;
+import com.twoday.internshipwarehouse.models.Product;
+import com.twoday.internshipwarehouse.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class WarehouseService {
+public class ProductService {
 
-    private final WarehouseRepository warehouseRepository;
+    private final ProductRepository productRepository;
 
-    public WarehouseService(WarehouseRepository warehouseRepository) {
-        this.warehouseRepository = warehouseRepository;
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     public List<Product> getAll() {
-        return warehouseRepository.findAll();
+        return productRepository.findAll();
     }
 
     public Product processSale(ProductSellRequest productSellRequest) {
@@ -29,11 +29,8 @@ public class WarehouseService {
             throw new InvalidValueException(Constants.QUANTITY);
         }
 
-        Product product = warehouseRepository.findById(productSellRequest.id());
-
-        if (product == null) {
-            throw new ProductNotFoundByIdException(productSellRequest.id());
-        }
+        Product product = productRepository.findById(productSellRequest.id())
+                .orElseThrow(() -> new ProductNotFoundByIdException(productSellRequest.id()));
 
         if (product.getQuantity() < productSellRequest.quantity()) {
             throw new InsufficientQuantityException(productSellRequest.id());
@@ -41,6 +38,6 @@ public class WarehouseService {
 
         int newQuantity = product.getQuantity() - productSellRequest.quantity();
         product.setQuantity(newQuantity);
-        return product;
+        return productRepository.save(product);
     }
 }

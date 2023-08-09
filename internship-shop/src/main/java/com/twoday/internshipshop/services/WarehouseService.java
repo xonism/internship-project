@@ -1,7 +1,7 @@
 package com.twoday.internshipshop.services;
 
 import com.twoday.internshipmodel.ErrorMessage;
-import com.twoday.internshipmodel.Product;
+import com.twoday.internshipmodel.ProductDTO;
 import com.twoday.internshipmodel.ProductSellRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -14,25 +14,25 @@ import java.util.List;
 @Service
 public class WarehouseService {
 
-    @Value("${spring.datasource.username}")
+    @Value("${warehouse.username}")
     private String username;
 
-    @Value("${spring.datasource.password}")
+    @Value("${warehouse.password}")
     private String password;
 
-    @Value("${spring.datasource.warehouse_url}")
+    @Value("${warehouse.url}")
     private String warehouseUrl;
 
-    public List<Product> getAllProducts() {
-        Product[] products = getRestTemplate().getForObject(warehouseUrl, Product[].class);
-        return products == null
+    public List<ProductDTO> getAllProducts() {
+        ProductDTO[] productDTOS = getRestTemplate().getForObject(warehouseUrl, ProductDTO[].class);
+        return productDTOS == null
                 ? List.of()
-                : List.of(products);
+                : List.of(productDTOS);
     }
 
     public Object processSale(ProductSellRequest productSellRequest) {
         try {
-            return getRestTemplate().postForObject(warehouseUrl, productSellRequest, Product.class);
+            return getRestTemplate().postForObject(warehouseUrl, productSellRequest, ProductDTO.class);
         } catch (HttpClientErrorException exception) {
             ErrorMessage errorMessage = exception.getResponseBodyAs(ErrorMessage.class);
             if (errorMessage == null) {
