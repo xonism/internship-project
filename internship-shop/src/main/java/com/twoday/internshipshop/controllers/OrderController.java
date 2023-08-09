@@ -1,7 +1,7 @@
 package com.twoday.internshipshop.controllers;
 
-import com.twoday.internshipmodel.ErrorMessage;
 import com.twoday.internshipmodel.OrderCreateRequest;
+import com.twoday.internshipmodel.OrderDTO;
 import com.twoday.internshipshop.services.WarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,17 +19,10 @@ public class OrderController {
     private final WarehouseService warehouseService;
 
     @PostMapping
-    public ResponseEntity<Object> createOrder(@RequestBody OrderCreateRequest orderCreateRequest) {
-        Object order = warehouseService.createOrder(orderCreateRequest);
-
-        if (order instanceof ErrorMessage) {
-            return new ResponseEntity<>(
-                    order,
-                    HttpStatus.BAD_REQUEST);
-        }
-
+    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderCreateRequest orderCreateRequest) {
+        OrderDTO orderDTO = warehouseService.createOrder(orderCreateRequest);
         return new ResponseEntity<>(
-                order,
+                orderDTO,
                 HttpStatus.OK);
     }
 }
