@@ -32,10 +32,6 @@ public class ProductService {
         Product product = productRepository.findById(productSellRequest.id())
                 .orElseThrow(() -> new ProductNotFoundByIdException(productSellRequest.id()));
 
-        if (product == null) {
-            throw new ProductNotFoundByIdException(productSellRequest.id());
-        }
-
         if (product.getQuantity() < productSellRequest.quantity()) {
             throw new InsufficientQuantityException(productSellRequest.id());
         }
