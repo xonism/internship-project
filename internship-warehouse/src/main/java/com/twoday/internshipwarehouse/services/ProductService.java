@@ -1,42 +1,44 @@
 package com.twoday.internshipwarehouse.services;
 
-import com.twoday.internshipmodel.ProductSellRequest;
+import com.twoday.internshipmodel.OrderCreateRequest;
 import com.twoday.internshipwarehouse.constants.Constants;
 import com.twoday.internshipwarehouse.exceptions.InsufficientQuantityException;
 import com.twoday.internshipwarehouse.exceptions.InvalidValueException;
 import com.twoday.internshipwarehouse.exceptions.ProductNotFoundByIdException;
 import com.twoday.internshipwarehouse.models.Product;
 import com.twoday.internshipwarehouse.repositories.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public Product getById(int id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundByIdException(id));
     }
 
     public List<Product> getAll() {
         return productRepository.findAll();
     }
 
-    public Product processSale(ProductSellRequest productSellRequest) {
-        if (productSellRequest.quantity() <= 0) {
+    public Product updateQuantity(OrderCreateRequest orderCreateRequest) {
+        if (orderCreateRequest.quantity() <= 0) {
             throw new InvalidValueException(Constants.QUANTITY);
         }
 
-        Product product = productRepository.findById(productSellRequest.id())
-                .orElseThrow(() -> new ProductNotFoundByIdException(productSellRequest.id()));
+        Product product = getById(orderCreateRequest.productId());
 
-        if (product.getQuantity() < productSellRequest.quantity()) {
-            throw new InsufficientQuantityException(productSellRequest.id());
+        if (product.getQuantity() < orderCreateRequest.quantity()) {
+            throw new InsufficientQuantityException(orderCreateRequest.productId());
         }
 
-        int newQuantity = product.getQuantity() - productSellRequest.quantity();
+        int newQuantity = product.getQuantity() - orderCreateRequest.quantity();
         product.setQuantity(newQuantity);
         return productRepository.save(product);
     }

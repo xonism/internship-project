@@ -1,8 +1,11 @@
 package com.twoday.internshipshop.services;
 
 import com.twoday.internshipmodel.ErrorMessage;
+import com.twoday.internshipmodel.OrderCreateRequest;
+import com.twoday.internshipmodel.OrderDTO;
 import com.twoday.internshipmodel.ProductDTO;
-import com.twoday.internshipmodel.ProductSellRequest;
+import com.twoday.internshipshop.exceptions.BadRequestException;
+import com.twoday.internshipshop.exceptions.UnknownException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -14,37 +17,35 @@ import java.util.List;
 @Service
 public class WarehouseService {
 
-    @Value("${warehouse.username}")
-    private String username;
+    private final RestTemplate restTemplate;
 
-    @Value("${warehouse.password}")
-    private String password;
-
-    @Value("${warehouse.url}")
-    private String warehouseUrl;
+    public WarehouseService(
+            @Value("${warehouse.username}") String username,
+            @Value("${warehouse.password}") String password,
+            @Value("${warehouse.url}") String warehouseUrl
+    ) {
+        this.restTemplate = new RestTemplateBuilder()
+                .rootUri(warehouseUrl)
+                .basicAuthentication(username, password)
+                .build();
+    }
 
     public List<ProductDTO> getAllProducts() {
-        ProductDTO[] productDTOS = getRestTemplate().getForObject(warehouseUrl, ProductDTO[].class);
+        ProductDTO[] productDTOS = restTemplate.getForObject("/products", ProductDTO[].class);
         return productDTOS == null
                 ? List.of()
                 : List.of(productDTOS);
     }
 
-    public Object processSale(ProductSellRequest productSellRequest) {
+    public OrderDTO createOrder(OrderCreateRequest orderCreateRequest) {
         try {
-            return getRestTemplate().postForObject(warehouseUrl, productSellRequest, ProductDTO.class);
+            return restTemplate.postForObject("/orders", orderCreateRequest, OrderDTO.class);
         } catch (HttpClientErrorException exception) {
             ErrorMessage errorMessage = exception.getResponseBodyAs(ErrorMessage.class);
             if (errorMessage == null) {
-                throw exception;
+                throw new UnknownException(exception.getMessage());
             }
-            return errorMessage;
+            throw new BadRequestException(errorMessage.error());
         }
-    }
-
-    private RestTemplate getRestTemplate() {
-        return new RestTemplateBuilder()
-                .basicAuthentication(username, password)
-                .build();
     }
 }
