@@ -14,6 +14,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @AllArgsConstructor
@@ -38,4 +40,7 @@ public class Order {
 
     @NotNull
     private int quantity;
+
+    @NotNull
+    private LocalDateTime timestamp;
 }
