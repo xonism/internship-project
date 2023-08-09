@@ -25,9 +25,7 @@ public class OrderController {
             Authentication authentication,
             @RequestBody OrderCreateRequest orderCreateRequest
     ) {
-        String username = authentication.getName();
-        Order order = orderService.create(username, orderCreateRequest);
-
+        Order order = orderService.create(authentication.getName(), orderCreateRequest);
         return new ResponseEntity<>(
                 mapToDTO(order),
                 HttpStatus.OK);
