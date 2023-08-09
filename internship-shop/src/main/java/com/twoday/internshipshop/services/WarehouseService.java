@@ -1,8 +1,11 @@
 package com.twoday.internshipshop.services;
 
 import com.twoday.internshipmodel.ErrorMessage;
+import com.twoday.internshipmodel.OrderCreateRequest;
+import com.twoday.internshipmodel.OrderDTO;
 import com.twoday.internshipmodel.ProductDTO;
-import com.twoday.internshipmodel.ProductSellRequest;
+import com.twoday.internshipshop.exceptions.BadRequestException;
+import com.twoday.internshipshop.exceptions.UnknownException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -24,21 +27,24 @@ public class WarehouseService {
     private String warehouseUrl;
 
     public List<ProductDTO> getAllProducts() {
-        ProductDTO[] productDTOS = getRestTemplate().getForObject(warehouseUrl, ProductDTO[].class);
+        String url = warehouseUrl + "/products";
+        ProductDTO[] productDTOS = getRestTemplate().getForObject(url, ProductDTO[].class);
         return productDTOS == null
                 ? List.of()
                 : List.of(productDTOS);
     }
 
-    public Object processSale(ProductSellRequest productSellRequest) {
+    public OrderDTO createOrder(OrderCreateRequest orderCreateRequest) {
+        String url = warehouseUrl + "/orders";
+
         try {
-            return getRestTemplate().postForObject(warehouseUrl, productSellRequest, ProductDTO.class);
+            return getRestTemplate().postForObject(url, orderCreateRequest, OrderDTO.class);
         } catch (HttpClientErrorException exception) {
             ErrorMessage errorMessage = exception.getResponseBodyAs(ErrorMessage.class);
             if (errorMessage == null) {
-                throw exception;
+                throw new UnknownException(exception.getMessage());
             }
-            return errorMessage;
+            throw new BadRequestException(errorMessage.error());
         }
     }
 
