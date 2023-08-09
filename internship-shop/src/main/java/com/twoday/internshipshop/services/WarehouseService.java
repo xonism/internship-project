@@ -17,28 +17,29 @@ import java.util.List;
 @Service
 public class WarehouseService {
 
-    @Value("${warehouse.username}")
-    private String username;
+    private final RestTemplate restTemplate;
 
-    @Value("${warehouse.password}")
-    private String password;
-
-    @Value("${warehouse.url}")
-    private String warehouseUrl;
+    public WarehouseService(
+            @Value("${warehouse.username}") String username,
+            @Value("${warehouse.password}") String password,
+            @Value("${warehouse.url}") String warehouseUrl
+    ) {
+        this.restTemplate = new RestTemplateBuilder()
+                .rootUri(warehouseUrl)
+                .basicAuthentication(username, password)
+                .build();
+    }
 
     public List<ProductDTO> getAllProducts() {
-        String url = warehouseUrl + "/products";
-        ProductDTO[] productDTOS = getRestTemplate().getForObject(url, ProductDTO[].class);
+        ProductDTO[] productDTOS = restTemplate.getForObject("/products", ProductDTO[].class);
         return productDTOS == null
                 ? List.of()
                 : List.of(productDTOS);
     }
 
     public OrderDTO createOrder(OrderCreateRequest orderCreateRequest) {
-        String url = warehouseUrl + "/orders";
-
         try {
-            return getRestTemplate().postForObject(url, orderCreateRequest, OrderDTO.class);
+            return restTemplate.postForObject("/orders", orderCreateRequest, OrderDTO.class);
         } catch (HttpClientErrorException exception) {
             ErrorMessage errorMessage = exception.getResponseBodyAs(ErrorMessage.class);
             if (errorMessage == null) {
@@ -46,11 +47,5 @@ public class WarehouseService {
             }
             throw new BadRequestException(errorMessage.error());
         }
-    }
-
-    private RestTemplate getRestTemplate() {
-        return new RestTemplateBuilder()
-                .basicAuthentication(username, password)
-                .build();
     }
 }
