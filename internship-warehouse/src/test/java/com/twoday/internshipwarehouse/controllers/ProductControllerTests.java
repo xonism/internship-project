@@ -25,6 +25,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
@@ -39,6 +40,8 @@ class ProductControllerTests {
     @MockBean
     private ProductService productService;
 
+    private final String endpoint = "/products";
+
     @Test
     @WithMockUser
     void givenAuthorizedUser_whenGetAllProducts_thenProductsAreReturned() throws Exception {
@@ -48,7 +51,7 @@ class ProductControllerTests {
         );
         when(productService.getAll()).thenReturn(products);
 
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/products");
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(endpoint);
         MvcResult actualResult = mockMvc.perform(requestBuilder).andReturn();
 
         List<ProductDTO> expectedResult = products.stream()
@@ -71,10 +74,12 @@ class ProductControllerTests {
     @Test
     @WithAnonymousUser
     void givenUnauthorizedUser_whenGetAllProducts_thenUnauthorizedStatusIsReturned() throws Exception {
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/products");
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(endpoint);
 
         MvcResult actualResult = mockMvc.perform(requestBuilder).andReturn();
 
         assertThat(actualResult.getResponse().getStatus()).isEqualTo(HttpStatus.UNAUTHORIZED.value());
+
+        verifyNoInteractions(productService);
     }
 }
