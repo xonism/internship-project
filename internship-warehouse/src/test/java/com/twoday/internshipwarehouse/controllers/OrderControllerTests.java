@@ -2,12 +2,12 @@ package com.twoday.internshipwarehouse.controllers;
 
 import com.twoday.internshipmodel.OrderCreateRequest;
 import com.twoday.internshipmodel.OrderDTO;
+import com.twoday.internshipwarehouse.TestHelpers;
 import com.twoday.internshipwarehouse.models.Order;
 import com.twoday.internshipwarehouse.models.Product;
 import com.twoday.internshipwarehouse.models.User;
 import com.twoday.internshipwarehouse.security.WebSecurityConfiguration;
 import com.twoday.internshipwarehouse.services.OrderService;
-import com.twoday.internshipwarehouse.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -66,7 +66,7 @@ class OrderControllerTests {
         when(orderService.create(username, orderCreateRequest)).thenReturn(order);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post(endpoint)
-                .content(JsonUtils.getObjectAsJsonString(orderCreateRequest))
+                .content(TestHelpers.getObjectAsJsonString(orderCreateRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON);
 
@@ -76,7 +76,7 @@ class OrderControllerTests {
 
         assertThat(actualResult.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualResult.getResponse().getContentAsString())
-                .isEqualTo(JsonUtils.getObjectAsJsonString(expectedResult));
+                .isEqualTo(TestHelpers.getObjectAsJsonString(expectedResult));
 
         verify(orderService).create(username, orderCreateRequest);
         verifyNoMoreInteractions(orderService);
@@ -88,7 +88,7 @@ class OrderControllerTests {
         OrderCreateRequest orderCreateRequest = new OrderCreateRequest(1, 1);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post(endpoint)
-                .content(JsonUtils.getObjectAsJsonString(orderCreateRequest))
+                .content(TestHelpers.getObjectAsJsonString(orderCreateRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON);
 

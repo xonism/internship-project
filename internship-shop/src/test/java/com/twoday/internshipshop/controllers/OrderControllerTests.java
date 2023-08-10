@@ -2,8 +2,8 @@ package com.twoday.internshipshop.controllers;
 
 import com.twoday.internshipmodel.OrderCreateRequest;
 import com.twoday.internshipmodel.OrderDTO;
+import com.twoday.internshipshop.TestHelpers;
 import com.twoday.internshipshop.services.WarehouseService;
-import com.twoday.internshipshop.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -44,7 +44,7 @@ class OrderControllerTests {
         when(warehouseService.createOrder(orderCreateRequest)).thenReturn(orderDTO);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/orders")
-                .content(JsonUtils.getObjectAsJsonString(orderCreateRequest))
+                .content(TestHelpers.getObjectAsJsonString(orderCreateRequest))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON);
 
@@ -52,7 +52,7 @@ class OrderControllerTests {
 
         assertThat(actualResult.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualResult.getResponse().getContentAsString())
-                .isEqualTo(JsonUtils.getObjectAsJsonString(orderDTO));
+                .isEqualTo(TestHelpers.getObjectAsJsonString(orderDTO));
 
         verify(warehouseService).createOrder(orderCreateRequest);
         verifyNoMoreInteractions(warehouseService);

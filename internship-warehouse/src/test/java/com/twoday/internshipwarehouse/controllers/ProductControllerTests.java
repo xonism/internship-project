@@ -1,10 +1,10 @@
 package com.twoday.internshipwarehouse.controllers;
 
 import com.twoday.internshipmodel.ProductDTO;
+import com.twoday.internshipwarehouse.TestHelpers;
 import com.twoday.internshipwarehouse.models.Product;
 import com.twoday.internshipwarehouse.security.WebSecurityConfiguration;
 import com.twoday.internshipwarehouse.services.ProductService;
-import com.twoday.internshipwarehouse.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -65,7 +65,7 @@ class ProductControllerTests {
 
         assertThat(actualResult.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualResult.getResponse().getContentAsString())
-                .isEqualTo(JsonUtils.getObjectAsJsonString(expectedResult));
+                .isEqualTo(TestHelpers.getObjectAsJsonString(expectedResult));
 
         verify(productService).getAll();
         verifyNoMoreInteractions(productService);
