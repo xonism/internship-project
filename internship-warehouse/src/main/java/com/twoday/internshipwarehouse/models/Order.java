@@ -9,6 +9,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,8 +41,10 @@ public class Order {
     private Product product;
 
     @NotNull
+    @Positive(message = "Quantity should be a positive integer")
     private int quantity;
 
     @NotNull
+    @PastOrPresent(message = "Provided date is in the future")
     private LocalDateTime timestamp;
 }
