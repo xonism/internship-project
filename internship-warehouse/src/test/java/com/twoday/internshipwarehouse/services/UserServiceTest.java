@@ -18,13 +18,13 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceTests {
+class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
 
     @InjectMocks
-    private UserService underTest;
+    private UserService userService;
 
     private final String username = "user";
 
@@ -34,7 +34,7 @@ class UserServiceTests {
 
         when(userRepository.findByUsername(username)).thenReturn(Optional.of(expectedResult));
 
-        User actualResult = underTest.getByUsername(username);
+        User actualResult = userService.getByUsername(username);
 
         assertThat(actualResult).usingRecursiveComparison().isEqualTo(expectedResult);
 
@@ -47,7 +47,7 @@ class UserServiceTests {
         when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
 
         String actualMessage = catchThrowableOfType(() ->
-                underTest.getByUsername(username), UsernameNotFoundException.class).getMessage();
+                userService.getByUsername(username), UsernameNotFoundException.class).getMessage();
 
         String expectedMessage = new UsernameNotFoundException(username).getMessage();
 

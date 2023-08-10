@@ -24,13 +24,13 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ProductServiceTests {
+class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository;
 
     @InjectMocks
-    private ProductService underTest;
+    private ProductService productService;
 
     private final int id = 1;
 
@@ -40,7 +40,7 @@ class ProductServiceTests {
 
         when(productRepository.findById(id)).thenReturn(Optional.of(expectedResult));
 
-        Product actualResult = underTest.getById(id);
+        Product actualResult = productService.getById(id);
 
         assertThat(actualResult).usingRecursiveComparison().isEqualTo(expectedResult);
 
@@ -53,7 +53,7 @@ class ProductServiceTests {
         when(productRepository.findById(id)).thenReturn(Optional.empty());
 
         String actualMessage = catchThrowableOfType(() ->
-                underTest.getById(id), ProductNotFoundByIdException.class).getMessage();
+                productService.getById(id), ProductNotFoundByIdException.class).getMessage();
 
         String expectedMessage = new ProductNotFoundByIdException(id).getMessage();
 
@@ -72,7 +72,7 @@ class ProductServiceTests {
 
         when(productRepository.findAll()).thenReturn(expectedResult);
 
-        List<Product> actualResult = underTest.getAll();
+        List<Product> actualResult = productService.getAll();
 
         assertThat(actualResult).usingRecursiveComparison().isEqualTo(expectedResult);
 
@@ -88,7 +88,7 @@ class ProductServiceTests {
         when(productRepository.findById(id)).thenReturn(Optional.of(mockedProduct));
         when(productRepository.save(mockedProduct)).thenAnswer(invocationOnMock -> invocationOnMock.getArguments()[0]);
 
-        Product actualResult = underTest.updateQuantity(orderCreateRequest);
+        Product actualResult = productService.updateQuantity(orderCreateRequest);
         Product expectedResult = new Product(id, "1", "1", new BigDecimal("1.1"), 0);
         assertThat(actualResult).usingRecursiveComparison().isEqualTo(expectedResult);
 
@@ -102,7 +102,7 @@ class ProductServiceTests {
         OrderCreateRequest orderCreateRequest = new OrderCreateRequest(id, 0);
 
         String actualMessage = catchThrowableOfType(() ->
-                underTest.updateQuantity(orderCreateRequest), InvalidValueException.class).getMessage();
+                productService.updateQuantity(orderCreateRequest), InvalidValueException.class).getMessage();
 
         String expectedMessage = new InvalidValueException(Constants.QUANTITY).getMessage();
 
@@ -117,7 +117,7 @@ class ProductServiceTests {
         when(productRepository.findById(id)).thenReturn(Optional.of(mockedProduct));
 
         String actualMessage = catchThrowableOfType(() ->
-                underTest.updateQuantity(orderCreateRequest), InsufficientQuantityException.class).getMessage();
+                productService.updateQuantity(orderCreateRequest), InsufficientQuantityException.class).getMessage();
 
         String expectedMessage = new InsufficientQuantityException(id).getMessage();
 

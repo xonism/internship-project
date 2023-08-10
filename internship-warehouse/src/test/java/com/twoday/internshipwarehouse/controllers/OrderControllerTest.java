@@ -35,7 +35,7 @@ import static org.mockito.Mockito.when;
 @WebMvcTest(value = OrderController.class)
 @ExtendWith(MockitoExtension.class)
 @Import(WebSecurityConfiguration.class)
-class OrderControllerTests {
+class OrderControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

@@ -22,10 +22,10 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class OrderServiceTests {
+class OrderServiceTest {
 
     @InjectMocks
-    private OrderService underTest;
+    private OrderService orderService;
 
     @Mock
     private OrderRepository orderRepository;
@@ -50,7 +50,7 @@ class OrderServiceTests {
         when(orderRepository.save(Mockito.any(Order.class)))
                 .thenAnswer(invocationOnMock -> invocationOnMock.getArguments()[0]);
 
-        Order actualResult = underTest.create(username, orderCreateRequest);
+        Order actualResult = orderService.create(username, orderCreateRequest);
         Order expectedResult = new Order(
                 0,
                 user,

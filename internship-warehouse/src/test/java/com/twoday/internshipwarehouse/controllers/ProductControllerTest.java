@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 @WebMvcTest(value = ProductController.class)
 @ExtendWith(MockitoExtension.class)
 @Import(WebSecurityConfiguration.class)
-class ProductControllerTests {
+class ProductControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
