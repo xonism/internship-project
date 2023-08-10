@@ -45,6 +45,6 @@ public class Order {
     private int quantity;
 
     @NotNull
-    @PastOrPresent(message = "Provided date is in the future")
+    @PastOrPresent(message = "Provided date shouldn't be in the future")
     private LocalDateTime timestamp;
 }
