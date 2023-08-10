@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 @RequiredArgsConstructor
 @Service
 public class OrderService {
@@ -27,6 +30,7 @@ public class OrderService {
                 .product(product)
                 .user(user)
                 .quantity(orderCreateRequest.quantity())
+                .timestamp(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .build();
         return orderRepository.save(order);
     }
