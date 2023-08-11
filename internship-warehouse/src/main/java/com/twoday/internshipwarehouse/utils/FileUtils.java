@@ -10,7 +10,7 @@ public class FileUtils {
 
     }
 
-    public static String getOrderReportFileName(String directory, LocalDateTime startDateTime) {
+    public static String getOrderReportFilePath(String directory, LocalDateTime startDateTime) {
         return String.format(Constants.REPORT_FILE_NAME_FORMAT, directory, startDateTime)
                 .replace(":", "-");
     }
