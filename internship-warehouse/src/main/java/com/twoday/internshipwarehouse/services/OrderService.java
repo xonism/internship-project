@@ -2,13 +2,13 @@ package com.twoday.internshipwarehouse.services;
 
 import com.opencsv.CSVWriter;
 import com.twoday.internshipmodel.OrderCreateRequest;
-import com.twoday.internshipwarehouse.constants.Constants;
 import com.twoday.internshipwarehouse.models.Order;
 import com.twoday.internshipwarehouse.models.Product;
 import com.twoday.internshipwarehouse.models.User;
 import com.twoday.internshipwarehouse.repositories.OrderRepository;
 import com.twoday.internshipwarehouse.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +23,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class OrderService {
+
+    @Value("${directory.reports}")
+    private static String reportsDirectory;
 
     private final OrderRepository orderRepository;
 
@@ -47,7 +50,7 @@ public class OrderService {
         List<String[]> csvData = getCsvData(startDateTime, endDateTime);
 
         //noinspection ResultOfMethodCallIgnored
-        new File(Constants.REPORTS_DIR).mkdir();
+        new File(reportsDirectory).mkdir();
         FileWriter fileWriter = new FileWriter(FileUtils.getOrderReportFilePath(startDateTime));
 
         try (CSVWriter csvWriter = new CSVWriter(fileWriter)) {
