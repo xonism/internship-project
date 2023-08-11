@@ -25,7 +25,7 @@ public class OrderReport {
 
     private final OrderService orderService;
 
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "${cron.order-report}")
     public void createOrderReport() throws IOException {
         LocalDateTime startDateTime = LocalDateTime.now().minusHours(1).truncatedTo(ChronoUnit.HOURS);
         LocalDateTime endDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS);
