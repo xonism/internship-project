@@ -62,8 +62,8 @@ public class OrderReport {
         String fileName = String.format("%s/order-report-%s.csv", reportsDir, startDateTime)
                 .replace(":", "-");
 
-        try (CSVWriter writer = new CSVWriter(new FileWriter(fileName))) {
-            writer.writeAll(content);
+        try (CSVWriter csvWriter = new CSVWriter(fileWriter)) {
+            csvWriter.writeAll(content);
         }
     }
 }
