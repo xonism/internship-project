@@ -7,6 +7,7 @@ import com.twoday.internshipwarehouse.models.Product;
 import com.twoday.internshipwarehouse.models.User;
 import com.twoday.internshipwarehouse.repositories.OrderRepository;
 import com.twoday.internshipwarehouse.utils.FileUtils;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ import java.util.List;
 public class OrderService {
 
     @Value("${directory.reports}")
-    private static String reportsDirectory;
+    private String reportsDirectory;
 
     private final OrderRepository orderRepository;
 
@@ -33,7 +34,11 @@ public class OrderService {
 
     private final ProductService productService;
 
-    private final FileUtils fileUtils;
+    @PostConstruct
+    private void postConstruct() {
+        //noinspection ResultOfMethodCallIgnored
+        new File(reportsDirectory).mkdir();
+    }
 
     @Transactional
     public Order create(String username, OrderCreateRequest orderCreateRequest) {
@@ -51,9 +56,7 @@ public class OrderService {
     public void createOrderReport(LocalDateTime startDateTime, LocalDateTime endDateTime) throws IOException {
         List<String[]> csvData = getCsvData(startDateTime, endDateTime);
 
-        //noinspection ResultOfMethodCallIgnored
-        new File(reportsDirectory).mkdir();
-        FileWriter fileWriter = new FileWriter(fileUtils.getOrderReportFilePath(startDateTime));
+        FileWriter fileWriter = new FileWriter(FileUtils.getOrderReportFilePath(reportsDirectory, startDateTime));
 
         try (CSVWriter csvWriter = new CSVWriter(fileWriter)) {
             csvWriter.writeAll(csvData);
