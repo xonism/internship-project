@@ -32,7 +32,6 @@ public class OrderReport {
         List<String[]> csvData = getCsvData(startDateTime, endDateTime);
 
         writeDataToCsvFile(csvData, startDateTime);
-
         log.info("Order report created!");
     }
 
