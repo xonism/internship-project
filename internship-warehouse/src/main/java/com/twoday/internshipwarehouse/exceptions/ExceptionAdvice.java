@@ -56,6 +56,6 @@ public class ExceptionAdvice {
         String message = String.format("Provided LocalDateTime '%s' is invalid", exception.getParsedString());
         return new ResponseEntity<>(
                 new ErrorMessage(message),
-                HttpStatus.NOT_FOUND);
+                HttpStatus.BAD_REQUEST);
     }
 }
