@@ -56,7 +56,7 @@ public class OrderService {
     public void createOrderReport(LocalDateTime startDateTime, LocalDateTime endDateTime) throws IOException {
         List<String[]> csvData = getCsvData(startDateTime, endDateTime);
 
-        FileWriter fileWriter = new FileWriter(FileUtils.getOrderReportFileName(reportsDirectory, startDateTime));
+        FileWriter fileWriter = new FileWriter(FileUtils.getOrderReportFilePath(reportsDirectory, startDateTime));
 
         try (CSVWriter csvWriter = new CSVWriter(fileWriter)) {
             csvWriter.writeAll(csvData);
