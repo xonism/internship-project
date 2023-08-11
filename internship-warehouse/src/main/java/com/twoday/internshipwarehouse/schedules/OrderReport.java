@@ -1,22 +1,14 @@
 package com.twoday.internshipwarehouse.schedules;
 
-import com.opencsv.CSVWriter;
-import com.twoday.internshipwarehouse.constants.Constants;
-import com.twoday.internshipwarehouse.models.Order;
 import com.twoday.internshipwarehouse.services.OrderService;
-import com.twoday.internshipwarehouse.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -31,39 +23,8 @@ public class OrderReport {
         LocalDateTime endDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS);
         log.info("Creating report for orders made between {} and {}", startDateTime, endDateTime);
 
-        List<String[]> csvData = getCsvData(startDateTime, endDateTime);
+        orderService.createOrderReport(startDateTime, endDateTime);
 
-        writeDataToCsvFile(csvData, startDateTime);
         log.info("Order report created!");
-    }
-
-    private List<String[]> getCsvData(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        List<String[]> csvData = new ArrayList<>();
-
-        String[] headers = new String[]{"id", "userId", "productId", "quantity", "timestamp"};
-        csvData.add(headers);
-
-        orderService.getByTimestampBetween(startDateTime, endDateTime)
-                .forEach(order -> csvData.add(getOrderInfo(order)));
-
-        return csvData;
-    }
-
-    private String[] getOrderInfo(Order order) {
-        return new String[]{String.valueOf(order.getId()),
-                String.valueOf(order.getUser().getId()),
-                String.valueOf(order.getProduct().getId()),
-                String.valueOf(order.getQuantity()),
-                String.valueOf(order.getTimestamp())};
-    }
-
-    private void writeDataToCsvFile(List<String[]> content, LocalDateTime startDateTime) throws IOException {
-        //noinspection ResultOfMethodCallIgnored
-        new File(Constants.REPORTS_DIR).mkdir();
-        FileWriter fileWriter = new FileWriter(FileUtils.getOrderReportFilePath(startDateTime));
-
-        try (CSVWriter csvWriter = new CSVWriter(fileWriter)) {
-            csvWriter.writeAll(content);
-        }
     }
 }
