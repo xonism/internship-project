@@ -33,6 +33,8 @@ public class OrderService {
 
     private final ProductService productService;
 
+    private final FileUtils fileUtils;
+
     @Transactional
     public Order create(String username, OrderCreateRequest orderCreateRequest) {
         Product product = productService.updateQuantity(orderCreateRequest);
@@ -51,7 +53,7 @@ public class OrderService {
 
         //noinspection ResultOfMethodCallIgnored
         new File(reportsDirectory).mkdir();
-        FileWriter fileWriter = new FileWriter(FileUtils.getOrderReportFilePath(startDateTime));
+        FileWriter fileWriter = new FileWriter(fileUtils.getOrderReportFilePath(startDateTime));
 
         try (CSVWriter csvWriter = new CSVWriter(fileWriter)) {
             csvWriter.writeAll(csvData);
