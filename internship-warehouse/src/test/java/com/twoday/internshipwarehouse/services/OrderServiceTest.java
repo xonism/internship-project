@@ -51,12 +51,13 @@ class OrderServiceTest {
                 .thenAnswer(invocationOnMock -> invocationOnMock.getArguments()[0]);
 
         Order actualResult = orderService.create(username, orderCreateRequest);
-        Order expectedResult = new Order(
-                0,
-                user,
-                product,
-                1,
-                LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        Order expectedResult = Order.builder()
+                .id(0)
+                .user(user)
+                .product(product)
+                .quantity(1)
+                .timestamp(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .build();
 
         assertThat(actualResult).usingRecursiveComparison().isEqualTo(expectedResult);
 
