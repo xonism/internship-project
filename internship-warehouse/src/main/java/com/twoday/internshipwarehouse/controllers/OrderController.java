@@ -7,6 +7,7 @@ import com.twoday.internshipwarehouse.services.OrderService;
 import com.twoday.internshipwarehouse.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,14 +34,15 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderController {
 
-    private final OrderService orderService;
+    @Value("${directory.reports}")
+    private String reportsDirectory;
 
-    private final FileUtils fileUtils;
+    private final OrderService orderService;
 
     @GetMapping(value = "/reports/{localDateTime}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<FileSystemResource> downloadOrderReport(@PathVariable String localDateTime) {
         LocalDateTime startDateTime = LocalDateTime.parse(localDateTime).truncatedTo(ChronoUnit.HOURS);
-        File file = new File(fileUtils.getOrderReportFilePath(startDateTime));
+        File file = new File(FileUtils.getOrderReportFileName(reportsDirectory, startDateTime));
 
         return new ResponseEntity<>(
                 new FileSystemResource(file),
