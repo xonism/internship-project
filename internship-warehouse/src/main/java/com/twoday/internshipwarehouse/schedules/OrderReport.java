@@ -1,8 +1,10 @@
 package com.twoday.internshipwarehouse.schedules;
 
 import com.opencsv.CSVWriter;
+import com.twoday.internshipwarehouse.constants.Constants;
 import com.twoday.internshipwarehouse.models.Order;
 import com.twoday.internshipwarehouse.services.OrderService;
+import com.twoday.internshipwarehouse.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -56,11 +58,9 @@ public class OrderReport {
     }
 
     private void writeDataToCsvFile(List<String[]> content, LocalDateTime startDateTime) throws IOException {
-        String reportsDir = "../reports";
         //noinspection ResultOfMethodCallIgnored
-        new File(reportsDir).mkdir();
-        String fileName = String.format("%s/order-report-%s.csv", reportsDir, startDateTime)
-                .replace(":", "-");
+        new File(Constants.REPORTS_DIR).mkdir();
+        FileWriter fileWriter = new FileWriter(FileUtils.getOrderReportFilePath(startDateTime));
 
         try (CSVWriter csvWriter = new CSVWriter(fileWriter)) {
             csvWriter.writeAll(content);
