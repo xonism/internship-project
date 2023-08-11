@@ -42,10 +42,7 @@ public class OrderReport {
         csvData.add(headers);
 
         orderService.getByTimestampBetween(startDateTime, endDateTime)
-                .forEach(order -> {
-                    String[] orderInfo = getOrderInfo(order);
-                    csvData.add(orderInfo);
-                });
+                .forEach(order -> csvData.add(getOrderInfo(order)));
 
         return csvData;
     }
