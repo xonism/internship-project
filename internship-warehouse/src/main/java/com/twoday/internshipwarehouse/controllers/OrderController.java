@@ -35,7 +35,7 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping(value = "/reports/{startDateTime}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(value = "/reports/{localDateTime}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<FileSystemResource> downloadOrderReport(@PathVariable String localDateTime) {
         LocalDateTime startDateTime = LocalDateTime.parse(localDateTime).truncatedTo(ChronoUnit.HOURS);
         File file = new File(FileUtils.getOrderReportFilePath(startDateTime));
