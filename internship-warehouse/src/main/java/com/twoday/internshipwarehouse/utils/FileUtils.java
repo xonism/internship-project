@@ -10,10 +10,6 @@ public class FileUtils {
     @Value("${directory.reports}")
     private String reportsDirectory;
 
-    private FileUtils() {
-
-    }
-
     public String getOrderReportFilePath(LocalDateTime startDateTime) {
         return String.format(Constants.REPORT_FILE_NAME_FORMAT, reportsDirectory, startDateTime)
                 .replace(":", "-");

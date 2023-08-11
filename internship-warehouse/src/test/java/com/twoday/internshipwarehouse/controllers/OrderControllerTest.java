@@ -8,6 +8,7 @@ import com.twoday.internshipwarehouse.models.Product;
 import com.twoday.internshipwarehouse.models.User;
 import com.twoday.internshipwarehouse.security.WebSecurityConfiguration;
 import com.twoday.internshipwarehouse.services.OrderService;
+import com.twoday.internshipwarehouse.utils.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -42,6 +43,9 @@ class OrderControllerTest {
 
     @MockBean
     private OrderService orderService;
+
+    @MockBean
+    private FileUtils fileUtils;
 
     private final String endpoint = "/orders";
 
