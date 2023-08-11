@@ -30,10 +30,6 @@ public class OrderService {
 
     private final ProductService productService;
 
-    public List<Order> getByTimestampBetween(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        return orderRepository.findByTimestampBetween(startDateTime, endDateTime);
-    }
-
     @Transactional
     public Order create(String username, OrderCreateRequest orderCreateRequest) {
         Product product = productService.updateQuantity(orderCreateRequest);
@@ -69,6 +65,10 @@ public class OrderService {
                 .forEach(order -> csvData.add(getOrderInfo(order)));
 
         return csvData;
+    }
+
+    private List<Order> getByTimestampBetween(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return orderRepository.findByTimestampBetween(startDateTime, endDateTime);
     }
 
     private String[] getOrderInfo(Order order) {
