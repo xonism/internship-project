@@ -1,4 +1,6 @@
-.quantity-input, .quantity-minus, .quantity-plus {
+.quantity-input,
+.quantity-minus,
+.quantity-plus {
     width: 2rem;
     height: 2rem;
     text-align: center;

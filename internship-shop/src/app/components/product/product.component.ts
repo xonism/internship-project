@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class ProductComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
-    
+
     id: string = '';
     product: Product | null = null;
     quantity: number = 1;

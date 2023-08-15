@@ -10,11 +10,11 @@ import { Subscription } from 'rxjs';
 })
 export class ProductListComponent implements OnInit, OnDestroy {
     private subscription: Subscription = Subscription.EMPTY;
-    
+
     products: Product[] | null = null;
 
     constructor(private warehouseService: WarehouseService) {
-  
+
     }
 
     ngOnInit(): void {
