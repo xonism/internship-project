@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --text-color: #263238;
+    --product-background: #FFB300;
+    --product-border: #FF8F00;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+}
+
+input[type=number] {
+    appearance: textfield;
+}
