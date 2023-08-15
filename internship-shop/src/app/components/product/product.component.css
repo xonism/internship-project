@@ -1,0 +1,18 @@
+.quantity-input, .quantity-minus, .quantity-plus {
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.product-header {
+    text-align: left;
+    padding: 0.5rem 1rem;
+}
+
+.quantity-adjust {
+    padding: 1rem;
+}
+
+.button-order {
+    margin: 1rem;
+}

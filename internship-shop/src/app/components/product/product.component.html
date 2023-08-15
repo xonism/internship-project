@@ -1,0 +1,24 @@
+<table>
+    <tr>
+        <th class="product-header">Name</th>
+        <td>{{product?.name}}</td>
+    </tr>
+    <tr>
+        <th class="product-header">Description</th>
+        <td>{{product?.description}}</td>
+    </tr>
+    <tr>
+        <th class="product-header">Price</th>
+        <td>{{product?.price}}</td>
+    </tr>
+    <tr>
+        <th class="product-header">Quantity</th>
+        <td>{{product?.quantity}}</td>
+    </tr>
+</table>
+<div class="quantity-adjust">
+    <button class="quantity-minus" (click)="decrementQuantity()">-</button>
+    <input class="quantity-input" type="number" [(ngModel)]="quantity">
+    <button class="quantity-plus" (click)="incrementQuantity()">+</button>
+</div>
+<button class="button-order">Order</button>
