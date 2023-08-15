@@ -39,7 +39,6 @@
 
     <modules>
         <module>internship-warehouse</module>
-        <module>internship-shop</module>
         <module>internship-model</module>
     </modules>
 </project>
