@@ -18,7 +18,7 @@
 </table>
 <div class="quantity-adjust">
     <button class="quantity-minus" (click)="decrementQuantity()">-</button>
-    <input class="quantity-input" type="number" [(ngModel)]="quantity">
+    <input class="quantity-input" type="number" [(ngModel)]="quantity" disabled>
     <button class="quantity-plus" (click)="incrementQuantity()">+</button>
 </div>
 <button class="button-order">Order</button>
