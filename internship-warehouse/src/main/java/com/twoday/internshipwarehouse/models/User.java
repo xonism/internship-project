@@ -28,4 +28,9 @@ public class User {
 
     @NotBlank
     private String password;
+
+    @Override
+    public String toString() {
+        return "User(id=" + this.id + ")";
+    }
 }
