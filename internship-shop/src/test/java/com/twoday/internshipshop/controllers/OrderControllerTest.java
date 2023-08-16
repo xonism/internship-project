@@ -17,6 +17,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -36,10 +38,11 @@ class OrderControllerTest {
     void givenValidOrderCreateRequest_whenCallCreateOrderEndpoint_ThenCreatedOrderIsReturned() throws Exception {
         int productId = 1;
         int quantity = 1;
+        BigDecimal unitPrice = new BigDecimal("1.1");
 
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(productId, quantity);
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(productId, quantity, unitPrice);
 
-        OrderDTO orderDTO = new OrderDTO(1, 1, productId, quantity);
+        OrderDTO orderDTO = new OrderDTO(1, 1, productId, quantity, unitPrice);
 
         when(warehouseService.createOrder(orderCreateRequest)).thenReturn(orderDTO);
 

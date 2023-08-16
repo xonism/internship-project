@@ -47,7 +47,8 @@ public class OrderService {
         Order order = Order.builder()
                 .product(product)
                 .user(user)
-                .quantity(orderCreateRequest.quantity())
+                .quantity(orderCreateRequest.getQuantity())
+                .unitPrice(orderCreateRequest.getUnitPrice())
                 .timestamp(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .build();
         return orderRepository.save(order);
@@ -66,7 +67,7 @@ public class OrderService {
     private List<String[]> getCsvData(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         List<String[]> csvData = new ArrayList<>();
 
-        String[] headers = new String[]{"id", "userId", "productId", "quantity", "timestamp"};
+        String[] headers = new String[]{"id", "userId", "productId", "quantity", "unitPrice", "timestamp"};
         csvData.add(headers);
 
         getByTimestampBetween(startDateTime, endDateTime)
@@ -84,6 +85,7 @@ public class OrderService {
                 String.valueOf(order.getUser().getId()),
                 String.valueOf(order.getProduct().getId()),
                 String.valueOf(order.getQuantity()),
+                String.valueOf(order.getUnitPrice()),
                 String.valueOf(order.getTimestamp())};
     }
 }

@@ -1,9 +1,9 @@
 package com.twoday.internshipshop.services;
 
 import com.twoday.internshipmodel.ErrorMessage;
+import com.twoday.internshipmodel.ProductDTO;
 import com.twoday.internshipmodel.OrderCreateRequest;
 import com.twoday.internshipmodel.OrderDTO;
-import com.twoday.internshipmodel.ProductDTO;
 import com.twoday.internshipshop.exceptions.BadRequestException;
 import com.twoday.internshipshop.exceptions.UnknownException;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,25 +19,31 @@ public class WarehouseService {
 
     private final RestTemplate restTemplate;
 
+    private final PriceService priceService;
+
     public WarehouseService(
             @Value("${warehouse.username}") String username,
             @Value("${warehouse.password}") String password,
-            @Value("${warehouse.url}") String warehouseUrl
-    ) {
+            @Value("${warehouse.url}") String warehouseUrl,
+            PriceService priceService) {
         this.restTemplate = new RestTemplateBuilder()
                 .rootUri(warehouseUrl)
                 .basicAuthentication(username, password)
                 .build();
+        this.priceService = priceService;
     }
 
     public List<ProductDTO> getAllProducts() {
         ProductDTO[] productDTOS = restTemplate.getForObject("/products", ProductDTO[].class);
-        return productDTOS == null
-                ? List.of()
-                : List.of(productDTOS);
+        if (productDTOS == null) return List.of();
+        List<ProductDTO> productDtoList = List.of(productDTOS);
+        productDtoList.forEach(productDTO ->
+                productDTO.setPrice(priceService.calculatePriceWithProfitMargin(productDTO.getPrice())));
+        return productDtoList;
     }
 
     public OrderDTO createOrder(OrderCreateRequest orderCreateRequest) {
+        orderCreateRequest.setUnitPrice(priceService.calculatePriceWithWholesaleDiscount(orderCreateRequest));
         try {
             return restTemplate.postForObject("/orders", orderCreateRequest, OrderDTO.class);
         } catch (HttpClientErrorException exception) {

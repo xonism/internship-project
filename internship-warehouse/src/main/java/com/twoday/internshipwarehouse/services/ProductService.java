@@ -28,17 +28,17 @@ public class ProductService {
     }
 
     public Product updateQuantity(OrderCreateRequest orderCreateRequest) {
-        if (orderCreateRequest.quantity() <= 0) {
+        if (orderCreateRequest.getQuantity() <= 0) {
             throw new InvalidValueException(Constants.QUANTITY);
         }
 
-        Product product = getById(orderCreateRequest.productId());
+        Product product = getById(orderCreateRequest.getProductId());
 
-        if (product.getQuantity() < orderCreateRequest.quantity()) {
-            throw new InsufficientQuantityException(orderCreateRequest.productId());
+        if (product.getQuantity() < orderCreateRequest.getQuantity()) {
+            throw new InsufficientQuantityException(orderCreateRequest.getProductId());
         }
 
-        int newQuantity = product.getQuantity() - orderCreateRequest.quantity();
+        int newQuantity = product.getQuantity() - orderCreateRequest.getQuantity();
         product.setQuantity(newQuantity);
         return productRepository.save(product);
     }
