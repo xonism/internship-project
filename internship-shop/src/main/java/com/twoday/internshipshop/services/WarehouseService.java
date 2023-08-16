@@ -6,14 +6,17 @@ import com.twoday.internshipmodel.OrderCreateRequest;
 import com.twoday.internshipmodel.OrderDTO;
 import com.twoday.internshipshop.exceptions.BadRequestException;
 import com.twoday.internshipshop.exceptions.UnknownException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Service
 public class WarehouseService {
 
@@ -35,15 +38,21 @@ public class WarehouseService {
 
     public List<ProductDTO> getAllProducts() {
         ProductDTO[] productDTOS = restTemplate.getForObject("/products", ProductDTO[].class);
+        log.debug("Retrieved products:\n{}", Arrays.toString(productDTOS));
+
         if (productDTOS == null) return List.of();
         List<ProductDTO> productDtoList = List.of(productDTOS);
         productDtoList.forEach(productDTO ->
                 productDTO.setPrice(priceService.calculatePriceWithProfitMargin(productDTO.getPrice())));
+        log.debug("Products with updated prices:\n{}", productDtoList);
+
         return productDtoList;
     }
 
     public OrderDTO createOrder(OrderCreateRequest orderCreateRequest) {
         orderCreateRequest.setUnitPrice(priceService.calculatePriceWithWholesaleDiscount(orderCreateRequest));
+        log.debug("OrderCreateRequest with updated price:\n{}", orderCreateRequest);
+
         try {
             return restTemplate.postForObject("/orders", orderCreateRequest, OrderDTO.class);
         } catch (HttpClientErrorException exception) {

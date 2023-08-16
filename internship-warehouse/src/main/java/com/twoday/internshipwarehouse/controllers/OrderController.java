@@ -41,8 +41,11 @@ public class OrderController {
 
     @GetMapping(value = "/reports/{localDateTime}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<FileSystemResource> downloadOrderReport(@PathVariable String localDateTime) {
+        log.info("Download order report endpoint called with value: {}", localDateTime);
+
         LocalDateTime startDateTime = LocalDateTime.parse(localDateTime).truncatedTo(ChronoUnit.HOURS);
         File file = new File(FileUtils.getOrderReportFilePath(reportsDirectory, startDateTime));
+        log.debug("File retrieved: {}", file.getPath());
 
         return new ResponseEntity<>(
                 new FileSystemResource(file),
@@ -55,7 +58,12 @@ public class OrderController {
             Authentication authentication,
             @RequestBody OrderCreateRequest orderCreateRequest
     ) {
+        log.info("Create order endpoint called");
+
+        log.debug("OrderCreateRequest received:\n{}", orderCreateRequest);
         Order order = orderService.create(authentication.getName(), orderCreateRequest);
+        log.debug("Order created:\n{}", order);
+
         return new ResponseEntity<>(
                 mapToDTO(order),
                 HttpStatus.OK);
