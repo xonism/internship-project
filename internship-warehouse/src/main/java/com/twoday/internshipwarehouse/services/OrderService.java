@@ -9,7 +9,8 @@ import com.twoday.internshipwarehouse.repositories.OrderRepository;
 import com.twoday.internshipwarehouse.utils.FileUtils;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +24,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class OrderService {
+
+    private final Logger log = LoggerFactory.getLogger(OrderService.class);
 
     @Value("${directory.reports}")
     private String reportsDirectory;
@@ -65,9 +67,11 @@ public class OrderService {
         String orderReportFilePath = FileUtils.getOrderReportFilePath(reportsDirectory, startDateTime);
         FileWriter fileWriter = new FileWriter(orderReportFilePath);
 
-        log.debug("Writing csvData to {}:\n{}",
-                orderReportFilePath,
-                csvData.stream().map(Arrays::toString).toList());
+        if (log.isDebugEnabled()) {
+            log.debug("Writing csvData to {}:\n{}",
+                    orderReportFilePath,
+                    csvData.stream().map(Arrays::toString).toList());
+        }
 
         try (CSVWriter csvWriter = new CSVWriter(fileWriter)) {
             csvWriter.writeAll(csvData);
