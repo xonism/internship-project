@@ -45,8 +45,9 @@ class OrderServiceTest {
     @Test
     void givenValidOrderCreateRequest_whenCreateOrder_thenOrderIsCreated() {
         int id = 1;
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(id, 1);
-        Product product = new Product(id, "1", "1", new BigDecimal("1.1"), 1);
+        BigDecimal unitPrice = new BigDecimal("1.1");
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(id, 1, unitPrice);
+        Product product = new Product(id, "1", "1", unitPrice, 1);
         when(productService.updateQuantity(orderCreateRequest)).thenReturn(product);
 
         String username = "user";
@@ -62,6 +63,7 @@ class OrderServiceTest {
                 .user(user)
                 .product(product)
                 .quantity(1)
+                .unitPrice(unitPrice)
                 .timestamp(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
                 .build();
 
@@ -81,10 +83,12 @@ class OrderServiceTest {
     void whenCreateOrderReport_thenOrderReportIsCreated() throws IOException {
         ReflectionTestUtils.setField(orderService, "reportsDirectory", TestHelpers.REPORTS_DIRECTORY);
 
+        BigDecimal unitPrice = new BigDecimal("1.1");
+
         User user = new User(1, "user", "password");
 
         int quantity = 1;
-        Product product = new Product(1, "1", "1", new BigDecimal("1.1"), quantity);
+        Product product = new Product(1, "1", "1", unitPrice, quantity);
 
         LocalDateTime localDateTime = LocalDateTime.parse(TestHelpers.REPORT_LOCAL_DATE_TIME);
 
@@ -94,6 +98,7 @@ class OrderServiceTest {
                         .user(user)
                         .product(product)
                         .quantity(quantity)
+                        .unitPrice(unitPrice)
                         .timestamp(localDateTime.plusMinutes(30).truncatedTo(ChronoUnit.SECONDS))
                         .build(),
                 Order.builder()
@@ -101,6 +106,7 @@ class OrderServiceTest {
                         .user(user)
                         .product(product)
                         .quantity(quantity)
+                        .unitPrice(unitPrice)
                         .timestamp(localDateTime.plusMinutes(45).truncatedTo(ChronoUnit.SECONDS))
                         .build());
 
