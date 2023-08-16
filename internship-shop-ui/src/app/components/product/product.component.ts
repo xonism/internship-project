@@ -3,6 +3,8 @@ import { ActivatedRoute } from "@angular/router";
 import { Product } from "src/app/interfaces/product";
 import { Subscription } from 'rxjs';
 import { ShopService } from "src/app/services/shop.service";
+import { OrderCreateRequest } from "src/app/interfaces/order-create-request";
+import { Order } from "src/app/interfaces/order";
 
 @Component({
     selector: 'insh-product',
@@ -15,6 +17,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     id: string = '';
     product: Product | null = null;
     quantity: number = 1;
+    order: Order | null = null;
 
     constructor(private route: ActivatedRoute, private shopService: ShopService) {
 
@@ -30,12 +33,6 @@ export class ProductComponent implements OnInit, OnDestroy {
         }));
     }
 
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => {
-            subscription.unsubscribe();
-        });
-    }
-
     decrementQuantity() {
         if (this.quantity > 1) {
             this.quantity -= 1;
@@ -46,5 +43,23 @@ export class ProductComponent implements OnInit, OnDestroy {
         if (this.product && this.quantity < this.product.quantity) {
             this.quantity += 1;
         }
+    }
+
+    submitOrder() {
+        const orderCreateRequest: OrderCreateRequest = {
+            productId: +this.id,
+            quantity: this.quantity,
+            unitPrice: this.product?.price
+        }
+
+        this.subscriptions.push(this.shopService.order$(orderCreateRequest).subscribe(order => {
+            this.order = order;
+        }));
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(subscription => {
+            subscription.unsubscribe();
+        });
     }
 }
