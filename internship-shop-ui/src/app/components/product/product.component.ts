@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { WarehouseService } from "src/app/services/warehouse.service";
 import { Product } from "src/app/interfaces/product";
 import { Subscription } from 'rxjs';
+import { ShopService } from "src/app/services/shop.service";
 
 @Component({
     selector: 'insh-product',
@@ -16,7 +16,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     product: Product | null = null;
     quantity: number = 1;
 
-    constructor(private route: ActivatedRoute, private warehouseService: WarehouseService) {
+    constructor(private route: ActivatedRoute, private shopService: ShopService) {
 
     }
 
@@ -25,7 +25,7 @@ export class ProductComponent implements OnInit, OnDestroy {
             this.id = params['id'];
         }));
 
-        this.subscriptions.push(this.warehouseService.product$(this.id).subscribe(product => {
+        this.subscriptions.push(this.shopService.product$(this.id).subscribe(product => {
             this.product = product;
         }));
     }

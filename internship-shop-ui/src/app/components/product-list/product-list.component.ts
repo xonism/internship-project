@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Product } from "src/app/interfaces/product";
-import { WarehouseService } from '../../services/warehouse.service';
 import { Subscription } from 'rxjs';
+import { ShopService } from "src/app/services/shop.service";
 
 @Component({
     selector: 'insh-product-list',
@@ -13,12 +13,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     products: Product[] | null = null;
 
-    constructor(private warehouseService: WarehouseService) {
+    constructor(private shopService: ShopService) {
 
     }
 
     ngOnInit(): void {
-        this.subscription = this.warehouseService.products$().subscribe(products => {
+        this.subscription = this.shopService.products$().subscribe(products => {
             this.products = products;
         });
     }

@@ -9,12 +9,6 @@ import { environment } from 'src/environments/environment';
 export class ShopService {
     private readonly productsUrl: string = `${environment.shopProxyUrl}/products`;
 
-    // options = {
-    //     headers: new HttpHeaders({
-    //         'Authorization': `Basic ${btoa(`${environment.username}:${environment.password}`)}`
-    //     })
-    // };
-
     constructor(private http: HttpClient) {
 
     };
