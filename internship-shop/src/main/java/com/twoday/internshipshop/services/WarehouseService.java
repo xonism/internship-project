@@ -1,9 +1,9 @@
 package com.twoday.internshipshop.services;
 
 import com.twoday.internshipmodel.ErrorMessage;
-import com.twoday.internshipmodel.ProductDTO;
 import com.twoday.internshipmodel.OrderCreateRequest;
 import com.twoday.internshipmodel.OrderDTO;
+import com.twoday.internshipmodel.ProductDTO;
 import com.twoday.internshipshop.exceptions.BadRequestException;
 import com.twoday.internshipshop.exceptions.UnknownException;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -34,6 +33,10 @@ public class WarehouseService {
                 .basicAuthentication(username, password)
                 .build();
         this.priceService = priceService;
+    }
+
+    public ProductDTO getById(int id) {
+        return restTemplate.getForObject("/products/" + id, ProductDTO.class);
     }
 
     public List<ProductDTO> getAllProducts() {

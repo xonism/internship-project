@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,16 @@ import java.util.List;
 public class ProductController {
 
     private final WarehouseService warehouseService;
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable int id) {
+        log.info("Get product by ID {} endpoint called", id);
+
+        ProductDTO product = warehouseService.getById(id);
+        return new ResponseEntity<>(
+                product,
+                HttpStatus.OK);
+    }
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
