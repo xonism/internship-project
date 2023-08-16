@@ -62,7 +62,12 @@ public class OrderController {
     }
 
     private OrderDTO mapToDTO(Order order) {
-        return new OrderDTO(order.getId(), order.getUser().getId(), order.getProduct().getId(), order.getQuantity());
+        return new OrderDTO(
+                order.getId(),
+                order.getUser().getId(),
+                order.getProduct().getId(),
+                order.getQuantity(),
+                order.getUnitPrice());
     }
 
     private MultiValueMap<String, String> getContentDispositionHeaders(String fileName) {
