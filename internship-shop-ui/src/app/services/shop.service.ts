@@ -6,28 +6,28 @@ import { tap, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
-export class WarehouseService {
-    private readonly productsUrl: string = `${environment.warehouseUrl}/products`;
+export class ShopService {
+    private readonly productsUrl: string = `${environment.shopProxyUrl}/products`;
 
-    options = {
-        headers: new HttpHeaders({
-            'Authorization': `Basic ${btoa(`${environment.username}:${environment.password}`)}`
-        })
-    };
+    // options = {
+    //     headers: new HttpHeaders({
+    //         'Authorization': `Basic ${btoa(`${environment.username}:${environment.password}`)}`
+    //     })
+    // };
 
     constructor(private http: HttpClient) {
 
     };
 
     product$(id: string) {
-        return <Observable<Product>>this.http.get<Product>(`${this.productsUrl}/${id}`, this.options)
+        return <Observable<Product>>this.http.get<Product>(`${this.productsUrl}/${id}`)
             .pipe(
                 tap(console.debug),
                 catchError(this.handleError));
     }
 
     products$() {
-        return <Observable<Product[]>>this.http.get<Product[]>(this.productsUrl, this.options)
+        return <Observable<Product[]>>this.http.get<Product[]>(this.productsUrl)
             .pipe(
                 tap(console.debug),
                 catchError(this.handleError));
