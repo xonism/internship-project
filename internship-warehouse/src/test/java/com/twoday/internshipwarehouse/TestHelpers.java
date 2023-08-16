@@ -9,7 +9,7 @@ public class TestHelpers {
 
     public static final String EXPECTED_ORDER_REPORT_PATH = REPORTS_DIRECTORY + "/expected-order-report.csv";
 
-    public static final String REPORT_LOCAL_DATE_TIME = "2023-08-11T12:00";
+    public static final String REPORT_LOCAL_DATE_TIME = "2023-08-15T20:00";
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 

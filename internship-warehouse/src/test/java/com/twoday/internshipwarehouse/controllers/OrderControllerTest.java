@@ -55,8 +55,9 @@ class OrderControllerTest {
     void givenAuthorizedUser_whenCreateOrderEndpointIsCalled_thenOrderIsReturned() throws Exception {
         int productId = 1;
         int quantity = 1;
+        BigDecimal unitPrice = new BigDecimal("1.1");
 
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(productId, quantity);
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(productId, quantity, unitPrice);
 
         String username = "user";
         String password = "password";
@@ -64,8 +65,9 @@ class OrderControllerTest {
         Order order = Order.builder()
                 .id(1)
                 .user(new User(1, username, password))
-                .product(new Product(1, "1", "1", new BigDecimal("1.1"), 1))
+                .product(new Product(1, "1", "1", unitPrice, 1))
                 .quantity(quantity)
+                .unitPrice(unitPrice)
                 .build();
 
         when(orderService.create(username, orderCreateRequest)).thenReturn(order);
@@ -77,7 +79,7 @@ class OrderControllerTest {
 
         MvcResult actualResult = mockMvc.perform(requestBuilder).andReturn();
 
-        OrderDTO expectedResult = new OrderDTO(1, 1, productId, quantity);
+        OrderDTO expectedResult = new OrderDTO(1, 1, productId, quantity, unitPrice);
 
         assertThat(actualResult.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualResult.getResponse().getContentAsString())
@@ -90,7 +92,8 @@ class OrderControllerTest {
     @Test
     @WithAnonymousUser
     void givenUnauthorizedUser_whenCreateOrderEndpointIsCalled_thenUnauthorizedStatusIsReturned() throws Exception {
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(1, 1);
+        OrderCreateRequest orderCreateRequest =
+                new OrderCreateRequest(1, 1, new BigDecimal("1.1"));
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.post(endpoint)
                 .content(TestHelpers.getObjectAsJsonString(orderCreateRequest))

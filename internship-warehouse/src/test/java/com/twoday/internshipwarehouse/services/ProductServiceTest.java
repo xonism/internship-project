@@ -82,14 +82,15 @@ class ProductServiceTest {
 
     @Test
     void givenValidOrderCreateRequest_whenUpdateQuantity_thenProductIsUpdated() {
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(id, 1);
+        BigDecimal unitPrice = new BigDecimal("1.1");
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(id, 1, unitPrice);
 
-        Product mockedProduct = new Product(id, "1", "1", new BigDecimal("1.1"), 1);
+        Product mockedProduct = new Product(id, "1", "1", unitPrice, 1);
         when(productRepository.findById(id)).thenReturn(Optional.of(mockedProduct));
         when(productRepository.save(mockedProduct)).thenAnswer(invocationOnMock -> invocationOnMock.getArguments()[0]);
 
         Product actualResult = productService.updateQuantity(orderCreateRequest);
-        Product expectedResult = new Product(id, "1", "1", new BigDecimal("1.1"), 0);
+        Product expectedResult = new Product(id, "1", "1", unitPrice, 0);
         assertThat(actualResult).usingRecursiveComparison().isEqualTo(expectedResult);
 
         verify(productRepository).findById(id);
@@ -99,7 +100,7 @@ class ProductServiceTest {
 
     @Test
     void givenInvalidOrderCreateRequest_whenUpdateQuantity_thenInvalidValueExceptionIsThrown() {
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(id, 0);
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(id, 0, new BigDecimal("1.1"));
 
         String actualMessage = catchThrowableOfType(() ->
                 productService.updateQuantity(orderCreateRequest), InvalidValueException.class).getMessage();
@@ -111,9 +112,10 @@ class ProductServiceTest {
 
     @Test
     void givenInvalidOrderCreateRequest_whenUpdateQuantity_thenInsufficientQuantityExceptionIsThrown() {
-        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(id, 2);
+        BigDecimal unitPrice = new BigDecimal("1.1");
+        OrderCreateRequest orderCreateRequest = new OrderCreateRequest(id, 2, unitPrice);
 
-        Product mockedProduct = new Product(id, "1", "1", new BigDecimal("1.1"), 1);
+        Product mockedProduct = new Product(id, "1", "1", unitPrice, 1);
         when(productRepository.findById(id)).thenReturn(Optional.of(mockedProduct));
 
         String actualMessage = catchThrowableOfType(() ->
