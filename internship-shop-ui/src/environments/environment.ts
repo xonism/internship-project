@@ -1,5 +1,5 @@
 export const environment = {
-    warehouseUrl: 'http://localhost:9090/warehouse',
+    shopProxyUrl: 'http://localhost:4200',
     username: 'tomcat',
     password: 'tomcat'
 }
