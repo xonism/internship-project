@@ -9,8 +9,7 @@
 }
 
 .product-list .product {
-    border: 0.2rem solid var(--product-border);
-    background-color: var(--product-background);
+    border: 0.2rem solid var(--accent-color-dark);
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
@@ -18,11 +17,6 @@
     width: calc(15% - 1rem);
     font-family: 'Poppins', sans-serif;
     color: var(--text-color);
-    transition: background-color 0.25s;
-}
-
-.product-list .product:hover {
-    background-color: var(--product-border);
 }
 
 .product-list .name {

@@ -1,7 +1,7 @@
 :root {
     --text-color: #263238;
-    --product-background: #FFB300;
-    --product-border: #FF8F00;
+    --accent-color-light: #FFB300;
+    --accent-color-dark: #FF8F00;
 }
 
 * {
@@ -13,4 +13,13 @@
 
 input[type=number] {
     appearance: textfield;
+}
+
+.accent-colors {
+    background-color: var(--accent-color-light);
+    transition: background-color 0.25s;
+}
+
+.accent-colors:hover {
+    background-color: var(--accent-color-dark);
 }
