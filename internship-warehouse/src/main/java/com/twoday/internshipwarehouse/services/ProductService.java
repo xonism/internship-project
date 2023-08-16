@@ -8,10 +8,12 @@ import com.twoday.internshipwarehouse.exceptions.ProductNotFoundByIdException;
 import com.twoday.internshipwarehouse.models.Product;
 import com.twoday.internshipwarehouse.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ProductService {
@@ -19,6 +21,8 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public Product getById(int id) {
+        log.debug("Getting product with ID: {}", id);
+
         return productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundByIdException(id));
     }
