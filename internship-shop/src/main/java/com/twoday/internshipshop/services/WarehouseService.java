@@ -36,7 +36,10 @@ public class WarehouseService {
     }
 
     public ProductDTO getById(int id) {
-        return restTemplate.getForObject("/products/" + id, ProductDTO.class);
+        ProductDTO productDTO = restTemplate.getForObject("/products/" + id, ProductDTO.class);
+        if (productDTO == null) return null;
+        productDTO.setPrice(priceService.calculatePriceWithProfitMargin(productDTO.getPrice()));
+        return productDTO;
     }
 
     public List<ProductDTO> getAllProducts() {
