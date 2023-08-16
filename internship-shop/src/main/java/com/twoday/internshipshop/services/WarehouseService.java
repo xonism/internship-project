@@ -1,11 +1,12 @@
 package com.twoday.internshipshop.services;
 
 import com.twoday.internshipmodel.ErrorMessage;
+import com.twoday.internshipmodel.ProductDTO;
 import com.twoday.internshipmodel.OrderCreateRequest;
 import com.twoday.internshipmodel.OrderDTO;
-import com.twoday.internshipmodel.ProductDTO;
 import com.twoday.internshipshop.exceptions.BadRequestException;
 import com.twoday.internshipshop.exceptions.UnknownException;
+import com.twoday.internshipshop.utils.PriceUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -32,12 +33,15 @@ public class WarehouseService {
 
     public List<ProductDTO> getAllProducts() {
         ProductDTO[] productDTOS = restTemplate.getForObject("/products", ProductDTO[].class);
-        return productDTOS == null
-                ? List.of()
-                : List.of(productDTOS);
+        if (productDTOS == null) return List.of();
+        List<ProductDTO> productDtoList = List.of(productDTOS);
+        productDtoList.forEach(productDTO ->
+                productDTO.setPrice(PriceUtils.calculatePriceWithProfitMargin(productDTO.getPrice())));
+        return productDtoList;
     }
 
     public OrderDTO createOrder(OrderCreateRequest orderCreateRequest) {
+        orderCreateRequest.setUnitPrice(PriceUtils.calculatePriceWithWholesaleDiscount(orderCreateRequest));
         try {
             return restTemplate.postForObject("/orders", orderCreateRequest, OrderDTO.class);
         } catch (HttpClientErrorException exception) {
