@@ -29,4 +29,9 @@
         <appender-ref ref="RollingFile"/>
         <appender-ref ref="Console"/>
     </root>
+
+    <logger name="com.twoday.internshipwarehouse.controllers.OrderController" level="debug" additivity="false">
+        <appender-ref ref="RollingFile"/>
+        <appender-ref ref="Console"/>
+    </logger>
 </configuration>
