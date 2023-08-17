@@ -5,7 +5,7 @@ import { ShopService } from "src/app/services/shop.service";
 @Component({
     selector: 'insh-product-list',
     templateUrl: './product-list.component.html',
-    styleUrls: ['./product-list.component.css']
+    styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent {
 

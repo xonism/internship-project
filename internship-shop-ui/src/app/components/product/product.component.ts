@@ -9,7 +9,7 @@ import { Order } from "src/app/interfaces/order";
 @Component({
     selector: 'insh-product',
     templateUrl: './product.component.html',
-    styleUrls: ['./product.component.css']
+    styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit, OnDestroy {
     private subscriptions: Subscription[] = [];
