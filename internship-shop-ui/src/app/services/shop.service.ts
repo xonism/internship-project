@@ -1,0 +1,44 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Product } from '../interfaces/product';
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { OrderCreateRequest } from '../interfaces/order-create-request';
+import { Order } from '../interfaces/order';
+
+@Injectable({ providedIn: 'root' })
+export class ShopService {
+    private readonly productsUrl: string = `${environment.shopProxyUrl}/products`;
+    private readonly ordersUrl: string = `${environment.shopProxyUrl}/orders`;
+
+    constructor(private http: HttpClient) {
+
+    };
+
+    product$(id: string) {
+        return <Observable<Product>>this.http.get<Product>(`${this.productsUrl}/${id}`)
+            .pipe(
+                tap(console.debug),
+                catchError(this.handleError));
+    }
+
+    products$() {
+        return <Observable<Product[]>>this.http.get<Product[]>(this.productsUrl)
+            .pipe(
+                tap(console.debug),
+                catchError(this.handleError));
+    }
+
+    order$(orderCreateRequest: OrderCreateRequest) {
+        return <Observable<Order>>this.http.post<Order>(this.ordersUrl, orderCreateRequest)
+            .pipe(
+                tap(console.debug),
+                catchError(this.handleError));
+    }
+
+    private handleError(error: HttpErrorResponse): Observable<never> {
+        console.error(error);
+        return throwError(() => new Error(`An error occurred - Error code: ${error.status}`));
+    };
+}

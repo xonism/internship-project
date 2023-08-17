@@ -1,9 +1,9 @@
 package com.twoday.internshipshop.services;
 
 import com.twoday.internshipmodel.ErrorMessage;
-import com.twoday.internshipmodel.ProductDTO;
 import com.twoday.internshipmodel.OrderCreateRequest;
 import com.twoday.internshipmodel.OrderDTO;
+import com.twoday.internshipmodel.ProductDTO;
 import com.twoday.internshipshop.exceptions.BadRequestException;
 import com.twoday.internshipshop.exceptions.UnknownException;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +34,13 @@ public class WarehouseService {
                 .basicAuthentication(username, password)
                 .build();
         this.priceService = priceService;
+    }
+
+    public ProductDTO getById(int id) {
+        ProductDTO productDTO = restTemplate.getForObject("/products/" + id, ProductDTO.class);
+        if (productDTO == null) return null;
+        productDTO.setPrice(priceService.calculatePriceWithProfitMargin(productDTO.getPrice()));
+        return productDTO;
     }
 
     public List<ProductDTO> getAllProducts() {

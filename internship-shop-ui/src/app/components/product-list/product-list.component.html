@@ -1,0 +1,8 @@
+<ul class="product-list">
+    <li *ngFor="let product of products" class="product accent-colors">
+        <a class="link" [routerLink]="['/product', product.id]">
+            <p class="name">{{product.name}}</p>
+            <p class="price">{{product.price}} €</p>
+        </a>
+    </li>
+</ul>
