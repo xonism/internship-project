@@ -16,21 +16,21 @@ export class ShopService {
 
     };
 
-    product$(id: string) {
+    getProduct$(id: string) {
         return <Observable<Product>>this.http.get<Product>(`${this.productsUrl}/${id}`)
             .pipe(
                 tap(console.debug),
                 catchError(this.handleError));
     }
 
-    products$() {
+    getProducts$() {
         return <Observable<Product[]>>this.http.get<Product[]>(this.productsUrl)
             .pipe(
                 tap(console.debug),
                 catchError(this.handleError));
     }
 
-    order$(orderCreateRequest: OrderCreateRequest) {
+    createOrder$(orderCreateRequest: OrderCreateRequest) {
         return <Observable<Order>>this.http.post<Order>(this.ordersUrl, orderCreateRequest)
             .pipe(
                 tap(console.debug),
