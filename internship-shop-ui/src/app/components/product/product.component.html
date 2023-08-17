@@ -23,6 +23,6 @@
             <input class="quantity-input" type="number" [(ngModel)]="quantity" disabled>
             <button class="quantity-plus accent-colors" (click)="incrementQuantity()">+</button>
         </div>
-        <button class="button-order accent-colors" (click)="submitOrder()">Order</button>
+        <button class="button-order accent-colors" (click)="submitOrder()" [disabled]="isLoading">Order</button>
     </div>
 </div>

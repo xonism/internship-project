@@ -19,6 +19,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     quantity: number = 1;
     order: Order | null = null;
 
+    isLoading: boolean = true;
+
     constructor(private route: ActivatedRoute, private shopService: ShopService) {
 
     }
@@ -28,8 +30,9 @@ export class ProductComponent implements OnInit, OnDestroy {
             this.id = params['id'];
         }));
 
-        this.subscriptions.push(this.shopService.product$(this.id).subscribe(product => {
+        this.subscriptions.push(this.shopService.getProduct$(this.id).subscribe(product => {
             this.product = product;
+            this.isLoading = false;
         }));
     }
 
@@ -46,14 +49,21 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
 
     submitOrder() {
+        this.isLoading = true;
+
         const orderCreateRequest: OrderCreateRequest = {
             productId: +this.id,
             quantity: this.quantity,
             unitPrice: this.product?.price
         }
 
-        this.subscriptions.push(this.shopService.order$(orderCreateRequest).subscribe(order => {
+        this.subscriptions.push(this.shopService.createOrder$(orderCreateRequest).subscribe(order => {
             this.order = order;
+
+            this.subscriptions.push(this.shopService.getProduct$(this.id).subscribe(product => {
+                this.product = product;
+                this.isLoading = false;
+            }));
         }));
     }
 

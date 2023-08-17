@@ -36,6 +36,12 @@
     cursor: pointer;
 }
 
+.product .button-order:disabled,
+.product .button-order[disabled] {
+    background-color: var(--disabled-color);
+    border: 0.1rem solid var(--disabled-color);
+}
+
 .product .order-buttons {
     display: flex;
     gap: 2rem;
