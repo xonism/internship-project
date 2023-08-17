@@ -30,10 +30,7 @@ export class ProductComponent implements OnInit, OnDestroy {
             this.id = params['id'];
         }));
 
-        this.subscriptions.push(this.shopService.getProduct$(this.id).subscribe(product => {
-            this.product = product;
-            this.isLoading = false;
-        }));
+        this.getProduct();
     }
 
     decrementQuantity() {
@@ -59,11 +56,14 @@ export class ProductComponent implements OnInit, OnDestroy {
 
         this.subscriptions.push(this.shopService.createOrder$(orderCreateRequest).subscribe(order => {
             this.order = order;
+            this.getProduct();
+        }));
+    }
 
-            this.subscriptions.push(this.shopService.getProduct$(this.id).subscribe(product => {
-                this.product = product;
-                this.isLoading = false;
-            }));
+    getProduct() {
+        this.subscriptions.push(this.shopService.getProduct$(this.id).subscribe(product => {
+            this.product = product;
+            this.isLoading = false;
         }));
     }
 
