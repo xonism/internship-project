@@ -2,19 +2,19 @@
     <table class="property-table">
         <tr>
             <th class="product-header">Name</th>
-            <td>{{product?.name}}</td>
+            <td>{{product?.name || loadingMessage}}</td>
         </tr>
         <tr>
             <th class="product-header">Description</th>
-            <td>{{product?.description}}</td>
+            <td>{{product?.description || loadingMessage}}</td>
         </tr>
         <tr>
             <th class="product-header">Price</th>
-            <td>{{product?.price}} €</td>
+            <td>{{product?.price || loadingMessage}} €</td>
         </tr>
         <tr>
             <th class="product-header">Quantity in Stock</th>
-            <td>{{product?.quantity}}</td>
+            <td>{{product?.quantity || loadingMessage}}</td>
         </tr>
     </table>
     <div class="order-buttons">
@@ -23,6 +23,6 @@
             <input class="quantity-input" type="number" [(ngModel)]="quantity" disabled>
             <button class="quantity-plus accent-colors" (click)="incrementQuantity()">+</button>
         </div>
-        <button class="button-order accent-colors" (click)="submitOrder()">Order</button>
+        <button class="button-order accent-colors" (click)="submitOrder()" [disabled]="isLoading">Order</button>
     </div>
 </div>
