@@ -1,0 +1,27 @@
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/700.css';
+
+$text-color: #263238;
+$accent-color-light: #FFB300;
+$accent-color-dark: #FF8F00;
+$disabled-color: #BDBDBD;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+}
+
+input[type=number] {
+    appearance: textfield;
+}
+
+.accent-colors {
+    background-color: $accent-color-light;
+    transition: background-color 0.25s;
+
+    &:hover {
+        background-color: $accent-color-dark;
+    }
+}
