@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Product } from "src/app/interfaces/product";
-import { Subscription, filter, map } from 'rxjs';
+import { Component } from "@angular/core";
+import { map } from 'rxjs';
 import { ShopService } from "src/app/services/shop.service";
 
 @Component({
@@ -9,7 +8,7 @@ import { ShopService } from "src/app/services/shop.service";
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
-    
+
     constructor(private shopService: ShopService) {
 
     }
