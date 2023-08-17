@@ -19,6 +19,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     quantity: number = 1;
     order: Order | null = null;
 
+    loadingMessage: string = 'Loading..'
     isLoading: boolean = true;
 
     constructor(private route: ActivatedRoute, private shopService: ShopService) {
