@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import { map } from 'rxjs';
-import { ShopService } from "src/app/services/shop.service";
 import {Product} from "../../interfaces/product";
 
 @Component({
