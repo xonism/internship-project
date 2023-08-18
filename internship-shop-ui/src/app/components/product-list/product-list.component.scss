@@ -1,48 +1,32 @@
-@import "src/styles.scss";
-
 .product-list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    list-style-type: none;
-    gap: 1rem;
-    padding: 0;
-    margin-top: 1rem;
+	gap: 1rem;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin-top: 1rem;
 
-    .product {
-        border: 0.2rem solid $accent-color-dark;
-        border-radius: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: calc(15% - 1rem);
-        font-family: 'Poppins', sans-serif;
-        color: $text-color;
-    }
+	.product-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: calc(15% - 1rem);
+		font-family: 'Poppins', sans-serif;
+		padding: 1rem;
 
-    .name {
-        font-size: 1.25rem;
-        font-weight: bold;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%;
-    }
+		.title {
+			width: 100%;
+			font-size: 1.25rem;
+			font-weight: bold;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			text-align: center;
+			font-family: 'Poppins', sans-serif;
+		}
 
-    .link {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem;
-        width: 100%;
-        height: 100%;
-        text-decoration: none;
-
-        &:link,
-        &:visited,
-        &:hover,
-        &:active {
-            color: $text-color;
-        }
-    }
+		.button-view-product {
+			font-weight: bold;
+			padding: 0;
+		}
+	}
 }
