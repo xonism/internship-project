@@ -1,12 +1,9 @@
 @import '@fontsource/poppins/400.css';
 @import '@fontsource/poppins/700.css';
+@import 'material-icons/iconfont/material-icons.css';
 
 * {
 	box-sizing: border-box;
 	margin: 0;
 	font-family: 'Poppins', sans-serif;
-}
-
-input[type=number] {
-	appearance: textfield;
 }
