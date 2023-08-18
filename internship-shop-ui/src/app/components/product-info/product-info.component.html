@@ -1,0 +1,18 @@
+<mat-list>
+	<mat-list-item>
+		<span matListItemTitle class="list-title">Name</span>
+		<span matListItemLine class="list-line">{{product?.name ?? loadingMessage}}</span>
+	</mat-list-item>
+	<mat-list-item>
+		<span matListItemTitle class="list-title">Description</span>
+		<span matListItemLine class="list-line">{{product?.description ?? loadingMessage}}</span>
+	</mat-list-item>
+	<mat-list-item>
+		<span matListItemTitle class="list-title">Price</span>
+		<span matListItemLine class="list-line">{{renderPrice()}}</span>
+	</mat-list-item>
+	<mat-list-item>
+		<span matListItemTitle class="list-title">Quantity in Stock</span>
+		<span matListItemLine class="list-line">{{product?.quantity ?? loadingMessage}}</span>
+	</mat-list-item>
+</mat-list>
