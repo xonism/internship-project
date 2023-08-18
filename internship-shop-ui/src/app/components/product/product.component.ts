@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
 import {OrderCreateRequest} from "src/app/interfaces/order-create-request";
 import {Order} from "src/app/interfaces/order";
+import {SnackBarService} from "../../services/snack-bar.service";
 
 @Component({
 	selector: 'insh-product',
@@ -21,14 +22,20 @@ export class ProductComponent implements OnInit, OnDestroy {
 
 	isLoading: boolean = true;
 
-	constructor(private route: ActivatedRoute, private shopService: ShopService) {
+	constructor(
+		private route: ActivatedRoute,
+		private shopService: ShopService,
+		private snackBarService: SnackBarService
+	) {
 
 	}
 
 	ngOnInit() {
-		this.subscriptions.push(this.route.params.subscribe(params => {
-			this.id = params['id'];
-		}));
+		this.subscriptions.push(
+			this.route.params.subscribe(params => {
+				this.id = params['id'];
+			})
+		);
 
 		this.getProduct();
 	}
@@ -42,17 +49,25 @@ export class ProductComponent implements OnInit, OnDestroy {
 			unitPrice: this.product?.price
 		}
 
-		this.subscriptions.push(this.shopService.createOrder$(orderCreateRequest).subscribe(order => {
-			this.order = order;
-			this.getProduct();
-		}));
+		this.subscriptions.push(
+			this.shopService.createOrder$(orderCreateRequest).subscribe({
+				next: (order) => {
+					this.order = order;
+					this.getProduct();
+					this.snackBarService.displaySuccessfulOrderSnackBar();
+				},
+				error: () => this.snackBarService.displayErrorOrderSnackBar()
+			})
+		);
 	}
 
 	getProduct() {
-		this.subscriptions.push(this.shopService.getProduct$(this.id).subscribe(product => {
-			this.product = product;
-			this.isLoading = false;
-		}));
+		this.subscriptions.push(
+			this.shopService.getProduct$(this.id).subscribe(product => {
+				this.product = product;
+				this.isLoading = false;
+			})
+		);
 	}
 
 	onQuantityChanged(quantity: number) {
