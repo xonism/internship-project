@@ -9,7 +9,7 @@ import {Product} from "../../interfaces/product";
 export class QuantityPickerComponent {
 
 	@Input()
-	product: Product | null = null;
+	product?: Product;
 
 	@Output()
 	onQuantityChanged = new EventEmitter<number>();

@@ -9,11 +9,13 @@ import {Product} from "../../interfaces/product";
 export class ProductInfoComponent {
 
 	@Input()
-	product: Product | null = null;
+	product?: Product;
+
+	loadingMessage: string = 'Loading..'
 
 	renderPrice() {
 		return !this.product
-			? 'Loading..'
+			? this.loadingMessage
 			: `${this.product.price} €`;
 	}
 }

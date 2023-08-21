@@ -4,7 +4,6 @@ import {Product} from "src/app/interfaces/product";
 import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
 import {OrderCreateRequest} from "src/app/interfaces/order-create-request";
-import {Order} from "src/app/interfaces/order";
 import {SnackBarService} from "../../services/snack-bar.service";
 
 @Component({
@@ -15,10 +14,9 @@ import {SnackBarService} from "../../services/snack-bar.service";
 export class ProductComponent implements OnInit, OnDestroy {
 	private subscriptions: Subscription[] = [];
 
-	id: string = '';
-	product: Product | null = null;
+	id!: string;
+	product?: Product;
 	quantity: number = 1;
-
 	isLoading: boolean = true;
 
 	constructor(
