@@ -17,17 +17,14 @@ export class ShopService {
 	};
 
 	getProduct$(id: string) {
-		return <Observable<Product>>this.http.get<Product>(`${this.productsUrl}/${id}`)
-			.pipe(tap(console.debug));
+		return <Observable<Product>>this.http.get<Product>(`${this.productsUrl}/${id}`);
 	}
 
 	getProducts$() {
-		return <Observable<Product[]>>this.http.get<Product[]>(this.productsUrl)
-			.pipe(tap(console.debug));
+		return <Observable<Product[]>>this.http.get<Product[]>(this.productsUrl);
 	}
 
 	createOrder$(orderCreateRequest: OrderCreateRequest) {
-		return <Observable<Order>>this.http.post<Order>(this.ordersUrl, orderCreateRequest)
-			.pipe(tap(console.debug));
+		return <Observable<Order>>this.http.post<Order>(this.ordersUrl, orderCreateRequest);
 	}
 }
