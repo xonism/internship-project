@@ -18,12 +18,9 @@ export class QuantityPickerComponent {
 	onQuantityChanged = new EventEmitter<number>();
 
 	adjustQuantity(value: number) {
-		const isNegativeValueAndSufficientPickerQuantity = value < 0 && this.quantity > 1;
-		const isPositiveValueAndSufficientProductQuantity =
-			value > 0 && this.product && this.quantity < this.product.quantity;
-		if (isNegativeValueAndSufficientPickerQuantity || isPositiveValueAndSufficientProductQuantity) {
+		if (this.product && this.product.quantity >= this.quantity + value && this.quantity + value >= 1) {
 			this.quantity += value;
+			this.onQuantityChanged.emit(this.quantity);
 		}
-		this.onQuantityChanged.emit(this.quantity);
 	}
 }
