@@ -18,7 +18,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 	id: string = '';
 	product: Product | null = null;
 	quantity: number = 1;
-	order: Order | null = null;
 
 	isLoading: boolean = true;
 
@@ -51,8 +50,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
 		this.subscriptions.push(
 			this.shopService.createOrder$(orderCreateRequest).subscribe({
-				next: (order) => {
-					this.order = order;
+				next: () => {
 					this.getProduct();
 					this.snackBarService.displaySnackBar("✅ Order successful");
 				},
@@ -70,7 +68,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 		);
 	}
 
-	onQuantityChanged(quantity: number) {
+	setQuantity(quantity: number) {
 		this.quantity = quantity;
 	}
 
