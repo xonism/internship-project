@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {Product} from "../../interfaces/product";
 
 @Component({
-	selector: 'insh-quantity-picker',
+	selector: 'app-quantity-picker',
 	templateUrl: './quantity-picker.component.html',
 	styleUrls: ['./quantity-picker.component.scss']
 })

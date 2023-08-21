@@ -1,7 +1,7 @@
 <div class="product">
-	<insh-product-info [product]="product"></insh-product-info>
+	<app-product-info [product]="product"></app-product-info>
 	<div class="order-buttons">
-		<insh-quantity-picker [product]="product" (onQuantityChanged)="setQuantity($event)"></insh-quantity-picker>
+		<app-quantity-picker [product]="product" (onQuantityChanged)="setQuantity($event)"></app-quantity-picker>
 		<button mat-flat-button color="accent" (click)="submitOrder()" [disabled]="isLoading">Order</button>
 	</div>
 </div>

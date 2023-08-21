@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {Product} from "../../interfaces/product";
 
 @Component({
-	selector: 'insh-product-info',
+	selector: 'app-product-info',
 	templateUrl: './product-info.component.html',
 	styleUrls: ['./product-info.component.scss']
 })

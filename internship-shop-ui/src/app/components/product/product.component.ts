@@ -9,7 +9,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {ErrorMessage} from "../../interfaces/error-message";
 
 @Component({
-	selector: 'insh-product',
+	selector: 'app-product',
 	templateUrl: './product.component.html',
 	styleUrls: ['./product.component.scss']
 })
