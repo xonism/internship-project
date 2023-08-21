@@ -54,9 +54,9 @@ export class ProductComponent implements OnInit, OnDestroy {
 				next: (order) => {
 					this.order = order;
 					this.getProduct();
-					this.snackBarService.displaySuccessfulOrderSnackBar();
+					this.snackBarService.displaySnackBar("✅ Order successful");
 				},
-				error: () => this.snackBarService.displayErrorOrderSnackBar()
+				error: () => this.snackBarService.displaySnackBar("❌ Error occurred")
 			})
 		);
 	}

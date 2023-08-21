@@ -18,17 +18,9 @@ export class SnackBarService {
 
 	}
 
-	displaySuccessfulOrderSnackBar() {
+	displaySnackBar(message: string) {
 		this.matSnackBar.open(
-			"✅ Order successful",
-			this.action,
-			this.config
-		);
-	}
-
-	displayErrorOrderSnackBar() {
-		this.matSnackBar.open(
-			"❌ Error occurred",
+			message,
 			this.action,
 			this.config
 		);
