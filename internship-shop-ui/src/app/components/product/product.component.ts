@@ -5,6 +5,8 @@ import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
 import {OrderCreateRequest} from "src/app/interfaces/order-create-request";
 import {SnackBarService} from "../../services/snack-bar.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ErrorMessage} from "../../interfaces/error-message";
 
 @Component({
 	selector: 'insh-product',
@@ -52,7 +54,10 @@ export class ProductComponent implements OnInit, OnDestroy {
 					this.getProduct();
 					this.snackBarService.displaySnackBar("✅ Order successful");
 				},
-				error: () => this.snackBarService.displaySnackBar("❌ Error occurred")
+				error: (error: HttpErrorResponse) => {
+					const errorMessage: ErrorMessage = error.error;
+					this.snackBarService.displaySnackBar(`❌ ${errorMessage.error}`)
+				}
 			})
 		);
 	}
