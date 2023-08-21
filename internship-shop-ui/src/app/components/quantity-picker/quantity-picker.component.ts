@@ -17,17 +17,13 @@ export class QuantityPickerComponent {
 	@Output()
 	onQuantityChanged = new EventEmitter<number>();
 
-	decrementQuantity() {
-		if (this.quantity > 1) {
-			this.quantity -= 1;
-			this.onQuantityChanged.emit(this.quantity);
+	adjustQuantity(value: number) {
+		const isNegativeValueAndSufficientPickerQuantity = value < 0 && this.quantity > 1;
+		const isPositiveValueAndSufficientProductQuantity =
+			value > 0 && this.product && this.quantity < this.product.quantity;
+		if (isNegativeValueAndSufficientPickerQuantity || isPositiveValueAndSufficientProductQuantity) {
+			this.quantity += value;
 		}
-	}
-
-	incrementQuantity() {
-		if (this.product && this.quantity < this.product.quantity) {
-			this.quantity += 1;
-			this.onQuantityChanged.emit(this.quantity);
-		}
+		this.onQuantityChanged.emit(this.quantity);
 	}
 }
