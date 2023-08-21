@@ -1,13 +1,19 @@
-.center {
-	display: block;
-	margin: auto;
-}
+.quantity-picker {
+	display: flex;
+	align-items: center;
+	margin: 1rem;
 
-.quantity-input-container {
-	width: 4rem;
-}
+	.center {
+		display: block;
+		padding: 0;
+	}
 
-.quantity-input {
-	text-align: center;
-	appearance: textfield;
+	.quantity-input-container {
+		width: 4rem;
+	}
+
+	.quantity-input {
+		text-align: center;
+		appearance: textfield;
+	}
 }

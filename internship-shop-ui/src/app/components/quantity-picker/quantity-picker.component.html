@@ -1,9 +1,11 @@
-<button mat-icon-button color="accent" (click)="decrementQuantity()">
-	<mat-icon class="center" fontIcon="remove"></mat-icon>
-</button>
-<mat-form-field class="quantity-input-container">
-	<input class="quantity-input" matInput type="number" disabled [(ngModel)]="quantity">
-</mat-form-field>
-<button mat-icon-button color="accent" (click)="incrementQuantity()">
-	<mat-icon class="center" fontIcon="add"></mat-icon>
-</button>
+<div class="quantity-picker">
+	<button mat-icon-button color="accent" (click)="decrementQuantity()">
+		<mat-icon class="center" fontIcon="remove"></mat-icon>
+	</button>
+	<mat-form-field class="quantity-input-container" subscriptSizing="dynamic">
+		<input class="quantity-input" matInput type="number" disabled [(ngModel)]="quantity">
+	</mat-form-field>
+	<button mat-icon-button color="accent" (click)="incrementQuantity()">
+		<mat-icon class="center" fontIcon="add"></mat-icon>
+	</button>
+</div>
