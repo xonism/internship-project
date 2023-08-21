@@ -11,10 +11,11 @@ export class QuantityPickerComponent {
 	@Input()
 	product?: Product;
 
+	@Input()
+	quantity!: number;
+
 	@Output()
 	onQuantityChanged = new EventEmitter<number>();
-
-	quantity: number = 1;
 
 	decrementQuantity() {
 		if (this.quantity > 1) {
