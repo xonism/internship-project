@@ -11,11 +11,9 @@ export class ProductInfoComponent {
 	@Input()
 	product: Product | null = null;
 
-	loadingMessage: string = 'Loading..'
-
 	renderPrice() {
 		return !this.product
-			? this.loadingMessage
+			? 'Loading..'
 			: `${this.product.price} €`;
 	}
 }
