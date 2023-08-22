@@ -1,0 +1,6 @@
+<mat-form-field class="select-sort">
+	<mat-label>Sort</mat-label>
+	<mat-select [(value)]="selectedSort" (valueChange)="emitSortChange()">
+		<mat-option *ngFor="let option of sortingOptions" [value]="option">{{ option }}</mat-option>
+	</mat-select>
+</mat-form-field>
