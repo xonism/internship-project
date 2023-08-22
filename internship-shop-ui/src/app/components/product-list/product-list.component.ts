@@ -3,6 +3,7 @@ import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
 import {Product} from "../../interfaces/product";
 import {SortingOptions} from "../../enums/sorting-options.enum";
+import {DialogPriceData} from "../../interfaces/dialog-price-data";
 
 @Component({
 	selector: 'app-product-list',
@@ -11,7 +12,7 @@ import {SortingOptions} from "../../enums/sorting-options.enum";
 })
 export class ProductListComponent implements OnInit, OnDestroy {
 
-	private subscriptions: Subscription[] = [];
+	private subscription: Subscription = Subscription.EMPTY;
 
 	selectedSort: string = SortingOptions.NAME_ASCENDING;
 
@@ -26,24 +27,34 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.subscriptions.push(
-			this.shopService.getProducts$()
-				.subscribe(products => {
-					const processedProducts: Product[] =
-						this.sortProducts(products.filter(product => product.quantity > 0));
-					this.products = processedProducts;
-					this.filteredProducts = processedProducts;
+		this.loadProductList();
+	}
 
-					const sortedProducts =
-						[...products].sort((first, second) => first.price - second.price);
-					this.min = Math.floor(sortedProducts[0].price);
-					this.max = Math.ceil(sortedProducts[sortedProducts.length - 1].price);
-				})
-		);
+	loadProductList(): void {
+		this.subscription = this.shopService.getProducts$()
+			.subscribe((products: Product[]): void => {
+				this.setProductsAndFilteredProducts(products);
+				this.setFilterRange(products);
+			});
+	}
+
+	setProductsAndFilteredProducts(products: Product[]): void {
+		const processedProducts: Product[] =
+			this.sortProducts(products.filter((product: Product) => product.quantity > 0));
+		this.products = processedProducts;
+		this.filteredProducts = processedProducts;
+	}
+
+	setFilterRange(products: Product[]): void {
+		const sortedByPriceProducts: Product[] =
+			[...products].sort((first: Product, second: Product) => first.price - second.price);
+		this.min = Math.floor(sortedByPriceProducts[0].price);
+		this.max = Math.ceil(sortedByPriceProducts[sortedByPriceProducts.length - 1].price);
 	}
 
 	sortProducts(products: Product[]): Product[] {
-		return products.sort((first, second) => {
+		return products.sort((first: Product, second: Product): number => {
+			// TODO: convert to object
 			switch (this.selectedSort) {
 				case SortingOptions.HIGHEST_PRICE:
 					return second.price - first.price;
@@ -60,18 +71,23 @@ export class ProductListComponent implements OnInit, OnDestroy {
 		})
 	}
 
-	setFilteredProducts(filteredProducts: Product[]) {
+	setFilterValues(filterValues: DialogPriceData): void {
+		if (filterValues.min === 0 && filterValues.max === 0) {
+			this.filteredProducts = this.sortProducts(this.products);
+			return;
+		}
+
+		const filteredProducts: Product[] = this.products.filter(
+			(product: Product) => product.price >= filterValues.min && product.price <= filterValues.max);
 		this.filteredProducts = this.sortProducts(filteredProducts);
 	}
 
-	setSelectedSort(selectedSort: string) {
+	setSelectedSort(selectedSort: string): void {
 		this.selectedSort = selectedSort;
 		this.filteredProducts = this.sortProducts(this.filteredProducts);
 	}
 
 	ngOnDestroy(): void {
-		this.subscriptions.forEach((subscription: Subscription) => {
-			subscription.unsubscribe();
-		});
+		this.subscription.unsubscribe();
 	}
 }

@@ -3,7 +3,6 @@ import {DialogPriceData} from "../../interfaces/dialog-price-data";
 import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Subscription} from "rxjs";
-import {Product} from "../../interfaces/product";
 
 @Component({
 	selector: 'app-product-filter',
@@ -12,7 +11,7 @@ import {Product} from "../../interfaces/product";
 })
 export class ProductFilterComponent implements OnDestroy {
 
-	private subscriptions: Subscription[] = [];
+	private subscription: Subscription = Subscription.EMPTY;
 
 	@Input()
 	min!: number;
@@ -20,13 +19,9 @@ export class ProductFilterComponent implements OnDestroy {
 	@Input()
 	max!: number;
 
-	@Input()
-	products!: Product[];
-
 	@Output()
-	filteredProductsChange: EventEmitter<Product[]> = new EventEmitter<Product[]>();
+	filterValuesChange: EventEmitter<DialogPriceData> = new EventEmitter<DialogPriceData>();
 
-	filteredProducts!: Product[];
 	isFilterApplied: boolean = false;
 
 	constructor(public dialog: MatDialog) {
@@ -34,38 +29,37 @@ export class ProductFilterComponent implements OnDestroy {
 	}
 
 	openFilterDialog(): void {
-		const dialogData: DialogPriceData = {
+		const filterRange: DialogPriceData = {
 			min: this.min,
 			max: this.max
 		}
 
 		const dialogRef = this.dialog.open(
 			FilterDialogComponent,
-			{data: dialogData}
+			{data: filterRange}
 		);
 
-		this.subscriptions.push(
-			dialogRef.afterClosed()
-				.subscribe(result => {
-					if (!result) return;
+		this.subscription = dialogRef.afterClosed()
+			.subscribe((result) => {
+				if (!result) return;
 
-					this.filteredProducts =
-						this.products.filter((product) => product.price >= result[0] && product.price <= result[1]);
-					this.isFilterApplied = true;
-					this.filteredProductsChange.emit(this.filteredProducts);
-				})
-		);
+				this.isFilterApplied = true;
+				this.filterValuesChange.emit({
+					min: result[0],
+					max: result[1]
+				});
+			})
 	}
 
 	removeFilters(): void {
-		this.filteredProducts = this.products;
 		this.isFilterApplied = false;
-		this.filteredProductsChange.emit(this.filteredProducts);
+		this.filterValuesChange.emit({
+			min: 0,
+			max: 0
+		});
 	}
 
 	ngOnDestroy(): void {
-		this.subscriptions.forEach((subscription: Subscription) => {
-			subscription.unsubscribe();
-		});
+		this.subscription.unsubscribe();
 	}
 }
