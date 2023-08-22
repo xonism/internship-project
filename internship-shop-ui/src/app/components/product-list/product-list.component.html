@@ -1,9 +1,16 @@
+<div class="sort-filter-container">
+	<app-product-filter [min]="min" [max]="max" [products]="products"
+							  (filteredProductsChange)="setFilteredProducts($event)"></app-product-filter>
+	<app-product-sort [selectedSort]="selectedSort" (selectedSortChange)="setSelectedSort($event)"></app-product-sort>
+</div>
+
 <div class="product-list">
-	<mat-card *ngFor="let product of availableProducts$ | async" class="product-card">
-			<mat-card-title class="title">{{product.name}}</mat-card-title>
+	<mat-card *ngFor="let product of filteredProducts" class="product-card">
+		<mat-card-title class="title">{{product.name}}</mat-card-title>
 		<mat-card-content><p>{{product.price}} €</p></mat-card-content>
 		<mat-card-actions>
-			<button mat-button color="accent" [routerLink]="['/product', product.id]" class="button-view-product">VIEW</button>
+			<button mat-button color="accent" [routerLink]="['/product', product.id]" class="button-view-product">VIEW
+			</button>
 		</mat-card-actions>
 	</mat-card>
 </div>
