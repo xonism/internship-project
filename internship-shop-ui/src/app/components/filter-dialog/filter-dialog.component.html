@@ -1,0 +1,14 @@
+<div class="filter-dialog">
+	<h1 mat-dialog-title class="title">Filter</h1>
+	<div mat-dialog-content class="slider-price">
+		<p>Price</p>
+		<mat-slider [min]="data.min" [max]="data.max" discrete="true">
+			<input [(ngModel)]="min" matSliderStartThumb>
+			<input [(ngModel)]="max" matSliderEndThumb>
+		</mat-slider>
+	</div>
+	<div mat-dialog-actions class="action-button-container">
+		<button mat-button (click)="onDialogClose()">Cancel</button>
+		<button mat-flat-button color="accent" [mat-dialog-close]="[min, max]">Apply</button>
+	</div>
+</div>
