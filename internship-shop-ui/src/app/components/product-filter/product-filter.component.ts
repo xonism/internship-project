@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnDestroy, Output} from "@angular/core";
 import {DialogPriceData} from "../../interfaces/dialog-price-data";
 import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
