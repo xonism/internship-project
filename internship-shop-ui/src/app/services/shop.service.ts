@@ -9,8 +9,9 @@ import {Order} from '../interfaces/order';
 
 @Injectable({providedIn: 'root'})
 export class ShopService {
-	private readonly productsUrl: string = `${environment.shopProxyUrl}/products`;
-	private readonly ordersUrl: string = `${environment.shopProxyUrl}/orders`;
+
+	private readonly productsUrl: string = `${environment.shopUrl}/products`;
+	private readonly ordersUrl: string = `${environment.shopUrl}/orders`;
 
 	constructor(private http: HttpClient) {
 
