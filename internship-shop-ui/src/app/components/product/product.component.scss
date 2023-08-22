@@ -1,58 +1,13 @@
-@import "src/styles.scss";
-
 .product {
-    .quantity-input,
-    .quantity-minus,
-    .quantity-plus {
-        width: 2rem;
-        height: 2rem;
-        text-align: center;
-    }
+	.product-info-header {
+		text-align: left;
+		padding: 0.5rem 2rem;
+		white-space: nowrap;
+	}
 
-    .quantity-minus,
-    .quantity-plus {
-        border: 0.1rem solid $accent-color-dark;
-        border-radius: 0.25rem;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .product-info-header {
-        text-align: left;
-        padding: 0.5rem 2rem;
-        white-space: nowrap;
-    }
-
-    .quantity-adjust {
-        padding: 2rem;
-    }
-
-    .button-order {
-        margin: 1rem;
-        border: 0.1rem solid $accent-color-dark;
-        border-radius: 0.5rem;
-        height: 3rem;
-        width: 8rem;
-        padding: 0.5rem;
-        font-weight: bold;
-        text-align: center;
-        cursor: pointer;
-
-        &:disabled,
-        &[disabled] {
-            background-color: $disabled-color;
-            border: 0.1rem solid $disabled-color;
-        }
-    }
-
-    .order-buttons {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-        margin: 1rem;
-    }
-
-    .property-table {
-        margin: 1rem;
-    }
+	.order-buttons {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 }

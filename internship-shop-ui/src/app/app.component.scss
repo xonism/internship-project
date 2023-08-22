@@ -1,47 +1,37 @@
-@import "src/styles.scss";
+.toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 3rem;
+	gap: 3rem;
 
-.navigation {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    background-color: $text-color;
-    height: 3rem;
+	.link {
+		text-decoration: none;
+		color: #f5f5f5;
+		font-size: 1rem;
+	}
 
-    .link {
-        text-decoration: none;
-        color: whitesmoke !important;
+	.hover-underline-animation {
+		display: inline-block;
+		position: relative;
+		color: whitesmoke;
 
-        &:link,
-        &:visited
-        &:hover
-        &:active {
-            color: $text-color;
-        }
-    }
+		&::after {
+			content: '';
+			position: absolute;
+			width: 100%;
+			transform: scaleX(0);
+			height: 2px;
+			bottom: 0;
+			left: 0;
+			background-color: whitesmoke;
+			transform-origin: bottom right;
+			transition: transform 0.25s ease-out;
+		}
 
-    .hover-underline-animation {
-        display: inline-block;
-        position: relative;
-        color: whitesmoke;
-
-        &::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: whitesmoke;
-            transform-origin: bottom right;
-            transition: transform 0.25s ease-out;
-        }
-
-        &:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-    }
+		&:hover::after {
+			transform: scaleX(1);
+			transform-origin: bottom left;
+		}
+	}
 }

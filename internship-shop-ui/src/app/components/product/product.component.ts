@@ -1,76 +1,83 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { Product } from "src/app/interfaces/product";
-import { Subscription } from 'rxjs';
-import { ShopService } from "src/app/services/shop.service";
-import { OrderCreateRequest } from "src/app/interfaces/order-create-request";
-import { Order } from "src/app/interfaces/order";
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
+import {Product} from "src/app/interfaces/product";
+import {Subscription} from 'rxjs';
+import {ShopService} from "src/app/services/shop.service";
+import {OrderCreateRequest} from "src/app/interfaces/order-create-request";
+import {SnackBarService} from "../../services/snack-bar.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ErrorMessage} from "../../interfaces/error-message";
 
 @Component({
-    selector: 'insh-product',
-    templateUrl: './product.component.html',
-    styleUrls: ['./product.component.scss']
+	selector: 'app-product',
+	templateUrl: './product.component.html',
+	styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit, OnDestroy {
-    private subscriptions: Subscription[] = [];
+	private subscriptions: Subscription[] = [];
 
-    id: string = '';
-    product: Product | null = null;
-    quantity: number = 1;
-    order: Order | null = null;
+	id!: string;
+	product?: Product;
+	quantity: number = 1;
+	isLoading: boolean = true;
 
-    loadingMessage: string = 'Loading..'
-    isLoading: boolean = true;
+	constructor(
+		private route: ActivatedRoute,
+		private shopService: ShopService,
+		private snackBarService: SnackBarService
+	) {
 
-    constructor(private route: ActivatedRoute, private shopService: ShopService) {
+	}
 
-    }
+	ngOnInit() {
+		this.subscriptions.push(
+			this.route.params.subscribe(params => {
+				this.id = params['id'];
+			})
+		);
 
-    ngOnInit() {
-        this.subscriptions.push(this.route.params.subscribe(params => {
-            this.id = params['id'];
-        }));
+		this.getProduct();
+	}
 
-        this.getProduct();
-    }
+	submitOrder() {
+		this.isLoading = true;
 
-    decrementQuantity() {
-        if (this.quantity > 1) {
-            this.quantity -= 1;
-        }
-    }
+		const orderCreateRequest: OrderCreateRequest = {
+			productId: +this.id,
+			quantity: this.quantity,
+			unitPrice: this.product?.price
+		}
 
-    incrementQuantity() {
-        if (this.product && this.quantity < this.product.quantity) {
-            this.quantity += 1;
-        }
-    }
+		this.subscriptions.push(
+			this.shopService.createOrder$(orderCreateRequest).subscribe({
+				next: () => {
+					this.getProduct();
+					this.snackBarService.displaySnackBar("✅ Order successful");
+				},
+				error: (error: HttpErrorResponse) => {
+					const errorMessage: ErrorMessage = error.error;
+					this.snackBarService.displaySnackBar(`❌ ${errorMessage.error}`)
+				}
+			})
+		);
+	}
 
-    submitOrder() {
-        this.isLoading = true;
+	getProduct() {
+		this.subscriptions.push(
+			this.shopService.getProduct$(this.id).subscribe(product => {
+				this.product = product;
+				this.isLoading = false;
+			})
+		);
+	}
 
-        const orderCreateRequest: OrderCreateRequest = {
-            productId: +this.id,
-            quantity: this.quantity,
-            unitPrice: this.product?.price
-        }
+	setQuantity(quantity: number) {
+		this.quantity = quantity;
+	}
 
-        this.subscriptions.push(this.shopService.createOrder$(orderCreateRequest).subscribe(order => {
-            this.order = order;
-            this.getProduct();
-        }));
-    }
-
-    getProduct() {
-        this.subscriptions.push(this.shopService.getProduct$(this.id).subscribe(product => {
-            this.product = product;
-            this.isLoading = false;
-        }));
-    }
-
-    ngOnDestroy() {
-        this.subscriptions.forEach(subscription => {
-            subscription.unsubscribe();
-        });
-    }
+	ngOnDestroy() {
+		this.subscriptions.forEach(subscription => {
+			subscription.unsubscribe();
+		});
+	}
 }
