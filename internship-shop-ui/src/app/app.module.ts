@@ -22,8 +22,8 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
 import {FilterDialogComponent} from "./components/filter-dialog/filter-dialog.component";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatDialogModule} from "@angular/material/dialog";
-import {FilterComponent} from "./components/product-filter/filter.component";
-import {SortComponent} from "./components/product-sort/sort.component";
+import {FilterComponent} from "./components/filter/filter.component";
+import {SortComponent} from "./components/sort/sort.component";
 
 @NgModule({
 	declarations: [

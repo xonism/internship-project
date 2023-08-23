@@ -4,7 +4,7 @@ import {ShopService} from "src/app/services/shop.service";
 import {IProduct} from "../../interfaces/product";
 import {SortType} from "../../enums/sort-type";
 import {IFilterDialogData} from "../../interfaces/filter-dialog-data";
-import {SortComparison} from "../product-sort/sort-comparison";
+import {SortComparison} from "../sort/sort-comparison";
 
 @Component({
 	selector: 'app-product-list',
