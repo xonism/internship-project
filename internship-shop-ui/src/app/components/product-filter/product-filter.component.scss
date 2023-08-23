@@ -1,9 +1,5 @@
-.product-filter {
-	.button-filter {
-		margin: 1rem 0.5rem 1rem 1rem;
-	}
-
-	.button-remove-filter {
-		margin: 1rem 1rem 1rem 0.5rem;
-	}
+.filter {
+	display: flex;
+	gap: 0.5rem;
+	padding: 1rem;
 }

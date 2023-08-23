@@ -1,9 +1,9 @@
-<div class="product-filter">
-	<button mat-flat-button color="accent" class="button-filter" (click)="openFilterDialog()">
+<div class="filter">
+	<button mat-flat-button color="accent" (click)="openFilterDialog()">
 		<mat-icon class="center" fontIcon="tune"></mat-icon>
 		Filter
 	</button>
-	<button mat-flat-button class="button-remove-filter" (click)="removeFilters()" [hidden]="!isFilterApplied">
+	<button mat-flat-button (click)="removeFilters()" [hidden]="!isFilterApplied">
 		<mat-icon class="center" fontIcon="close"></mat-icon>
 		Remove filter
 	</button>
