@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
 import {Product} from "../../interfaces/product";
-import {SortBy} from "../../enums/sort-by.enum";
+import {SortType} from "../../enums/sort-by.enum";
 import {FilterDialogData} from "../../interfaces/filter-dialog-data";
 import {SortingInfo} from "../../enums/sorting-Info";
 
@@ -15,8 +15,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
 	private subscription: Subscription = Subscription.EMPTY;
 
-	selectedSort: SortBy = SortBy.NAME_ASCENDING;
-	sortingOptions: string[] = Object.values(SortBy);
+	selectedSort: SortType = SortType.NAME_ASCENDING;
+	sortingOptions: string[] = Object.values(SortType);
 
 	products!: Product[];
 	filteredProducts!: Product[];
@@ -71,7 +71,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 		this.filteredProducts = this.sortProducts(filteredProducts);
 	}
 
-	setSelectedSort(selectedSort: SortBy): void {
+	setSelectedSort(selectedSort: SortType): void {
 		this.selectedSort = selectedSort;
 		this.filteredProducts = this.sortProducts(this.filteredProducts);
 	}

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {SortBy} from "../../enums/sort-by.enum";
+import {SortType} from "../../enums/sort-by.enum";
 
 @Component({
 	selector: 'app-sort',
@@ -9,13 +9,13 @@ import {SortBy} from "../../enums/sort-by.enum";
 export class SortComponent {
 
 	@Input()
-	selectedSort!: SortBy;
+	selectedSort!: SortType;
 
 	@Input()
 	sortingOptions!: string[];
 
 	@Output()
-	selectedSortChange: EventEmitter<SortBy> = new EventEmitter<SortBy>();
+	selectedSortChange: EventEmitter<SortType> = new EventEmitter<SortType>();
 
 	emitSortChange() {
 		this.selectedSortChange.emit(this.selectedSort);
