@@ -2,8 +2,9 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
 import {Product} from "../../interfaces/product";
-import {SortingOptions} from "../../enums/sorting-options.enum";
+import {SortBy} from "../../enums/sort-by.enum";
 import {DialogPriceData} from "../../interfaces/dialog-price-data";
+import {SortingInfo} from "../../enums/sorting-Info";
 
 @Component({
 	selector: 'app-product-list',
@@ -14,7 +15,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
 	private subscription: Subscription = Subscription.EMPTY;
 
-	selectedSort: string = SortingOptions.NAME_ASCENDING;
+	selectedSort: SortBy = SortBy.NAME_ASCENDING;
 
 	products!: Product[];
 	filteredProducts!: Product[];
@@ -54,20 +55,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
 	sortProducts(products: Product[]): Product[] {
 		return products.sort((first: Product, second: Product): number => {
-			// TODO: convert to object
-			switch (this.selectedSort) {
-				case SortingOptions.HIGHEST_PRICE:
-					return second.price - first.price;
-				case SortingOptions.LOWEST_PRICE:
-					return first.price - second.price;
-				case SortingOptions.NAME_DESCENDING:
-					return second.name.localeCompare(first.name);
-				case SortingOptions.NAME_ASCENDING:
-					return first.name.localeCompare(second.name);
-				default:
-					this.selectedSort = SortingOptions.NAME_ASCENDING;
-					return first.name.localeCompare(second.name);
-			}
+			return SortingInfo[this.selectedSort].sort(first, second);
 		})
 	}
 
@@ -82,7 +70,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 		this.filteredProducts = this.sortProducts(filteredProducts);
 	}
 
-	setSelectedSort(selectedSort: string): void {
+	setSelectedSort(selectedSort: SortBy): void {
 		this.selectedSort = selectedSort;
 		this.filteredProducts = this.sortProducts(this.filteredProducts);
 	}

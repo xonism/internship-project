@@ -40,7 +40,7 @@ export class ProductFilterComponent implements OnDestroy {
 		);
 
 		this.subscription = dialogRef.afterClosed()
-			.subscribe((result) => {
+			.subscribe((result): void => {
 				if (!result) return;
 
 				this.isFilterApplied = true;

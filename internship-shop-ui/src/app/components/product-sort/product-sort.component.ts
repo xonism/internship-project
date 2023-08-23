@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {SortingOptions} from "../../enums/sorting-options.enum";
+import {SortBy} from "../../enums/sort-by.enum";
 
 @Component({
 	selector: 'app-product-sort',
@@ -9,12 +9,12 @@ import {SortingOptions} from "../../enums/sorting-options.enum";
 export class ProductSortComponent {
 
 	@Input()
-	selectedSort!: string;
+	selectedSort!: SortBy;
 
 	@Output()
-	selectedSortChange: EventEmitter<string> = new EventEmitter<string>();
+	selectedSortChange: EventEmitter<SortBy> = new EventEmitter<SortBy>();
 
-	sortingOptions: string[] = Object.values(SortingOptions);
+	sortingOptions: string[] = Object.values(SortBy);
 
 	emitSortChange() {
 		this.selectedSortChange.emit(this.selectedSort);
