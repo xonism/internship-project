@@ -1,4 +1,4 @@
 export interface IFilterDialogData {
-	minPrice: number;
-	maxPrice: number;
+	minRange: number;
+	maxRange: number;
 }

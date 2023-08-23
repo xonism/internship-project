@@ -21,8 +21,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	products!: IProduct[];
 	processedProducts!: IProduct[];
 
-	min!: number;
-	max!: number;
+	minRange!: number;
+	maxRange!: number;
 
 	constructor(private shopService: ShopService) {
 
@@ -49,26 +49,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	setFilterRange(products: IProduct[]): void {
 		const sortedByPriceProducts: IProduct[] =
 			[...products].sort((first: IProduct, second: IProduct) => first.price - second.price);
-		this.min = Math.floor(sortedByPriceProducts[0].price);
-		this.max = Math.ceil(sortedByPriceProducts[sortedByPriceProducts.length - 1].price);
-	}
-
-	setFilterValues(filterValues: IFilterDialogData): void {
-		if (filterValues.minPrice === 0 && filterValues.maxPrice === 0) {
-			this.processedProducts = this.products;
-			return;
-		}
-
-		this.processedProducts = this.products.filter(
-			(product: IProduct) => product.price >= filterValues.minPrice && product.price <= filterValues.maxPrice);
+		this.minRange = Math.floor(sortedByPriceProducts[0].price);
+		this.maxRange = Math.ceil(sortedByPriceProducts[sortedByPriceProducts.length - 1].price);
 	}
 
 	setSelectedSort(selectedSort: ISortTypeInfo): void {
 		this.selectedSort = selectedSort;
 	}
 
-	setProcessedProducts(sortedProducts: IProduct[]): void {
-		this.processedProducts = sortedProducts;
+	setProcessedProducts(products: IProduct[]): void {
+		if (!products) {
+			this.processedProducts = this.products;
+			return;
+		}
+
+		this.processedProducts = products;
 	}
 
 	ngOnDestroy(): void {

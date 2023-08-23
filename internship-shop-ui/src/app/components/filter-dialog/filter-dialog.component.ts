@@ -9,15 +9,15 @@ import {IFilterDialogData} from "../../interfaces/filter-dialog-data";
 })
 export class FilterDialogComponent {
 
-	min: number;
-	max: number;
+	minRange: number;
+	maxRange: number;
 
 	constructor(
 		private dialogRef: MatDialogRef<FilterDialogComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: IFilterDialogData
 	) {
-		this.min = data.minPrice;
-		this.max = data.maxPrice;
+		this.minRange = data.minRange;
+		this.maxRange = data.maxRange;
 	}
 
 	onDialogClose(): void {

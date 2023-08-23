@@ -3,6 +3,7 @@ import {IFilterDialogData} from "../../interfaces/filter-dialog-data";
 import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Subscription} from "rxjs";
+import {FilterService} from "../../services/filter.service";
 
 @Component({
 	selector: 'app-filter',
@@ -14,24 +15,27 @@ export class FilterComponent implements OnDestroy {
 	private subscription: Subscription = Subscription.EMPTY;
 
 	@Input()
-	min!: number;
+	minRange!: number;
 
 	@Input()
-	max!: number;
+	maxRange!: number;
+
+	@Input()
+	elements!: any[];
 
 	@Output()
-	filterValueChange: EventEmitter<IFilterDialogData> = new EventEmitter<IFilterDialogData>();
+	elementsChange: EventEmitter<any[]> = new EventEmitter<any[]>();
 
 	isFilterApplied: boolean = false;
 
-	constructor(public dialog: MatDialog) {
+	constructor(public dialog: MatDialog, private filterService: FilterService) {
 
 	}
 
 	openFilterDialog(): void {
 		const filterDialogData: IFilterDialogData = {
-			minPrice: this.min,
-			maxPrice: this.max
+			minRange: this.minRange,
+			maxRange: this.maxRange
 		}
 
 		const dialogRef = this.dialog.open(
@@ -40,23 +44,18 @@ export class FilterComponent implements OnDestroy {
 		);
 
 		this.subscription = dialogRef.afterClosed()
-			.subscribe((result): void => {
-				if (!result) return;
+			.subscribe((filterCriteria): void => {
+				if (!filterCriteria) return;
 
 				this.isFilterApplied = true;
-				this.filterValueChange.emit({
-					minPrice: result[0],
-					maxPrice: result[1]
-				});
+				const filteredElements: any[] = this.filterService.getFilteredElements(this.elements, filterCriteria);
+				this.elementsChange.emit(filteredElements);
 			})
 	}
 
 	removeFilters(): void {
 		this.isFilterApplied = false;
-		this.filterValueChange.emit({
-			minPrice: 0,
-			maxPrice: 0
-		});
+		this.elementsChange.emit(undefined);
 	}
 
 	ngOnDestroy(): void {

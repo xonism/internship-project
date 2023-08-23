@@ -1,6 +1,6 @@
 <div class="sort-filter-container">
-	<app-filter [min]="min" [max]="max"
-							(filterValueChange)="setFilterValues($event)"></app-filter>
+	<app-filter [minRange]="minRange" [maxRange]="maxRange" [elements]="processedProducts"
+							(elementsChange)="setProcessedProducts($event)"></app-filter>
 	<app-sort *ngIf="processedProducts" [selectedSort]="selectedSort" [sortingOptions]="sortingOptions"
 						[elements]="processedProducts"
 						(selectedSortChange)="setSelectedSort($event)" (elementsChange)="setProcessedProducts($event)"></app-sort>
