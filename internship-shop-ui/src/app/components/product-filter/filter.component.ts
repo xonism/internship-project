@@ -1,15 +1,15 @@
 import {Component, EventEmitter, Input, OnDestroy, Output} from "@angular/core";
-import {DialogPriceData} from "../../interfaces/dialog-price-data";
+import {FilterDialogData} from "../../interfaces/filter-dialog-data";
 import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Subscription} from "rxjs";
 
 @Component({
-	selector: 'app-product-filter',
-	templateUrl: './product-filter.component.html',
-	styleUrls: ['./product-filter.component.scss']
+	selector: 'app-filter',
+	templateUrl: './filter.component.html',
+	styleUrls: ['./filter.component.scss']
 })
-export class ProductFilterComponent implements OnDestroy {
+export class FilterComponent implements OnDestroy {
 
 	private subscription: Subscription = Subscription.EMPTY;
 
@@ -20,7 +20,7 @@ export class ProductFilterComponent implements OnDestroy {
 	max!: number;
 
 	@Output()
-	filterValuesChange: EventEmitter<DialogPriceData> = new EventEmitter<DialogPriceData>();
+	filterValueChange: EventEmitter<FilterDialogData> = new EventEmitter<FilterDialogData>();
 
 	isFilterApplied: boolean = false;
 
@@ -29,14 +29,14 @@ export class ProductFilterComponent implements OnDestroy {
 	}
 
 	openFilterDialog(): void {
-		const filterRange: DialogPriceData = {
-			min: this.min,
-			max: this.max
+		const filterDialogData: FilterDialogData = {
+			minPrice: this.min,
+			maxPrice: this.max
 		}
 
 		const dialogRef = this.dialog.open(
 			FilterDialogComponent,
-			{data: filterRange}
+			{data: filterDialogData}
 		);
 
 		this.subscription = dialogRef.afterClosed()
@@ -44,18 +44,18 @@ export class ProductFilterComponent implements OnDestroy {
 				if (!result) return;
 
 				this.isFilterApplied = true;
-				this.filterValuesChange.emit({
-					min: result[0],
-					max: result[1]
+				this.filterValueChange.emit({
+					minPrice: result[0],
+					maxPrice: result[1]
 				});
 			})
 	}
 
 	removeFilters(): void {
 		this.isFilterApplied = false;
-		this.filterValuesChange.emit({
-			min: 0,
-			max: 0
+		this.filterValueChange.emit({
+			minPrice: 0,
+			maxPrice: 0
 		});
 	}
 

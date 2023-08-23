@@ -2,7 +2,7 @@
 	<h1 mat-dialog-title class="title">Filter</h1>
 	<div mat-dialog-content class="slider-price">
 		<p>Price</p>
-		<mat-slider [min]="data.min" [max]="data.max" discrete="true">
+		<mat-slider [min]="data.minPrice" [max]="data.maxPrice" discrete="true">
 			<input [(ngModel)]="min" matSliderStartThumb>
 			<input [(ngModel)]="max" matSliderEndThumb>
 		</mat-slider>

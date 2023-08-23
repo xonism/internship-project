@@ -3,7 +3,7 @@ import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
 import {Product} from "../../interfaces/product";
 import {SortBy} from "../../enums/sort-by.enum";
-import {DialogPriceData} from "../../interfaces/dialog-price-data";
+import {FilterDialogData} from "../../interfaces/filter-dialog-data";
 import {SortingInfo} from "../../enums/sorting-Info";
 
 @Component({
@@ -16,6 +16,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	private subscription: Subscription = Subscription.EMPTY;
 
 	selectedSort: SortBy = SortBy.NAME_ASCENDING;
+	sortingOptions: string[] = Object.values(SortBy);
 
 	products!: Product[];
 	filteredProducts!: Product[];
@@ -59,14 +60,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
 		})
 	}
 
-	setFilterValues(filterValues: DialogPriceData): void {
-		if (filterValues.min === 0 && filterValues.max === 0) {
+	setFilterValues(filterValues: FilterDialogData): void {
+		if (filterValues.minPrice === 0 && filterValues.maxPrice === 0) {
 			this.filteredProducts = this.sortProducts(this.products);
 			return;
 		}
 
 		const filteredProducts: Product[] = this.products.filter(
-			(product: Product) => product.price >= filterValues.min && product.price <= filterValues.max);
+			(product: Product) => product.price >= filterValues.minPrice && product.price <= filterValues.maxPrice);
 		this.filteredProducts = this.sortProducts(filteredProducts);
 	}
 

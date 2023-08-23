@@ -22,8 +22,8 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
 import {FilterDialogComponent} from "./components/filter-dialog/filter-dialog.component";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatDialogModule} from "@angular/material/dialog";
-import {ProductFilterComponent} from "./components/product-filter/product-filter.component";
-import {ProductSortComponent} from "./components/product-sort/product-sort.component";
+import {FilterComponent} from "./components/product-filter/filter.component";
+import {SortComponent} from "./components/product-sort/sort.component";
 
 @NgModule({
 	declarations: [
@@ -33,8 +33,8 @@ import {ProductSortComponent} from "./components/product-sort/product-sort.compo
 		ProductInfoComponent,
 		QuantityPickerComponent,
 		FilterDialogComponent,
-		ProductFilterComponent,
-		ProductSortComponent
+		FilterComponent,
+		SortComponent
 	],
 	imports: [
 		BrowserModule,

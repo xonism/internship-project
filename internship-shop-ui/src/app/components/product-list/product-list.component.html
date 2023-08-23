@@ -1,7 +1,7 @@
 <div class="sort-filter-container">
-	<app-product-filter [min]="min" [max]="max"
-							  (filterValuesChange)="setFilterValues($event)"></app-product-filter>
-	<app-product-sort [selectedSort]="selectedSort" (selectedSortChange)="setSelectedSort($event)"></app-product-sort>
+	<app-filter [min]="min" [max]="max"
+					(filterValueChange)="setFilterValues($event)"></app-filter>
+	<app-sort [selectedSort]="selectedSort" [sortingOptions]="sortingOptions" (selectedSortChange)="setSelectedSort($event)"></app-sort>
 </div>
 
 <div class="product-list">
