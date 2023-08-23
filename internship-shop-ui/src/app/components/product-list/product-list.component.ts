@@ -55,7 +55,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	}
 
 	sortProducts(products: IProduct[]): IProduct[] {
-		return products.sort((firstProduct: IProduct, secondProduct: IProduct): number => { // TODO: rename
+		return products.sort((firstProduct: IProduct, secondProduct: IProduct): number => {
 			return SortComparison[this.selectedSort].getComparison(firstProduct, secondProduct);
 		})
 	}
