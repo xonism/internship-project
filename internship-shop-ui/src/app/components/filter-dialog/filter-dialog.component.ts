@@ -1,6 +1,6 @@
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {FilterDialogData} from "../../interfaces/filter-dialog-data";
+import {IFilterDialogData} from "../../interfaces/filter-dialog-data";
 
 @Component({
 	selector: 'app-filter-dialog',
@@ -14,7 +14,7 @@ export class FilterDialogComponent {
 
 	constructor(
 		private dialogRef: MatDialogRef<FilterDialogComponent>,
-		@Inject(MAT_DIALOG_DATA) public data: FilterDialogData
+		@Inject(MAT_DIALOG_DATA) public data: IFilterDialogData
 	) {
 		this.min = data.minPrice;
 		this.max = data.maxPrice;

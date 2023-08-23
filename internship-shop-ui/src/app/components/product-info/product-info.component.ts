@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Product} from "../../interfaces/product";
+import {IProduct} from "../../interfaces/product";
 
 @Component({
 	selector: 'app-product-info',
@@ -9,7 +9,7 @@ import {Product} from "../../interfaces/product";
 export class ProductInfoComponent {
 
 	@Input()
-	product?: Product;
+	product?: IProduct;
 
 	loadingMessage: string = 'Loading..'
 

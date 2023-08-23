@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnDestroy, Output} from "@angular/core";
-import {FilterDialogData} from "../../interfaces/filter-dialog-data";
+import {IFilterDialogData} from "../../interfaces/filter-dialog-data";
 import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Subscription} from "rxjs";
@@ -20,7 +20,7 @@ export class FilterComponent implements OnDestroy {
 	max!: number;
 
 	@Output()
-	filterValueChange: EventEmitter<FilterDialogData> = new EventEmitter<FilterDialogData>();
+	filterValueChange: EventEmitter<IFilterDialogData> = new EventEmitter<IFilterDialogData>();
 
 	isFilterApplied: boolean = false;
 
@@ -29,7 +29,7 @@ export class FilterComponent implements OnDestroy {
 	}
 
 	openFilterDialog(): void {
-		const filterDialogData: FilterDialogData = {
+		const filterDialogData: IFilterDialogData = {
 			minPrice: this.min,
 			maxPrice: this.max
 		}

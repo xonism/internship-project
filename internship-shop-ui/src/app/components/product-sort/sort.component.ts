@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {SortType} from "../../enums/sort-by.enum";
+import {SortType} from "../../enums/sort-type";
 
 @Component({
 	selector: 'app-sort',
@@ -13,6 +13,8 @@ export class SortComponent {
 
 	@Input()
 	sortingOptions!: string[];
+
+	// TODO: ascending/descending + field name + type
 
 	@Output()
 	selectedSortChange: EventEmitter<SortType> = new EventEmitter<SortType>();
