@@ -1,25 +1,60 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {SortType} from "../../enums/sort-type";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {ISortTypeInfo} from "../../interfaces/sort-type-info";
+import {SortService} from "../../services/sort.service";
 
 @Component({
 	selector: 'app-sort',
 	templateUrl: './sort.component.html',
 	styleUrls: ['./sort.component.scss']
 })
-export class SortComponent {
+export class SortComponent implements OnInit {
 
 	@Input()
-	selectedSort!: SortType;
+	selectedSort!: ISortTypeInfo;
 
 	@Input()
-	sortingOptions!: string[];
+	sortingOptions!: ISortTypeInfo[];
 
-	// TODO: ascending/descending + field name + type
+	@Input()
+	elements!: any[];
 
 	@Output()
-	selectedSortChange: EventEmitter<SortType> = new EventEmitter<SortType>();
+	elementsChange: EventEmitter<any[]> = new EventEmitter<any[]>();
 
-	emitSortChange() {
+	@Output()
+	selectedSortChange: EventEmitter<ISortTypeInfo> = new EventEmitter<ISortTypeInfo>();
+
+	sortNames!: string[];
+
+	constructor(private sortService: SortService) {
+
+	}
+
+	emitSortChange(sortName: string): void {
+		this.emitSelectedSort(sortName);
+		this.emitSortedElements();
+	}
+
+	emitSelectedSort(sortName: string): void {
+		const sortingOption: ISortTypeInfo | undefined = structuredClone(this.sortingOptions)
+			.find((sortingOption: ISortTypeInfo): boolean => sortingOption.sortName === sortName);
+
+		if (sortingOption) {
+			this.selectedSort = sortingOption;
+		}
+
 		this.selectedSortChange.emit(this.selectedSort);
+	}
+
+	emitSortedElements(): void {
+		const sortedElements: undefined | any[] = this.sortService.getSortedElements(this.elements, this.selectedSort);
+		this.elementsChange.emit(sortedElements);
+	}
+
+	ngOnInit(): void {
+		this.sortingOptions = structuredClone(this.sortingOptions);
+		this.sortNames = this.sortingOptions.map((sortTypeInfo: ISortTypeInfo) => sortTypeInfo.sortName);
+
+		this.emitSortedElements();
 	}
 }

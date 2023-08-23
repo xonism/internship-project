@@ -1,11 +1,13 @@
 <div class="sort-filter-container">
 	<app-filter [min]="min" [max]="max"
-					(filterValueChange)="setFilterValues($event)"></app-filter>
-	<app-sort [selectedSort]="selectedSort" [sortingOptions]="sortingOptions" (selectedSortChange)="setSelectedSort($event)"></app-sort>
+							(filterValueChange)="setFilterValues($event)"></app-filter>
+	<app-sort *ngIf="processedProducts" [selectedSort]="selectedSort" [sortingOptions]="sortingOptions"
+						[elements]="processedProducts"
+						(selectedSortChange)="setSelectedSort($event)" (elementsChange)="setProcessedProducts($event)"></app-sort>
 </div>
 
 <div class="product-list">
-	<mat-card *ngFor="let product of filteredProducts" class="product-card">
+	<mat-card *ngFor="let product of processedProducts" class="product-card">
 		<mat-card-title class="title">{{product.name}}</mat-card-title>
 		<mat-card-content><p>{{product.price}} €</p></mat-card-content>
 		<mat-card-actions>

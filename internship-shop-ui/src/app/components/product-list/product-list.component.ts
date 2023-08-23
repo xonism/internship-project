@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
 import {IProduct} from "../../interfaces/product";
-import {SortType} from "../../enums/sort-type";
 import {IFilterDialogData} from "../../interfaces/filter-dialog-data";
-import {SortComparison} from "../sort/sort-comparison";
+import {ProductSortingTypes} from "./ProductSortingTypes";
+import {ISortTypeInfo} from "../../interfaces/sort-type-info";
 
 @Component({
 	selector: 'app-product-list',
@@ -15,11 +15,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
 	private subscription: Subscription = Subscription.EMPTY;
 
-	selectedSort: SortType = SortType.NAME_ASCENDING;
-	sortingOptions: string[] = Object.values(SortType);
+	selectedSort: ISortTypeInfo = ProductSortingTypes.NAME_ASCENDING;
+	sortingOptions: ISortTypeInfo[] = Object.values(ProductSortingTypes);
 
 	products!: IProduct[];
-	filteredProducts!: IProduct[];
+	processedProducts!: IProduct[];
 
 	min!: number;
 	max!: number;
@@ -35,16 +35,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	loadProductList(): void {
 		this.subscription = this.shopService.getProducts$()
 			.subscribe((products: IProduct[]): void => {
-				this.setProductsAndFilteredProducts(products);
+				this.setProductsAndProcessedProducts(products);
 				this.setFilterRange(products);
 			});
 	}
 
-	setProductsAndFilteredProducts(products: IProduct[]): void {
-		const processedProducts: IProduct[] =
-			this.sortProducts(products.filter((product: IProduct): boolean => product.quantity > 0));
+	setProductsAndProcessedProducts(products: IProduct[]): void {
+		const processedProducts: IProduct[] = products.filter((product: IProduct): boolean => product.quantity > 0);
 		this.products = processedProducts;
-		this.filteredProducts = processedProducts;
+		this.processedProducts = processedProducts;
 	}
 
 	setFilterRange(products: IProduct[]): void {
@@ -54,26 +53,22 @@ export class ProductListComponent implements OnInit, OnDestroy {
 		this.max = Math.ceil(sortedByPriceProducts[sortedByPriceProducts.length - 1].price);
 	}
 
-	sortProducts(products: IProduct[]): IProduct[] {
-		return products.sort((firstProduct: IProduct, secondProduct: IProduct): number => {
-			return SortComparison[this.selectedSort].getComparison(firstProduct, secondProduct);
-		})
-	}
-
 	setFilterValues(filterValues: IFilterDialogData): void {
 		if (filterValues.minPrice === 0 && filterValues.maxPrice === 0) {
-			this.filteredProducts = this.sortProducts(this.products);
+			this.processedProducts = this.products;
 			return;
 		}
 
-		const filteredProducts: IProduct[] = this.products.filter(
+		this.processedProducts = this.products.filter(
 			(product: IProduct) => product.price >= filterValues.minPrice && product.price <= filterValues.maxPrice);
-		this.filteredProducts = this.sortProducts(filteredProducts);
 	}
 
-	setSelectedSort(selectedSort: SortType): void {
+	setSelectedSort(selectedSort: ISortTypeInfo): void {
 		this.selectedSort = selectedSort;
-		this.filteredProducts = this.sortProducts(this.filteredProducts);
+	}
+
+	setProcessedProducts(sortedProducts: IProduct[]): void {
+		this.processedProducts = sortedProducts;
 	}
 
 	ngOnDestroy(): void {
