@@ -4,6 +4,7 @@ import {ShopService} from "src/app/services/shop.service";
 import {IProduct} from "../../interfaces/product";
 import {ProductSortingTypes} from "./ProductSortingTypes";
 import {ISortTypeInfo} from "../../interfaces/sort-type-info";
+import {IFilterDialogData} from "../../interfaces/filter-dialog-data";
 
 @Component({
 	selector: 'app-product-list',
@@ -20,8 +21,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	products!: IProduct[];
 	processedProducts!: IProduct[];
 
-	minRange!: number;
-	maxRange!: number;
+	filterDialogData!: IFilterDialogData;
 
 	constructor(private shopService: ShopService) {
 
@@ -48,8 +48,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	setFilterRange(products: IProduct[]): void {
 		const sortedByPriceProducts: IProduct[] =
 			[...products].sort((first: IProduct, second: IProduct) => first.price - second.price);
-		this.minRange = Math.floor(sortedByPriceProducts[0].price);
-		this.maxRange = Math.ceil(sortedByPriceProducts[sortedByPriceProducts.length - 1].price);
+		this.filterDialogData = {
+			minRange: Math.floor(sortedByPriceProducts[0].price),
+			maxRange: Math.ceil(sortedByPriceProducts[sortedByPriceProducts.length - 1].price)
+		}
 	}
 
 	setSelectedSort(selectedSort: ISortTypeInfo): void {

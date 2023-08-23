@@ -23,6 +23,9 @@ export class FilterComponent implements OnDestroy {
 	@Input()
 	elements!: any[];
 
+	@Input()
+	filterDialogData!: IFilterDialogData;
+
 	@Output()
 	elementsChange: EventEmitter<any[]> = new EventEmitter<any[]>();
 
@@ -33,14 +36,9 @@ export class FilterComponent implements OnDestroy {
 	}
 
 	openFilterDialog(): void {
-		const filterDialogData: IFilterDialogData = {
-			minRange: this.minRange,
-			maxRange: this.maxRange
-		}
-
 		const dialogRef = this.dialog.open(
 			FilterDialogComponent,
-			{data: filterDialogData}
+			{data: this.filterDialogData}
 		);
 
 		this.subscription = dialogRef.afterClosed()

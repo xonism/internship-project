@@ -1,5 +1,5 @@
 <div class="sort-filter-container">
-	<app-filter [minRange]="minRange" [maxRange]="maxRange" [elements]="processedProducts"
+	<app-filter [elements]="processedProducts" [filterDialogData]="filterDialogData"
 							(elementsChange)="setProcessedProducts($event)"></app-filter>
 	<app-sort *ngIf="processedProducts" [selectedSort]="selectedSort" [sortingOptions]="sortingOptions"
 						[elements]="processedProducts"
