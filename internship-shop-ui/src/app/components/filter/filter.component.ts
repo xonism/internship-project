@@ -11,7 +11,7 @@ import {StateChangeService} from "../../services/state-change.service";
 	templateUrl: './filter.component.html',
 	styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent implements OnDestroy {
+export class FilterComponent<T> implements OnDestroy {
 
 	private subscription: Subscription = Subscription.EMPTY;
 
@@ -22,13 +22,13 @@ export class FilterComponent implements OnDestroy {
 	maxRange!: number;
 
 	@Input()
-	elements!: any[];
+	elements!: T[];
 
 	@Input()
 	filterDialogData!: IFilterDialogData;
 
 	@Output()
-	elementsChange: EventEmitter<any[]> = new EventEmitter<any[]>();
+	elementsChange: EventEmitter<T[]> = new EventEmitter<T[]>();
 
 	isFilterApplied: boolean = false;
 
