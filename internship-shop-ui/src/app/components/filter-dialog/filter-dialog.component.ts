@@ -12,10 +12,8 @@ export class FilterDialogComponent {
 	minRange: number;
 	maxRange: number;
 
-	constructor(
-		private dialogRef: MatDialogRef<FilterDialogComponent>,
-		@Inject(MAT_DIALOG_DATA) public data: IFilterDialogData
-	) {
+	constructor(private dialogRef: MatDialogRef<FilterDialogComponent>,
+							@Inject(MAT_DIALOG_DATA) public data: IFilterDialogData) {
 		this.minRange = data.minRange;
 		this.maxRange = data.maxRange;
 	}
