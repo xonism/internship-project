@@ -36,8 +36,8 @@ export class SortComponent implements OnInit {
 	}
 
 	emitSelectedSort(sortName: string): void {
-		const sortingOption: ISortTypeInfo | undefined = structuredClone(this.sortingOptions)
-			.find((sortingOption: ISortTypeInfo): boolean => sortingOption.sortName === sortName);
+		const sortingOption: ISortTypeInfo | undefined = this.sortingOptions.find(
+			(sortingOption: ISortTypeInfo): boolean => sortingOption.sortName === sortName);
 
 		if (sortingOption) {
 			this.selectedSort = sortingOption;
@@ -51,7 +51,6 @@ export class SortComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.sortingOptions = structuredClone(this.sortingOptions);
 		this.sortNames = this.sortingOptions.map((sortTypeInfo: ISortTypeInfo) => sortTypeInfo.sortName);
 
 		this.emitSortedElements();
