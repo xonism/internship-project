@@ -20,7 +20,7 @@ export class FilterDialogComponent {
 		this.maxRange = data.maxRange;
 	}
 
-	onDialogClose(): void {
+	close(): void {
 		this.dialogRef.close();
 	}
 }
