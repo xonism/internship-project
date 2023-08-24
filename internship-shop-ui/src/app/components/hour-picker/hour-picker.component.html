@@ -1,0 +1,5 @@
+<mat-form-field class="hour-field">
+	<input matInput type="number" [min]="0" [max]="23" (keydown)="false //noinspection BadExpressionStatementJS"
+				 style="caret-color: transparent" [(ngModel)]="hour" (ngModelChange)="emitChange()">
+	<mat-hint>0-23</mat-hint>
+</mat-form-field>
