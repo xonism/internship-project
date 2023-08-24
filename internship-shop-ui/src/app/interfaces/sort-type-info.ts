@@ -1,4 +1,4 @@
-import {PropertyType} from "../components/enums/property-type";
+import {PropertyType} from "../enums/property-type";
 
 export interface ISortTypeInfo {
 	sortName: string,

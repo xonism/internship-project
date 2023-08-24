@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ISortTypeInfo} from "../interfaces/sort-type-info";
-import {PropertyType} from "../components/enums/property-type";
+import {PropertyType} from "../enums/property-type";
 
 @Injectable({providedIn: 'root'})
 export class SortService {

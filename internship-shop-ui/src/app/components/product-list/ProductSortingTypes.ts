@@ -1,4 +1,4 @@
-import {PropertyType} from "../enums/property-type";
+import {PropertyType} from "../../enums/property-type";
 
 export const ProductSortingTypes = {
 	PRICE_ASCENDING: {
