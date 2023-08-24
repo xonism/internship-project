@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {Product} from "src/app/interfaces/product";
+import {IProduct} from "src/app/interfaces/product";
 import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
-import {OrderCreateRequest} from "src/app/interfaces/order-create-request";
+import {IOrderCreateRequest} from "src/app/interfaces/order-create-request";
 import {SnackBarService} from "../../services/snack-bar.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {ErrorMessage} from "../../interfaces/error-message";
+import {IErrorMessage} from "../../interfaces/error-message";
 
 @Component({
 	selector: 'app-product',
@@ -17,7 +17,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 	private subscriptions: Subscription[] = [];
 
 	id!: string;
-	product?: Product;
+	product?: IProduct;
 	quantity: number = 1;
 	isLoading: boolean = true;
 
@@ -42,7 +42,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 	submitOrder() {
 		this.isLoading = true;
 
-		const orderCreateRequest: OrderCreateRequest = {
+		const orderCreateRequest: IOrderCreateRequest = {
 			productId: +this.id,
 			quantity: this.quantity,
 			unitPrice: this.product?.price
@@ -55,7 +55,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 					this.snackBarService.displaySnackBar("✅ Order successful");
 				},
 				error: (error: HttpErrorResponse) => {
-					const errorMessage: ErrorMessage = error.error;
+					const errorMessage: IErrorMessage = error.error;
 					this.snackBarService.displaySnackBar(`❌ ${errorMessage.error}`)
 				}
 			})

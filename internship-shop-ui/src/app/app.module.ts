@@ -17,6 +17,13 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {ProductInfoComponent} from "./components/product-info/product-info.component";
 import {QuantityPickerComponent} from "./components/quantity-picker/quantity-picker.component";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatSelectModule} from "@angular/material/select";
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
+import {FilterDialogComponent} from "./components/filter-dialog/filter-dialog.component";
+import {MatSliderModule} from "@angular/material/slider";
+import {MatDialogModule} from "@angular/material/dialog";
+import {FilterComponent} from "./components/filter/filter.component";
+import {SortComponent} from "./components/sort/sort.component";
 
 @NgModule({
 	declarations: [
@@ -24,7 +31,10 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 		ProductListComponent,
 		ProductComponent,
 		ProductInfoComponent,
-		QuantityPickerComponent
+		QuantityPickerComponent,
+		FilterDialogComponent,
+		FilterComponent,
+		SortComponent
 	],
 	imports: [
 		BrowserModule,
@@ -38,9 +48,14 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 		MatListModule,
 		MatCardModule,
 		MatToolbarModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		MatSelectModule,
+		MatSliderModule,
+		MatDialogModule
 	],
-	providers: [],
+	providers: [
+		{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {subscriptSizing: 'dynamic'}}
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule {

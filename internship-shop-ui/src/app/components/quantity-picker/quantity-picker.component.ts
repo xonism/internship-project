@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {Product} from "../../interfaces/product";
+import {IProduct} from "../../interfaces/product";
 
 @Component({
 	selector: 'app-quantity-picker',
@@ -9,7 +9,7 @@ import {Product} from "../../interfaces/product";
 export class QuantityPickerComponent {
 
 	@Input()
-	product?: Product;
+	product?: IProduct;
 
 	@Input()
 	quantity!: number;

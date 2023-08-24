@@ -1,0 +1,18 @@
+.filter-dialog {
+	width: 25rem;
+
+	.title {
+		text-align: center;
+	}
+
+	.slider-price {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+	}
+
+	.action-button-container {
+		display: flex;
+		justify-content: space-between;
+	}
+}
