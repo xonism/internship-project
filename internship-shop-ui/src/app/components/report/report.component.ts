@@ -1,9 +1,9 @@
-import {Component, OnDestroy} from "@angular/core";
-import {ShopService} from "../../services/shop.service";
-import {Subscription} from "rxjs";
-import {SnackBarService} from "../../services/snack-bar.service";
+import {Component, OnDestroy} from '@angular/core';
+import {ShopService} from '../../services/shop.service';
+import {Subscription} from 'rxjs';
+import {SnackBarService} from '../../services/snack-bar.service';
 import {saveAs} from 'file-saver';
-import {HttpResponse} from "@angular/common/http";
+import {HttpResponse} from '@angular/common/http';
 
 @Component({
 	selector: 'app-report',
@@ -77,11 +77,11 @@ export class ReportComponent implements OnDestroy {
 
 	getFormattedReportData(reportData: string): string[][] {
 		const result: string[][] = [];
-		reportData.split("\n")
+		reportData.split('\n')
 			.forEach((line: string, index: number): void => {
 				if (index == 0) return;
 
-				result.push(line.replaceAll("\"", "").split(","));
+				result.push(line.replaceAll('\"', '').split(','));
 			})
 		result.pop();
 		return result;
