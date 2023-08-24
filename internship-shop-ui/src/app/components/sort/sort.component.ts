@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {ISortTypeInfo} from "../../interfaces/sort-type-info";
 import {SortService} from "../../services/sort.service";
+import {FilterSortService} from "../../services/filter-sort.service";
 
 @Component({
 	selector: 'app-sort',
@@ -18,6 +19,9 @@ export class SortComponent implements OnInit {
 	@Input()
 	elements!: any[];
 
+	@Input()
+	processedElements!: any[];
+
 	@Output()
 	elementsChange: EventEmitter<any[]> = new EventEmitter<any[]>();
 
@@ -26,13 +30,13 @@ export class SortComponent implements OnInit {
 
 	sortNames!: string[];
 
-	constructor(private sortService: SortService) {
+	constructor(private sortService: SortService, private filterSortService: FilterSortService) {
 
 	}
 
 	emitSortChange(sortName: string): void {
 		this.emitSelectedSort(sortName);
-		this.emitSortedElements();
+		this.emitSortedElements(this.processedElements, this.selectedSort);
 	}
 
 	emitSelectedSort(sortName: string): void {
@@ -46,13 +50,17 @@ export class SortComponent implements OnInit {
 		this.selectedSortChange.emit(this.selectedSort);
 	}
 
-	emitSortedElements(): void {
-		this.elementsChange.emit(this.sortService.getSortedElements(this.elements, this.selectedSort));
+	emitSortedElements(elements: any[], sortType: ISortTypeInfo): void {
+		this.elementsChange.emit(this.sortService.getSortedElements(elements, sortType));
 	}
 
 	ngOnInit(): void {
 		this.sortNames = this.sortingOptions.map((sortTypeInfo: ISortTypeInfo) => sortTypeInfo.sortName);
 
-		this.emitSortedElements();
+		this.emitSortedElements(this.processedElements, this.selectedSort);
+
+		this.filterSortService.filterChange.subscribe((): void => {
+			this.emitSortedElements(this.elements, this.selectedSort);
+		});
 	}
 }

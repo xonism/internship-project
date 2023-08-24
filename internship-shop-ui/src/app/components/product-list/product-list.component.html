@@ -2,7 +2,7 @@
 	<app-filter [elements]="processedProducts" [filterDialogData]="filterDialogData"
 							(elementsChange)="setProcessedProducts($event)"></app-filter>
 	<app-sort *ngIf="processedProducts" [selectedSort]="selectedSort" [sortingOptions]="sortingOptions"
-						[elements]="processedProducts"
+						[elements]="products" [processedElements]="processedProducts"
 						(selectedSortChange)="setSelectedSort($event)" (elementsChange)="setProcessedProducts($event)"></app-sort>
 </div>
 

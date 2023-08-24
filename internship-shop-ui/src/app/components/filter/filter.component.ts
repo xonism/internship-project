@@ -4,6 +4,7 @@ import {FilterDialogComponent} from "../filter-dialog/filter-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Subscription} from "rxjs";
 import {FilterService} from "../../services/filter.service";
+import {FilterSortService} from "../../services/filter-sort.service";
 
 @Component({
 	selector: 'app-filter',
@@ -31,7 +32,9 @@ export class FilterComponent implements OnDestroy {
 
 	isFilterApplied: boolean = false;
 
-	constructor(public dialog: MatDialog, private filterService: FilterService) {
+	constructor(public dialog: MatDialog,
+							private filterService: FilterService,
+							private filterSortService: FilterSortService) {
 
 	}
 
@@ -53,7 +56,7 @@ export class FilterComponent implements OnDestroy {
 
 	removeFilters(): void {
 		this.isFilterApplied = false;
-		this.elementsChange.emit(undefined);
+		this.filterSortService.emitFilterChange();
 	}
 
 	ngOnDestroy(): void {

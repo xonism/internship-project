@@ -59,11 +59,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	}
 
 	setProcessedProducts(products: IProduct[]): void {
-		if (!products) {
-			this.processedProducts = this.products;
-			return;
-		}
-
 		this.processedProducts = products;
 	}
 
