@@ -47,8 +47,7 @@ export class SortComponent implements OnInit {
 	}
 
 	emitSortedElements(): void {
-		const sortedElements: undefined | any[] = this.sortService.getSortedElements(this.elements, this.selectedSort);
-		this.elementsChange.emit(sortedElements);
+		this.elementsChange.emit(this.sortService.getSortedElements(this.elements, this.selectedSort));
 	}
 
 	ngOnInit(): void {
