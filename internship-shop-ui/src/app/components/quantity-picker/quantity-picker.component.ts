@@ -15,7 +15,7 @@ export class QuantityPickerComponent {
 	quantity!: number;
 
 	@Output()
-	onQuantityChanged = new EventEmitter<number>();
+	onQuantityChanged: EventEmitter<number> = new EventEmitter<number>();
 
 	adjustQuantity(value: number) {
 		if (this.product && this.product.quantity >= this.quantity + value && this.quantity + value >= 1) {
