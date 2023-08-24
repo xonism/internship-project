@@ -9,13 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -39,7 +35,7 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping(value = "/reports/{localDateTime}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    @GetMapping(value = "/reports/{localDateTime}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<FileSystemResource> downloadOrderReport(@PathVariable String localDateTime) {
         log.info("Download order report endpoint called with value: {}", localDateTime);
 
@@ -49,7 +45,6 @@ public class OrderController {
 
         return new ResponseEntity<>(
                 new FileSystemResource(file),
-                getContentDispositionHeaders(file.getName()),
                 HttpStatus.OK);
     }
 
@@ -76,12 +71,5 @@ public class OrderController {
                 order.getProduct().getId(),
                 order.getQuantity(),
                 order.getUnitPrice());
-    }
-
-    private MultiValueMap<String, String> getContentDispositionHeaders(String fileName) {
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        String contentDispositionHeaderValue = String.format("attachment; filename=\"%s\"", fileName);
-        headers.put(HttpHeaders.CONTENT_DISPOSITION, List.of(contentDispositionHeaderValue));
-        return headers;
     }
 }
