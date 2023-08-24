@@ -49,8 +49,7 @@ export class FilterComponent implements OnDestroy {
 				if (!filterCriteria) return;
 
 				this.isFilterApplied = true;
-				const filteredElements: any[] = this.filterService.getFilteredElements(this.elements, filterCriteria);
-				this.elementsChange.emit(filteredElements);
+				this.elementsChange.emit(this.filterService.getFilteredElements(this.elements, filterCriteria));
 			})
 	}
 
