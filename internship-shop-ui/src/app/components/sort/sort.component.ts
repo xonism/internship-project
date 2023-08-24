@@ -30,7 +30,7 @@ export class SortComponent implements OnInit {
 
 	sortNames!: string[];
 
-	constructor(private sortService: SortService, private filterSortService: StateChangeService) {
+	constructor(private sortService: SortService, private stateChangeService: StateChangeService) {
 
 	}
 
@@ -59,7 +59,7 @@ export class SortComponent implements OnInit {
 
 		this.emitSortedElements(this.processedElements, this.selectedSort);
 
-		this.filterSortService.filterChange.subscribe((): void => {
+		this.stateChangeService.filterChange.subscribe((): void => {
 			this.emitSortedElements(this.elements, this.selectedSort);
 		});
 	}
