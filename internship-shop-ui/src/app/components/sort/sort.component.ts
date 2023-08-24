@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {ISortTypeInfo} from "../../interfaces/sort-type-info";
 import {SortService} from "../../services/sort.service";
-import {FilterSortService} from "../../services/filter-sort.service";
+import {StateChangeService} from "../../services/state-change.service";
 
 @Component({
 	selector: 'app-sort',
@@ -30,7 +30,7 @@ export class SortComponent implements OnInit {
 
 	sortNames!: string[];
 
-	constructor(private sortService: SortService, private filterSortService: FilterSortService) {
+	constructor(private sortService: SortService, private filterSortService: StateChangeService) {
 
 	}
 
