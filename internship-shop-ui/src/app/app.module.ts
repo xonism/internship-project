@@ -32,6 +32,9 @@ import {SortComponent} from "./components/sort/sort.component";
 		ProductComponent,
 		ProductInfoComponent,
 		QuantityPickerComponent,
+		ReportComponent,
+		DatePickerComponent,
+		HourPickerComponent,
 		FilterDialogComponent,
 		FilterComponent,
 		SortComponent
@@ -49,11 +52,15 @@ import {SortComponent} from "./components/sort/sort.component";
 		MatCardModule,
 		MatToolbarModule,
 		MatSnackBarModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatTableModule,
 		MatSelectModule,
 		MatSliderModule,
 		MatDialogModule
 	],
 	providers: [
+		{provide: MAT_DATE_LOCALE, useValue: 'lt-LT'},
 		{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {subscriptSizing: 'dynamic'}}
 	],
 	bootstrap: [AppComponent]
