@@ -6,7 +6,7 @@ export class StateChangeService {
 	@Output()
 	filterChange: EventEmitter<undefined> = new EventEmitter<undefined>();
 
-	emitFilterChange(): void {
+	emitChange(): void {
 		this.filterChange.emit(undefined);
 	}
 }
