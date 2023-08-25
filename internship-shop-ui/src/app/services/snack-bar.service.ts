@@ -18,7 +18,7 @@ export class SnackBarService {
 
 	}
 
-	displaySnackBar(message: string) {
+	displaySnackBar(message: string): void {
 		this.matSnackBar.open(
 			message,
 			this.action,
