@@ -90,8 +90,25 @@ public class OrderService {
         return csvData;
     }
 
-    private List<Order> getByTimestampBetween(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public List<Order> getAll() {
+        List<Order> orders = orderRepository.findAll();
+        log.debug("Retrieved orders:\n{}", orders);
+
+        return orders;
+    }
+
+    public List<Order> getByTimestampBetween(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         return orderRepository.findByTimestampBetween(startDateTime, endDateTime);
+    }
+
+    public List<Order> getByTimestampBetween(String startDateTime, String endDateTime) {
+        LocalDateTime startLocalDateTime = LocalDateTime.parse(startDateTime).truncatedTo(ChronoUnit.HOURS);
+        LocalDateTime endLocalDateTime = LocalDateTime.parse(endDateTime).truncatedTo(ChronoUnit.HOURS);
+
+        List<Order> orders = orderRepository.findByTimestampBetween(startLocalDateTime, endLocalDateTime);
+        log.debug("Retrieved orders with startDateTime {} & endDateTime {}:\n{}", startDateTime, endDateTime, orders);
+
+        return orders;
     }
 
     private String[] getOrderInfo(Order order) {
