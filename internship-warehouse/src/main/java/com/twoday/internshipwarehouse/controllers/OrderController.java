@@ -9,20 +9,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -36,20 +36,32 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping(value = "/reports/{localDateTime}", produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<FileSystemResource> downloadOrderReport(@PathVariable String localDateTime) {
+    public FileSystemResource downloadOrderReport(@PathVariable String localDateTime) {
         log.info("Download order report endpoint called with value: {}", localDateTime);
 
         LocalDateTime startDateTime = LocalDateTime.parse(localDateTime).truncatedTo(ChronoUnit.HOURS);
         File file = new File(FileUtils.getOrderReportFilePath(reportsDirectory, startDateTime));
         log.debug("File retrieved: {}", file.getPath());
 
-        return new ResponseEntity<>(
-                new FileSystemResource(file),
-                HttpStatus.OK);
+        return new FileSystemResource(file);
+    }
+
+    @GetMapping
+    public List<OrderDTO> getOrders(@RequestParam(required = false) String startDateTime,
+                                    @RequestParam(required = false) String endDateTime) {
+        log.info("Get orders endpoint called");
+
+        List<Order> orders = startDateTime != null && endDateTime != null
+                ? orderService.getByTimestampBetween(startDateTime, endDateTime)
+                : orderService.getAll();
+
+        return orders.stream()
+                .map(this::mapToDTO)
+                .toList();
     }
 
     @PostMapping
-    public ResponseEntity<OrderDTO> createOrder(
+    public OrderDTO createOrder(
             Authentication authentication,
             @RequestBody OrderCreateRequest orderCreateRequest
     ) {
@@ -59,9 +71,7 @@ public class OrderController {
         Order order = orderService.create(authentication.getName(), orderCreateRequest);
         log.debug("Order created:\n{}", order);
 
-        return new ResponseEntity<>(
-                mapToDTO(order),
-                HttpStatus.OK);
+        return mapToDTO(order);
     }
 
     private OrderDTO mapToDTO(Order order) {
@@ -70,6 +80,7 @@ public class OrderController {
                 order.getUser().getId(),
                 order.getProduct().getId(),
                 order.getQuantity(),
-                order.getUnitPrice());
+                order.getUnitPrice(),
+                order.getTimestamp());
     }
 }
