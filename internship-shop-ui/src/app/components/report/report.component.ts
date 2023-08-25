@@ -15,10 +15,10 @@ export class ReportComponent implements OnDestroy {
 
 	private subscriptions: Subscription[] = [];
 
-	date: Date = new Date();
-	maxDate: Date = new Date();
+	selectedDate: Date = new Date();
+	latestAllowedDate: Date = new Date();
 
-	hour: number = new Date().getHours() - 1;
+	selectedHour: number = new Date().getHours() - 1;
 
 	reportData: string[][] = [];
 	isReportLoaded: boolean = false;
@@ -37,12 +37,12 @@ export class ReportComponent implements OnDestroy {
 		});
 	}
 
-	setHour(hour: number): void {
-		this.hour = hour;
+	setSelectedHour(hour: number): void {
+		this.selectedHour = hour;
 	}
 
-	setDate(date: Date): void {
-		this.date = date;
+	setSelectedDate(date: Date): void {
+		this.selectedDate = date;
 	}
 
 	downloadReport(): void {
@@ -57,7 +57,7 @@ export class ReportComponent implements OnDestroy {
 	}
 
 	getReport(): void {
-		if (this.hour > new Date().getHours() - 1) {
+		if (this.selectedHour > new Date().getHours() - 1) {
 			this.snackBarService.displaySnackBar($localize`❌ Report for selected hour isn\'t generated yet`);
 			return;
 		}
@@ -91,7 +91,7 @@ export class ReportComponent implements OnDestroy {
 	}
 
 	getFormattedDateTime(): string {
-		const date: Date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), this.hour);
+		const date: Date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), this.selectedHour);
 		return `${date.toLocaleDateString(this.matDateLocale)}T${date.toLocaleTimeString(this.matDateLocale)}`;
 	}
 }

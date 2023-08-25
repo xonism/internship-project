@@ -1,5 +1,5 @@
-<app-date-picker [date]="date" [maxDate]="maxDate" (onDateChange)="setDate($event)"></app-date-picker>
-<app-hour-picker [hour]="hour" (onHourChanged)="setHour($event)"></app-hour-picker>
+<app-date-picker [selectedDate]="selectedDate" [latestAllowedDate]="latestAllowedDate" (onSelectedDateChange)="setSelectedDate($event)"></app-date-picker>
+<app-hour-picker [selectedHour]="selectedHour" (onSelectedHourChange)="setSelectedHour($event)"></app-hour-picker>
 
 <button i18n mat-flat-button class="btn-get-report" color="accent" (click)="getReport()">Get report</button>
 

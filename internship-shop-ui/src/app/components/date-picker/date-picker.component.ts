@@ -14,9 +14,9 @@ export class DatePickerComponent {
 	latestAllowedDate!: Date;
 
 	@Output()
-	onDateChange: EventEmitter<Date> = new EventEmitter<Date>();
+	onSelectedDateChange: EventEmitter<Date> = new EventEmitter<Date>();
 
 	emitChange(): void {
-		this.onDateChange.emit(this.selectedDate);
+		this.onSelectedDateChange.emit(this.selectedDate);
 	}
 }

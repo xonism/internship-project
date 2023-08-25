@@ -8,12 +8,12 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 export class HourPickerComponent {
 
 	@Input()
-	hour!: number;
+	selectedHour!: number;
 
 	@Output()
-	onHourChanged: EventEmitter<number> = new EventEmitter<number>();
+	onSelectedHourChange: EventEmitter<number> = new EventEmitter<number>();
 
 	emitChange(): void {
-		this.onHourChanged.emit(this.hour);
+		this.onSelectedHourChange.emit(this.selectedHour);
 	}
 }
