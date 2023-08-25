@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="6707361102856436710" datatype="html">
+        <source>Products</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1868606282505332204" datatype="html">
+        <source>Reports</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8829497237648100098" datatype="html">
+        <source>Filter</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/filter-dialog/filter-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8894377483833272091" datatype="html">
+        <source>Price</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/filter-dialog/filter-dialog.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product-info/product-info.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2159130950882492111" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/filter-dialog/filter-dialog.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4391289919356861627" datatype="html">
+        <source>Apply</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/filter-dialog/filter-dialog.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7474678806843985779" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon fontIcon=&quot;tune&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Filter </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/filter/filter.component.html</context>
+          <context context-type="linenumber">3,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6197209369631386309" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon fontIcon=&quot;close&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Remove filter </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/filter/filter.component.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8953033926734869941" datatype="html">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product-info/product-info.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4902817035128594900" datatype="html">
+        <source>Description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product-info/product-info.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="981746566118937756" datatype="html">
+        <source>Quantity in Stock</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product-info/product-info.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3481189047871702446" datatype="html">
+        <source>Loading..</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product-info/product-info.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="575919591041213158" datatype="html">
+        <source>VIEW</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product-list/product-list.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8749047439625967112" datatype="html">
+        <source>Price ↗</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product-list/product-sorting-types.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6486668357295545181" datatype="html">
+        <source>Price ↘</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product-list/product-sorting-types.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8415435272586336699" datatype="html">
+        <source>Name ↗</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product-list/product-sorting-types.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8797642009564173889" datatype="html">
+        <source>Name ↘</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product-list/product-sorting-types.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="220550782947016929" datatype="html">
+        <source>Order</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product/product.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="778108932024404029" datatype="html">
+        <source>✅ Order successful</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/product/product.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7833601438435606828" datatype="html">
+        <source>Get report</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/report/report.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5588045554820170837" datatype="html">
+        <source> Download report
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/report/report.component.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2128755808672960949" datatype="html">
+        <source>User ID</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/report/report.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="991828318697296422" datatype="html">
+        <source>Product ID</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/report/report.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6762504134540024018" datatype="html">
+        <source>Quantity</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/report/report.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1599232533055023845" datatype="html">
+        <source>Unit Price</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/report/report.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5667900632592970266" datatype="html">
+        <source>Timestamp</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/report/report.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7782378873035614617" datatype="html">
+        <source>❌ Report for selected hour isn&apos;t generated yet</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/report/report.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5633470067141352428" datatype="html">
+        <source>❌ No orders were made during selected hour</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/report/report.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5146398958364876914" datatype="html">
+        <source>Sort</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/sort/sort.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7819314041543176992" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/services/snack-bar.service.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
