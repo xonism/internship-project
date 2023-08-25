@@ -57,7 +57,7 @@ export class ReportComponent implements OnDestroy {
 	}
 
 	getReport(): void {
-		if (this.selectedHour > new Date().getHours() - 1) {
+		if (this.selectedDate === new Date() && this.selectedHour > new Date().getHours() - 1) {
 			this.snackBarService.displaySnackBar($localize`❌ Report for selected hour isn\'t generated yet`);
 			return;
 		}
