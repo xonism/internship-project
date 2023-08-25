@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {IProduct} from "src/app/interfaces/product";
 import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
@@ -29,7 +29,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.subscriptions.push(
-			this.route.params.subscribe(params => {
+			this.route.params.subscribe((params: Params): void => {
 				this.id = params['id'];
 			})
 		);
@@ -48,11 +48,11 @@ export class ProductComponent implements OnInit, OnDestroy {
 
 		this.subscriptions.push(
 			this.shopService.createOrder$(orderCreateRequest).subscribe({
-				next: () => {
+				next: (): void => {
 					this.getProduct();
 					this.snackBarService.displaySnackBar($localize`✅ Order successful`);
 				},
-				error: (error: HttpErrorResponse) => {
+				error: (error: HttpErrorResponse): void => {
 					const errorMessage: IErrorMessage = error.error;
 					this.snackBarService.displaySnackBar(`❌ ${errorMessage.error}`)
 				}
@@ -62,19 +62,19 @@ export class ProductComponent implements OnInit, OnDestroy {
 
 	getProduct() {
 		this.subscriptions.push(
-			this.shopService.getProduct$(this.id).subscribe(product => {
+			this.shopService.getProduct$(this.id).subscribe((product: IProduct): void => {
 				this.product = product;
 				this.isLoading = false;
 			})
 		);
 	}
 
-	setQuantity(quantity: number) {
+	setQuantity(quantity: number): void {
 		this.quantity = quantity;
 	}
 
 	ngOnDestroy() {
-		this.subscriptions.forEach(subscription => {
+		this.subscriptions.forEach((subscription: Subscription): void => {
 			subscription.unsubscribe();
 		});
 	}

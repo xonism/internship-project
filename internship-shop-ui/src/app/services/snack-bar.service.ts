@@ -12,7 +12,7 @@ export class SnackBarService {
 		duration: this.duration
 	}
 
-	private action: string = "Close";
+	private action: string = $localize`Close`;
 
 	constructor(private matSnackBar: MatSnackBar) {
 

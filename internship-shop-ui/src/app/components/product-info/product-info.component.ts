@@ -11,7 +11,7 @@ export class ProductInfoComponent {
 	@Input()
 	product?: IProduct;
 
-	loadingMessage: string = 'Loading..'
+	loadingMessage: string = $localize`Loading..`
 
 	renderPrice() {
 		return !this.product

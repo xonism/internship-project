@@ -57,7 +57,7 @@ export class ReportComponent implements OnDestroy {
 	}
 
 	getReport(): void {
-		if (this.selectedDate === new Date() && this.selectedHour > new Date().getHours() - 1) {
+		if (this.selectedDate.toDateString() === new Date().toDateString() && this.selectedHour > new Date().getHours() - 1) {
 			this.snackBarService.displaySnackBar($localize`❌ Report for selected hour isn\'t generated yet`);
 			return;
 		}
@@ -91,7 +91,11 @@ export class ReportComponent implements OnDestroy {
 	}
 
 	getFormattedDateTime(): string {
-		const date: Date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), this.selectedHour);
+		const date: Date = new Date(
+			this.selectedDate.getFullYear(),
+			this.selectedDate.getMonth(),
+			this.selectedDate.getDate(),
+			this.selectedHour);
 		return date.toLocaleString(this.matDateLocale).replace(" ", "T");
 	}
 }
