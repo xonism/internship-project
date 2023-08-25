@@ -1,4 +1,8 @@
 .hour-field {
 	margin: 2rem 1rem;
 	width: 6rem;
+
+	.hour-input {
+		caret-color: transparent;
+	}
 }
