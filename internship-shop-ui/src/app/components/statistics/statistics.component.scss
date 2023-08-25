@@ -1,0 +1,24 @@
+.btn-get-statistics {
+	margin: 2rem 1rem;
+}
+
+.statistics-table {
+	.header,
+	.footer {
+		font-weight: bold;
+	}
+
+	.header,
+	.cell,
+	.footer {
+		text-align: center;
+	}
+
+	.high-profit-row {
+		background-color: #A8DF8E;
+	}
+
+	.low-profit-row {
+		background-color: #FF597B;
+	}
+}
