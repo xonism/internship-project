@@ -8,15 +8,15 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 export class DatePickerComponent {
 
 	@Input()
-	date!: Date;
+	selectedDate!: Date;
 
 	@Input()
-	maxDate!: Date;
+	latestAllowedDate!: Date;
 
 	@Output()
 	onDateChange: EventEmitter<Date> = new EventEmitter<Date>();
 
 	emitChange(): void {
-		this.onDateChange.emit(this.date);
+		this.onDateChange.emit(this.selectedDate);
 	}
 }
