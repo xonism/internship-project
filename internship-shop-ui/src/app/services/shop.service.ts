@@ -18,28 +18,28 @@ export class ShopService {
 	};
 
 	getReportData$(dateTime: string): Observable<string> {
-		return <Observable<string>>this.http.get(
+		return this.http.get(
 			`${this.reportsUrl}/${dateTime}`,
 			{responseType: 'text'}
 		);
 	}
 
 	getReportDataBlob$(dateTime: string): Observable<HttpResponse<Blob>> {
-		return <Observable<HttpResponse<Blob>>>this.http.get(
+		return this.http.get(
 			`${this.reportsUrl}/${dateTime}`,
 			{responseType: 'blob', observe: 'response'}
 		);
 	}
 
 	getProduct$(id: string): Observable<IProduct> {
-		return <Observable<IProduct>>this.http.get<IProduct>(`${this.productsUrl}/${id}`);
+		return this.http.get<IProduct>(`${this.productsUrl}/${id}`);
 	}
 
 	getProducts$(): Observable<IProduct[]> {
-		return <Observable<IProduct[]>>this.http.get<IProduct[]>(this.productsUrl);
+		return this.http.get<IProduct[]>(this.productsUrl);
 	}
 
 	createOrder$(orderCreateRequest: IOrderCreateRequest): Observable<IOrder> {
-		return <Observable<IOrder>>this.http.post<IOrder>(this.ordersUrl, orderCreateRequest);
+		return this.http.post<IOrder>(this.ordersUrl, orderCreateRequest);
 	}
 }
