@@ -8,7 +8,7 @@ import {StateChangeService} from "../../services/state-change.service";
 	templateUrl: './sort.component.html',
 	styleUrls: ['./sort.component.scss']
 })
-export class SortComponent implements OnInit {
+export class SortComponent<T> implements OnInit {
 
 	@Input()
 	selectedSort!: ISortTypeInfo;
@@ -17,20 +17,20 @@ export class SortComponent implements OnInit {
 	sortingOptions!: ISortTypeInfo[];
 
 	@Input()
-	elements!: any[];
+	elements!: T[];
 
 	@Input()
-	processedElements!: any[];
+	processedElements!: T[];
 
 	@Output()
-	elementsChange: EventEmitter<any[]> = new EventEmitter<any[]>();
+	elementsChange: EventEmitter<T[]> = new EventEmitter<T[]>();
 
 	@Output()
 	selectedSortChange: EventEmitter<ISortTypeInfo> = new EventEmitter<ISortTypeInfo>();
 
 	sortNames!: string[];
 
-	constructor(private sortService: SortService, private filterSortService: StateChangeService) {
+	constructor(private sortService: SortService, private stateChangeService: StateChangeService) {
 
 	}
 
@@ -50,7 +50,7 @@ export class SortComponent implements OnInit {
 		this.selectedSortChange.emit(this.selectedSort);
 	}
 
-	emitSortedElements(elements: any[], sortType: ISortTypeInfo): void {
+	emitSortedElements(elements: T[], sortType: ISortTypeInfo): void {
 		this.elementsChange.emit(this.sortService.getSortedElements(elements, sortType));
 	}
 
@@ -59,7 +59,7 @@ export class SortComponent implements OnInit {
 
 		this.emitSortedElements(this.processedElements, this.selectedSort);
 
-		this.filterSortService.filterChange.subscribe((): void => {
+		this.stateChangeService.filterChange.subscribe((): void => {
 			this.emitSortedElements(this.elements, this.selectedSort);
 		});
 	}

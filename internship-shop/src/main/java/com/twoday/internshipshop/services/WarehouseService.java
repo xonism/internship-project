@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,6 +35,10 @@ public class WarehouseService {
                 .basicAuthentication(username, password)
                 .build();
         this.priceService = priceService;
+    }
+
+    public String getReport(LocalDateTime startDateTime) {
+        return restTemplate.getForObject("/orders/reports/" + startDateTime, String.class);
     }
 
     public ProductDTO getById(int id) {

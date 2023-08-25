@@ -1,3 +1,10 @@
-.list-title {
-	font-weight: bold;
+.product-info {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+
+	.list-title {
+		font-weight: bold;
+	}
 }

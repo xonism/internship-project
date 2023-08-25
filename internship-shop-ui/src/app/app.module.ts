@@ -17,6 +17,12 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {ProductInfoComponent} from "./components/product-info/product-info.component";
 import {QuantityPickerComponent} from "./components/quantity-picker/quantity-picker.component";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {ReportComponent} from "./components/report/report.component";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import {MatTableModule} from "@angular/material/table";
+import {DatePickerComponent} from "./components/date-picker/date-picker.component";
+import {HourPickerComponent} from "./components/hour-picker/hour-picker.component";
 import {MatSelectModule} from "@angular/material/select";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
 import {FilterDialogComponent} from "./components/filter-dialog/filter-dialog.component";
@@ -32,6 +38,9 @@ import {SortComponent} from "./components/sort/sort.component";
 		ProductComponent,
 		ProductInfoComponent,
 		QuantityPickerComponent,
+		ReportComponent,
+		DatePickerComponent,
+		HourPickerComponent,
 		FilterDialogComponent,
 		FilterComponent,
 		SortComponent
@@ -49,11 +58,15 @@ import {SortComponent} from "./components/sort/sort.component";
 		MatCardModule,
 		MatToolbarModule,
 		MatSnackBarModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatTableModule,
 		MatSelectModule,
 		MatSliderModule,
 		MatDialogModule
 	],
 	providers: [
+		{provide: MAT_DATE_LOCALE, useValue: 'lt-LT'},
 		{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {subscriptSizing: 'dynamic'}}
 	],
 	bootstrap: [AppComponent]

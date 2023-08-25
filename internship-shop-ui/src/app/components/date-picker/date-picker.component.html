@@ -1,0 +1,7 @@
+<mat-form-field class="date-field">
+	<input matInput [matDatepicker]="picker" [max]="latestAllowedDate" (keydown)="false //noinspection BadExpressionStatementJS"
+				 style="caret-color: transparent" [(ngModel)]="selectedDate" (ngModelChange)="emitChange()">
+	<mat-hint>YYYY-MM-DD</mat-hint>
+	<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+	<mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

@@ -5,12 +5,22 @@ import com.twoday.internshipmodel.OrderDTO;
 import com.twoday.internshipshop.services.WarehouseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -19,6 +29,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     private final WarehouseService warehouseService;
+
+    @GetMapping(value = "/reports/{localDateTime}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<String> downloadOrderReport(@PathVariable String localDateTime) {
+        log.info("Download order report endpoint called with value: {}", localDateTime);
+
+        LocalDateTime startDateTime = LocalDateTime.parse(localDateTime).truncatedTo(ChronoUnit.HOURS);
+        String reportData = warehouseService.getReport(startDateTime);
+        log.debug("Report data retrieved: {}", reportData);
+
+        return new ResponseEntity<>(
+                reportData,
+                getContentDispositionHeaders(startDateTime),
+                HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderCreateRequest orderCreateRequest) {
@@ -31,5 +55,16 @@ public class OrderController {
         return new ResponseEntity<>(
                 orderDTO,
                 HttpStatus.OK);
+    }
+
+    private MultiValueMap<String, String> getContentDispositionHeaders(LocalDateTime startDateTime) {
+        String fileName = String.format("%s-%s.%s",
+                "order-report",
+                startDateTime.toString().replace(":", "-"),
+                "csv");
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        String contentDispositionHeaderValue = String.format("attachment; filename=\"%s\"", fileName);
+        headers.put(HttpHeaders.CONTENT_DISPOSITION, List.of(contentDispositionHeaderValue));
+        return headers;
     }
 }
