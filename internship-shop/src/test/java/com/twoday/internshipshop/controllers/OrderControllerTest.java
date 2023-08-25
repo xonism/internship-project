@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
@@ -42,7 +43,7 @@ class OrderControllerTest {
 
         OrderCreateRequest orderCreateRequest = new OrderCreateRequest(productId, quantity, unitPrice);
 
-        OrderDTO orderDTO = new OrderDTO(1, 1, productId, quantity, unitPrice);
+        OrderDTO orderDTO = new OrderDTO(1, 1, productId, quantity, unitPrice, LocalDateTime.now());
 
         when(warehouseService.createOrder(orderCreateRequest)).thenReturn(orderDTO);
 

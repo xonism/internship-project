@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
@@ -56,6 +57,7 @@ class OrderControllerTest {
         int productId = 1;
         int quantity = 1;
         BigDecimal unitPrice = new BigDecimal("1.1");
+        LocalDateTime timestamp = LocalDateTime.now();
 
         OrderCreateRequest orderCreateRequest = new OrderCreateRequest(productId, quantity, unitPrice);
 
@@ -68,6 +70,7 @@ class OrderControllerTest {
                 .product(new Product(1, "1", "1", unitPrice, 1))
                 .quantity(quantity)
                 .unitPrice(unitPrice)
+                .timestamp(timestamp)
                 .build();
 
         when(orderService.create(username, orderCreateRequest)).thenReturn(order);
@@ -79,7 +82,7 @@ class OrderControllerTest {
 
         MvcResult actualResult = mockMvc.perform(requestBuilder).andReturn();
 
-        OrderDTO expectedResult = new OrderDTO(1, 1, productId, quantity, unitPrice);
+        OrderDTO expectedResult = new OrderDTO(1, 1, productId, quantity, unitPrice, timestamp);
 
         assertThat(actualResult.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualResult.getResponse().getContentAsString())
