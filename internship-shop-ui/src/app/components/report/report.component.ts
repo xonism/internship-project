@@ -27,7 +27,7 @@ export class ReportComponent implements OnDestroy {
 
 	constructor(private shopService: ShopService,
 							private snackBarService: SnackBarService,
-							@Inject(MAT_DATE_LOCALE) private matDateLocale: any) {
+							@Inject(MAT_DATE_LOCALE) private matDateLocale: string) {
 
 	}
 
