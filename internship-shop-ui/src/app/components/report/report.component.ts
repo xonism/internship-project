@@ -92,6 +92,6 @@ export class ReportComponent implements OnDestroy {
 
 	getFormattedDateTime(): string {
 		const date: Date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), this.selectedHour);
-		return `${date.toLocaleDateString(this.matDateLocale)}T${date.toLocaleTimeString(this.matDateLocale)}`;
+		return date.toLocaleString(this.matDateLocale).replace(" ", "T");
 	}
 }
