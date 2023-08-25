@@ -238,6 +238,14 @@
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
+            <trans-unit id="9200109708482890003" datatype="html">
+              <source>✅ Report for selected hour successfully loaded</source>
+              <target>✅ Pasirinktos valandos ataskaita užkrauta</target>
+              <context-group purpose="location">
+                <context context-type="sourcefile">src/app/components/report/report.component.ts</context>
+                <context context-type="linenumber">77</context>
+              </context-group>
+            </trans-unit>
       <trans-unit id="5146398958364876914" datatype="html">
         <source>Sort</source>
         <target>Rūšiuoti</target>

@@ -74,6 +74,7 @@ export class ReportComponent implements OnDestroy {
 
 				this.reportData = processedReportData;
 				this.isReportLoaded = true;
+				this.snackBarService.displaySnackBar($localize`✅ Report for selected hour successfully loaded`);
 			});
 		this.subscriptions.push(subscription);
 	}
