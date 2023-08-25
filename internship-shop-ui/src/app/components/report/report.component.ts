@@ -1,9 +1,10 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, Inject, OnDestroy} from '@angular/core';
 import {ShopService} from '../../services/shop.service';
 import {Subscription} from 'rxjs';
 import {SnackBarService} from '../../services/snack-bar.service';
 import {saveAs} from 'file-saver';
 import {HttpResponse} from '@angular/common/http';
+import {MAT_DATE_LOCALE} from "@angular/material/core";
 
 @Component({
 	selector: 'app-report',
@@ -24,7 +25,9 @@ export class ReportComponent implements OnDestroy {
 
 	displayedColumns: string[] = ['id', 'userId', 'productId', 'quantity', 'unitPrice', 'timestamp'];
 
-	constructor(private shopService: ShopService, private snackBarService: SnackBarService) {
+	constructor(private shopService: ShopService,
+							private snackBarService: SnackBarService,
+							@Inject(MAT_DATE_LOCALE) private matDateLocale: any) {
 
 	}
 
@@ -88,20 +91,7 @@ export class ReportComponent implements OnDestroy {
 	}
 
 	getFormattedDateTime(): string {
-		const formattedHour: string = this.hour.toString().length == 1
-			? `0${this.hour}:00`
-			: `${this.hour}:00`;
-		return `${this.getFormattedDate()}T${formattedHour}`;
-	}
-
-	getFormattedDate(): string {
-		const month: number = this.date.getMonth() + 1;
-		const formattedMonth: string = month.toString().length === 1
-			? `0${month}`
-			: month.toString();
-		const formattedDay: string = this.date.getDate().toString().length === 1
-			? `0${this.date.getDate()}`
-			: this.date.getDate().toString();
-		return `${this.date.getFullYear()}-${formattedMonth}-${formattedDay}`;
+		const date: Date = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate(), this.hour);
+		return `${date.toLocaleDateString(this.matDateLocale)}T${date.toLocaleTimeString(this.matDateLocale)}`;
 	}
 }
