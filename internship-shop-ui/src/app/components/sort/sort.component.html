@@ -1,5 +1,5 @@
 <mat-form-field class="select-sort">
-	<mat-label>Sort</mat-label>
+	<mat-label i18n>Sort</mat-label>
 	<mat-select [value]="selectedSort.sortName" (valueChange)="emitSortChange($event)">
 		<mat-option *ngFor="let sortName of sortNames" [value]="sortName">{{ sortName }}</mat-option>
 	</mat-select>

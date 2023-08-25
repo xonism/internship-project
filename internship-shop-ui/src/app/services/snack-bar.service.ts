@@ -12,13 +12,13 @@ export class SnackBarService {
 		duration: this.duration
 	}
 
-	private action: string = "Close";
+	private action: string = $localize`Close`;
 
 	constructor(private matSnackBar: MatSnackBar) {
 
 	}
 
-	displaySnackBar(message: string) {
+	displaySnackBar(message: string): void {
 		this.matSnackBar.open(
 			message,
 			this.action,

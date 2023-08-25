@@ -11,8 +11,7 @@
 		<mat-card-title class="title">{{product.name}}</mat-card-title>
 		<mat-card-content><p>{{product.price}} €</p></mat-card-content>
 		<mat-card-actions>
-			<button mat-button color="accent" [routerLink]="['/product', product.id]" class="button-view-product">VIEW
-			</button>
+			<button mat-button color="accent" [routerLink]="['/product', product.id]" class="button-view-product" i18n>VIEW</button>
 		</mat-card-actions>
 	</mat-card>
 </div>

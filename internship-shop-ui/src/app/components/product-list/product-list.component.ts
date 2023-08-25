@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Subscription} from 'rxjs';
 import {ShopService} from "src/app/services/shop.service";
 import {IProduct} from "../../interfaces/product";
-import {ProductSortingTypes} from "./ProductSortingTypes";
+import {ProductSortingTypes} from "./product-sorting-types";
 import {ISortTypeInfo} from "../../interfaces/sort-type-info";
 import {IFilterDialogData} from "../../interfaces/filter-dialog-data";
 

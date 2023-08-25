@@ -2,7 +2,7 @@ import {PropertyType} from "../../enums/property-type";
 
 export const ProductSortingTypes = {
 	PRICE_ASCENDING: {
-		sortName: 'Price ascending',
+		sortName: $localize`Price ↗`,
 		isDescending: false,
 		property: {
 			name: 'price',
@@ -10,7 +10,7 @@ export const ProductSortingTypes = {
 		}
 	},
 	PRICE_DESCENDING: {
-		sortName: 'Price descending',
+		sortName: $localize`Price ↘`,
 		isDescending: true,
 		property: {
 			name: 'price',
@@ -18,7 +18,7 @@ export const ProductSortingTypes = {
 		}
 	},
 	NAME_ASCENDING: {
-		sortName: 'Name ascending',
+		sortName: $localize`Name ↗`,
 		isDescending: false,
 		property: {
 			name: 'name',
@@ -26,7 +26,7 @@ export const ProductSortingTypes = {
 		}
 	},
 	NAME_DESCENDING: {
-		sortName: 'Name descending',
+		sortName: $localize`Name ↘`,
 		isDescending: true,
 		property: {
 			name: 'name',

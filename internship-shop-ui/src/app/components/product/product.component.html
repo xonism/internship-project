@@ -3,6 +3,6 @@
 	<div class="order-buttons">
 		<app-quantity-picker [product]="product" [quantity]="quantity"
 												 (onQuantityChanged)="setQuantity($event)"></app-quantity-picker>
-		<button mat-flat-button color="accent" (click)="submitOrder()" [disabled]="isLoading">Order</button>
+		<button mat-flat-button color="accent" (click)="submitOrder()" [disabled]="isLoading" i18n>Order</button>
 	</div>
 </div>

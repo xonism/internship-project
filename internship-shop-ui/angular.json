@@ -9,6 +9,15 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+			"i18n": {
+				"sourceLocale": "en-US",
+				"locales": {
+					"lt": {
+						"translation": "src/locales/messages.lt.xlf",
+						"baseHref": ""
+					}
+				}
+			},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -46,6 +55,11 @@
               ],
               "outputHashing": "all"
             },
+						"lt": {
+							"localize": ["lt"],
+							"outputPath": "dist/internship-shop-ui-lt/",
+							"i18nMissingTranslation": "error"
+						},
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -65,8 +79,11 @@
             },
             "development": {
               "browserTarget": "internship-shop:build:development"
-            }
-          },
+            },
+						"lt": {
+							"browserTarget": "internship-shop:build:lt"
+						}
+					},
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
