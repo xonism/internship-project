@@ -21,11 +21,9 @@ export class ProductComponent implements OnInit, OnDestroy {
 	quantity: number = 1;
 	isLoading: boolean = true;
 
-	constructor(
-		private route: ActivatedRoute,
-		private shopService: ShopService,
-		private snackBarService: SnackBarService
-	) {
+	constructor(private route: ActivatedRoute,
+							private shopService: ShopService,
+							private snackBarService: SnackBarService) {
 
 	}
 
@@ -52,7 +50,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 			this.shopService.createOrder$(orderCreateRequest).subscribe({
 				next: () => {
 					this.getProduct();
-					this.snackBarService.displaySnackBar("✅ Order successful");
+					this.snackBarService.displaySnackBar($localize`✅ Order successful`);
 				},
 				error: (error: HttpErrorResponse) => {
 					const errorMessage: IErrorMessage = error.error;

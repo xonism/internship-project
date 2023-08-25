@@ -1,14 +1,14 @@
 <div class="filter-dialog">
-	<h1 mat-dialog-title class="title">Filter</h1>
+	<h1 mat-dialog-title class="title" i18n>Filter</h1>
 	<div mat-dialog-content class="slider-price">
-		<p>Price</p>
+		<p i18n>Price</p>
 		<mat-slider [min]="data.minRange" [max]="data.maxRange" discrete="true">
 			<input [(ngModel)]="minRange" matSliderStartThumb>
 			<input [(ngModel)]="maxRange" matSliderEndThumb>
 		</mat-slider>
 	</div>
 	<div mat-dialog-actions class="action-button-container">
-		<button mat-button (click)="close()">Cancel</button>
-		<button mat-flat-button color="accent" [mat-dialog-close]="[minRange, maxRange]">Apply</button>
+		<button mat-button (click)="close()" i18n>Cancel</button>
+		<button mat-flat-button color="accent" [mat-dialog-close]="[minRange, maxRange]" i18n>Apply</button>
 	</div>
 </div>
