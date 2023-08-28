@@ -4,5 +4,6 @@ export interface IOrder {
 	productId: number,
 	quantity: number,
 	unitPrice: number,
+	originalPrice: number,
 	timestamp: Date
 }

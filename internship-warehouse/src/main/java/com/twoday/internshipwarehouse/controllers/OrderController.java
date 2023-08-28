@@ -81,6 +81,7 @@ public class OrderController {
                 order.getProduct().getId(),
                 order.getQuantity(),
                 order.getUnitPrice(),
+                order.getProduct().getPrice(),
                 order.getTimestamp());
     }
 }

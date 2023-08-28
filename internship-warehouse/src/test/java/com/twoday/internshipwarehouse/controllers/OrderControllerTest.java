@@ -57,6 +57,7 @@ class OrderControllerTest {
         int productId = 1;
         int quantity = 1;
         BigDecimal unitPrice = new BigDecimal("1.1");
+        BigDecimal originalPrice = new BigDecimal("0.5");
         LocalDateTime timestamp = LocalDateTime.now();
 
         OrderCreateRequest orderCreateRequest = new OrderCreateRequest(productId, quantity, unitPrice);
@@ -67,7 +68,7 @@ class OrderControllerTest {
         Order order = Order.builder()
                 .id(1)
                 .user(new User(1, username, password))
-                .product(new Product(1, "1", "1", unitPrice, 1))
+                .product(new Product(1, "1", "1", originalPrice, 1))
                 .quantity(quantity)
                 .unitPrice(unitPrice)
                 .timestamp(timestamp)
@@ -82,7 +83,7 @@ class OrderControllerTest {
 
         MvcResult actualResult = mockMvc.perform(requestBuilder).andReturn();
 
-        OrderDTO expectedResult = new OrderDTO(1, 1, productId, quantity, unitPrice, timestamp);
+        OrderDTO expectedResult = new OrderDTO(1, 1, productId, quantity, unitPrice, originalPrice, timestamp);
 
         assertThat(actualResult.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(actualResult.getResponse().getContentAsString())

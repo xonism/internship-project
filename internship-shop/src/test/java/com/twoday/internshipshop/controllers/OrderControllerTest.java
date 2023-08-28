@@ -40,10 +40,11 @@ class OrderControllerTest {
         int productId = 1;
         int quantity = 1;
         BigDecimal unitPrice = new BigDecimal("1.1");
+        BigDecimal originalPrice = new BigDecimal("0.5");
 
         OrderCreateRequest orderCreateRequest = new OrderCreateRequest(productId, quantity, unitPrice);
 
-        OrderDTO orderDTO = new OrderDTO(1, 1, productId, quantity, unitPrice, LocalDateTime.now());
+        OrderDTO orderDTO = new OrderDTO(1, 1, productId, quantity, unitPrice, originalPrice, LocalDateTime.now());
 
         when(warehouseService.createOrder(orderCreateRequest)).thenReturn(orderDTO);
 
