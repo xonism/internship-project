@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -44,17 +45,25 @@ public class OrderController {
                 HttpStatus.OK);
     }
 
+    @GetMapping
+    public List<OrderDTO> getOrders(@RequestParam(required = false) String startDateTime,
+                                    @RequestParam(required = false) String endDateTime) {
+        log.info("Get orders endpoint called");
+
+        return startDateTime != null && endDateTime != null
+                ? warehouseService.getOrdersByTimestampBetween(startDateTime, endDateTime)
+                : warehouseService.getOrders();
+    }
+
     @PostMapping
-    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderCreateRequest orderCreateRequest) {
+    public OrderDTO createOrder(@RequestBody OrderCreateRequest orderCreateRequest) {
         log.info("Create order endpoint called");
         log.debug("OrderCreateRequest received:\n{}", orderCreateRequest);
 
         OrderDTO orderDTO = warehouseService.createOrder(orderCreateRequest);
         log.debug("Order created:\n{}", orderDTO);
 
-        return new ResponseEntity<>(
-                orderDTO,
-                HttpStatus.OK);
+        return orderDTO;
     }
 
     private MultiValueMap<String, String> getContentDispositionHeaders(LocalDateTime startDateTime) {

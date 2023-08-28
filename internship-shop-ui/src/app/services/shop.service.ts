@@ -42,4 +42,9 @@ export class ShopService {
 	createOrder$(orderCreateRequest: IOrderCreateRequest): Observable<IOrder> {
 		return this.http.post<IOrder>(this.ordersUrl, orderCreateRequest);
 	}
+
+	getOrdersBetweenDateTimes$(startDateTime: string, endDateTime: string): Observable<IOrder[]> {
+		const url: string = `${this.ordersUrl}?startDateTime=${startDateTime}&endDateTime=${endDateTime}`;
+		return this.http.get<IOrder[]>(url);
+	}
 }

@@ -30,6 +30,7 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FilterComponent} from "./components/filter/filter.component";
 import {SortComponent} from "./components/sort/sort.component";
+import {StatisticsComponent} from './components/statistics/statistics.component';
 
 @NgModule({
 	declarations: [
@@ -43,7 +44,8 @@ import {SortComponent} from "./components/sort/sort.component";
 		HourPickerComponent,
 		FilterDialogComponent,
 		FilterComponent,
-		SortComponent
+		SortComponent,
+		StatisticsComponent
 	],
 	imports: [
 		BrowserModule,
