@@ -16,13 +16,13 @@ export class StatisticsComponent {
 	endDate: Date = new Date();
 	latestAllowedDate: Date = new Date();
 
-	displayedColumns: string[] = ['id', 'userId', 'productId', 'quantity', 'unitPrice', 'profit', 'timestamp'];
+	displayedColumns: string[] = ['id', 'userId', 'productId', 'quantity', 'unitPrice', 'originalPrice', 'profit', 'timestamp'];
 	tableDataSource: MatTableDataSource<IOrder> = new MatTableDataSource(undefined);
 
 	areStatisticsLoaded: boolean = false;
 
-	lowProfitThreshold: number = 10;
-	highProfitThreshold: number = 100;
+	lowProfitThreshold: number = 5;
+	highProfitThreshold: number = 20;
 
 	constructor(private shopService: ShopService,
 							private snackBarService: SnackBarService,
@@ -57,13 +57,13 @@ export class StatisticsComponent {
 	getOrderProfit(order: IOrder): number {
 		if (!order) return 0;
 
-		return +(order.quantity * order.unitPrice).toFixed(2);
+		return +(order.quantity * (order.unitPrice - order.originalPrice)).toFixed(2);
 	}
 
 	getTotalProfit(): string {
 		if (!this.tableDataSource.data) return '';
 
-		return this.tableDataSource.data.map((order: IOrder) => order.quantity * order.unitPrice)
+		return this.tableDataSource.data.map((order: IOrder) => order.quantity * (order.unitPrice - order.originalPrice))
 			.reduce((acc: number, value: any) => acc + value, 0)
 			.toFixed(2);
 	}
