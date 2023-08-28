@@ -105,10 +105,7 @@ public class OrderService {
         LocalDateTime startLocalDateTime = LocalDateTime.parse(startDateTime).truncatedTo(ChronoUnit.HOURS);
         LocalDateTime endLocalDateTime = LocalDateTime.parse(endDateTime).truncatedTo(ChronoUnit.HOURS);
 
-        List<Order> orders = orderRepository.findByTimestampBetween(startLocalDateTime, endLocalDateTime);
-        log.debug("Retrieved orders with startDateTime {} & endDateTime {}:\n{}", startDateTime, endDateTime, orders);
-
-        return orders;
+        return orderRepository.findByTimestampBetween(startLocalDateTime, endLocalDateTime);
     }
 
     private String[] getOrderInfo(Order order) {
