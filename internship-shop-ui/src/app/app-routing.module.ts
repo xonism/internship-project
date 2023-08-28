@@ -7,9 +7,9 @@ import {StatisticsComponent} from "./components/statistics/statistics.component"
 
 const routes: Routes = [
 	{path: 'product/:id', component: ProductComponent},
+	{path: 'products', component: ProductListComponent, pathMatch: 'full'},
 	{path: 'reports', component: ReportComponent},
 	{path: 'statistics', component: StatisticsComponent},
-	{path: 'products', component: ProductListComponent, pathMatch: 'full'},
 	{path: '**', redirectTo: '/products', pathMatch: 'full'}
 ];
 
