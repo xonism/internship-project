@@ -40,17 +40,22 @@ public class OrderService {
     private final ProductService productService;
 
     @PostConstruct
-    private void postConstruct() {
+    private void createReportsDirectory() { // to back of class + naming of what is being done
         //noinspection ResultOfMethodCallIgnored
         new File(reportsDirectory).mkdir();
     }
 
     @Transactional
     public Order create(String username, OrderCreateRequest orderCreateRequest) {
+        // what exceptions cause rollback?
+        // propogation (transaction in transaction)
+        // calling method in the same class removes annotations (spring proxy)
         Product product = productService.updateQuantity(orderCreateRequest);
         log.debug("Product updated:\n{}", product);
 
         User user = userService.getByUsername(username);
+        // doesn't want about new fields
+        // use of builder
         Order order = Order.builder()
                 .product(product)
                 .user(user)
@@ -105,7 +110,7 @@ public class OrderService {
         LocalDateTime startLocalDateTime = LocalDateTime.parse(startDateTime).truncatedTo(ChronoUnit.HOURS);
         LocalDateTime endLocalDateTime = LocalDateTime.parse(endDateTime).truncatedTo(ChronoUnit.HOURS);
 
-        return orderRepository.findByTimestampBetween(startLocalDateTime, endLocalDateTime);
+        return getByTimestampBetween(startLocalDateTime, endLocalDateTime);
     }
 
     private String[] getOrderInfo(Order order) {

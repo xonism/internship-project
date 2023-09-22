@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository
+@Repository // veiks be
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findByTimestampBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);

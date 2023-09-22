@@ -40,7 +40,7 @@ public class OrderController {
         log.info("Download order report endpoint called with value: {}", localDateTime);
 
         LocalDateTime startDateTime = LocalDateTime.parse(localDateTime).truncatedTo(ChronoUnit.HOURS);
-        File file = new File(FileUtils.getOrderReportFilePath(reportsDirectory, startDateTime));
+        File file = new File(FileUtils.getOrderReportFilePath(reportsDirectory, startDateTime)); // file service + validation
         log.debug("File retrieved: {}", file.getPath());
 
         return new FileSystemResource(file);
@@ -74,7 +74,8 @@ public class OrderController {
         return mapToDTO(order);
     }
 
-    private OrderDTO mapToDTO(Order order) {
+    private OrderDTO mapToDTO(Order order) { // service
+        // mapstruct
         return new OrderDTO(
                 order.getId(),
                 order.getUser().getId(),

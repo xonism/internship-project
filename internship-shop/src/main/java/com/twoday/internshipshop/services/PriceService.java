@@ -11,7 +11,7 @@ import java.math.RoundingMode;
 @Service
 public class PriceService {
 
-    @Value("${price.profit_margin}")
+    @Value("${price.profit_margin}") // environment?
     private BigDecimal profitMargin;
 
     @Value("${price.wholesale_discount}")

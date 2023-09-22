@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -57,7 +58,8 @@ public class WarehouseService {
     public ProductDTO getById(int id) {
         String url = String.format("%s/%s", PRODUCTS_ENDPOINT, id);
         ProductDTO productDTO = restTemplate.getForObject(url, ProductDTO.class);
-        if (productDTO == null) return null;
+//        Optional.ofNullable(productDTO).
+        if (productDTO == null) return null; // not found | not inline
         productDTO.setPrice(priceService.calculatePriceWithProfitMargin(productDTO.getPrice()));
         return productDTO;
     }

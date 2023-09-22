@@ -1,6 +1,7 @@
 package com.twoday.internshipmodel;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@ToString
-@Getter
-@Setter
+@Data
 public class OrderCreateRequest {
 
     private int productId;

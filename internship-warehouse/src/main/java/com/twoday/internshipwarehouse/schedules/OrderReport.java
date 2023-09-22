@@ -19,6 +19,7 @@ public class OrderReport {
 
     @Scheduled(cron = "${cron.order-report}")
     public void createOrderReport() throws IOException {
+        // log time started
         LocalDateTime startDateTime = LocalDateTime.now().minusHours(1).truncatedTo(ChronoUnit.HOURS);
         LocalDateTime endDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS);
         log.info("Creating report for orders made between {} and {}", startDateTime, endDateTime);
