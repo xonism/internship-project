@@ -1,1 +1,1 @@
-# twoday-internship-project
+# internship-project
